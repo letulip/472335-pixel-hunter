@@ -26,7 +26,16 @@
     const arrowsBlock = document.createElement(`div`);
     arrowsBlock.classList.add(`arrows__wrap`);
     arrowsBlock.innerHTML += arrows;
+
     BODY.append(arrowsBlock);
+
+    const navArrows = document.querySelectorAll(`.arrows__btn`);
+    navArrows[0].addEventListener(`click`, () => {
+      previousPageHandler();
+    });
+    navArrows[1].addEventListener(`click`, () => {
+      nextPageHandler();
+    });
   };
 
   const pageToDisplay = (page) => {
@@ -39,7 +48,6 @@
       currentPageNumber = TEMPLATES.length - 1;
     }
     MAIN.innerHTML = TEMPLATES[page].innerHTML;
-    addArrows();
   };
 
   const previousPageHandler = () => {
@@ -62,4 +70,5 @@
   });
 
   pageToDisplay(currentPageNumber);
+  addArrows();
 })();
