@@ -1,7 +1,10 @@
 'use strict';
 
 (() => {
-  const templatesList = document.querySelectorAll(`template`);
+  const templatesList = [`intro`, `greeting`, `rules`, `game-1`, `game-2`, `game-3`, `modal-error`, `modal-confirm`]
+    .map((template) => {
+      return document.querySelector(`#${template}`);
+    });
   const mainElement = document.querySelector(`#main`);
   const bodyElement = document.querySelector(`body`);
   let currentPageNumber = 0;
@@ -40,13 +43,11 @@
 
   const pageToDisplay = (page) => {
     if (page < 0) {
-      page = 0;
       currentPageNumber = 0;
       return;
     }
-    if (page >= templatesList.length - 1) {
-      page = templatesList.length - 1;
-      currentPageNumber = templatesList.length - 1;
+    if (page >= templatesList.length) {
+      currentPageNumber = templatesList.length;
       return;
     }
     mainElement.innerHTML = templatesList[page].innerHTML;
