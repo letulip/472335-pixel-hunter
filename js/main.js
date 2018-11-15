@@ -1,9 +1,9 @@
 'use strict';
 
 (() => {
-  const TEMPLATES_LIST = document.querySelectorAll(`template`);
-  const MAIN_ELEMENT = document.querySelector(`#MAIN_ELEMENT`);
-  const BODY_ELEMENT = document.querySelector(`BODY_ELEMENT`);
+  const templatesList = document.querySelectorAll(`template`);
+  const mainElement = document.querySelector(`#main`);
+  const bodyElement = document.querySelector(`body`);
   let currentPageNumber = 0;
 
   const addArrows = () => {
@@ -35,7 +35,7 @@
       nextPageHandler();
     });
 
-    BODY_ELEMENT.append(navigationElements);
+    bodyElement.append(navigationElements);
   };
 
   const pageToDisplay = (page) => {
@@ -44,12 +44,12 @@
       currentPageNumber = 0;
       return;
     }
-    if (page >= TEMPLATES_LIST.length - 1) {
-      page = TEMPLATES_LIST.length - 1;
-      currentPageNumber = TEMPLATES_LIST.length - 1;
+    if (page >= templatesList.length - 1) {
+      page = templatesList.length - 1;
+      currentPageNumber = templatesList.length - 1;
       return;
     }
-    MAIN_ELEMENT.innerHTML = TEMPLATES_LIST[page].innerHTML;
+    mainElement.innerHTML = templatesList[page].innerHTML;
   };
 
   const previousPageHandler = () => {
