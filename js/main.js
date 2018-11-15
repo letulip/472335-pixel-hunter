@@ -1,9 +1,9 @@
 'use strict';
 
 (() => {
-  const templates = document.querySelectorAll(`template`);
-  const main = document.querySelector(`#main`);
-  const body = document.querySelector(`body`);
+  const TEMPLATES_LIST = document.querySelectorAll(`template`);
+  const MAIN_ELEMENT = document.querySelector(`#MAIN_ELEMENT`);
+  const BODY_ELEMENT = document.querySelector(`BODY_ELEMENT`);
   let currentPageNumber = 0;
 
   const addArrows = () => {
@@ -27,15 +27,15 @@
     navigationElements.classList.add(`arrows__wrap`);
     navigationElements.innerHTML = arrows;
 
-    body.append(navigationElements);
-
-    const navArrows = document.querySelectorAll(`.arrows__btn`);
+    const navArrows = navigationElements.querySelectorAll(`.arrows__btn`);
     navArrows[0].addEventListener(`click`, () => {
       previousPageHandler();
     });
     navArrows[1].addEventListener(`click`, () => {
       nextPageHandler();
     });
+
+    BODY_ELEMENT.append(navigationElements);
   };
 
   const pageToDisplay = (page) => {
@@ -44,12 +44,12 @@
       currentPageNumber = 0;
       return;
     }
-    if (page >= templates.length - 1) {
-      page = templates.length - 1;
-      currentPageNumber = templates.length - 1;
+    if (page >= TEMPLATES_LIST.length - 1) {
+      page = TEMPLATES_LIST.length - 1;
+      currentPageNumber = TEMPLATES_LIST.length - 1;
       return;
     }
-    main.innerHTML = templates[page].innerHTML;
+    MAIN_ELEMENT.innerHTML = TEMPLATES_LIST[page].innerHTML;
   };
 
   const previousPageHandler = () => {
