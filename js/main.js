@@ -41,6 +41,10 @@
     bodyElement.append(navigationElements);
   };
 
+  const pageRender = (page) => {
+    mainElement.innerHTML = templatesList[page].innerHTML;
+  };
+
   const pageToDisplay = (page) => {
     if (page < 0) {
       currentPageNumber = 0;
@@ -50,7 +54,7 @@
       currentPageNumber = templatesList.length;
       return;
     }
-    mainElement.innerHTML = templatesList[page].innerHTML;
+    pageRender(page);
   };
 
   const previousPageHandler = () => {
