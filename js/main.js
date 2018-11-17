@@ -1,9 +1,16 @@
+const mainElement = document.querySelector(`#main`);
+
+const pageRender = (strToRender) => {
+  mainElement.innerHTML = strToRender;
+};
+
+export default pageRender;
+
 (() => {
-  const templatesList = [`intro`, `greeting`, `rules`, `game-1`, `game-2`, `game-3`]
+  const templatesList = [`intro`, `greeting`, `rules`, `game-1`, `game-2`, `game-3`, `stats`]
     .map((template) => {
       return document.querySelector(`#${template}`);
     });
-  const mainElement = document.querySelector(`#main`);
   const bodyElement = document.querySelector(`body`);
   let currentPageNumber = 0;
 
@@ -39,19 +46,15 @@
     bodyElement.append(navigationElements);
   };
 
-  const pageRender = (pageIndex) => {
-    mainElement.innerHTML = templatesList[pageIndex].innerHTML;
-  };
-
   const previousPage = () => {
     if (currentPageNumber > 0) {
-      pageRender(--currentPageNumber);
+      pageRender(templatesList[--currentPageNumber].innerHTML);
     }
   };
 
   const nextPage = () => {
     if (currentPageNumber < templatesList.length - 1) {
-      pageRender(++currentPageNumber);
+      pageRender(templatesList[++currentPageNumber].innerHTML);
     }
   };
 
@@ -68,6 +71,6 @@
     }
   });
 
-  pageRender(currentPageNumber);
+  pageRender(templatesList[currentPageNumber].innerHTML);
   addArrows();
 })();
