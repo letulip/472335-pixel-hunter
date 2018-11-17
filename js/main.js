@@ -41,8 +41,8 @@
     bodyElement.append(navigationElements);
   };
 
-  const pageRender = (page) => {
-    mainElement.innerHTML = templatesList[page].innerHTML;
+  const pageRender = (pageIndex) => {
+    mainElement.innerHTML = templatesList[pageIndex].innerHTML;
   };
 
   const previousPage = () => {
