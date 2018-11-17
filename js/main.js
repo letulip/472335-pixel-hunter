@@ -1,10 +1,6 @@
-const mainElement = document.querySelector(`#main`);
+import renderIntro from "/js/intro.js";
 
-const pageRender = (strToRender) => {
-  mainElement.innerHTML = strToRender;
-};
-
-export default pageRender;
+renderIntro();
 
 (() => {
   // const templatesList = [`intro`, `greeting`, `rules`, `game-1`, `game-2`, `game-3`, `stats`]

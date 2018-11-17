@@ -1,5 +1,9 @@
-import pageRender from "main";
+import pageRender from "/js/renderModule.js";
 
 const greeting = document.querySelector(`#greeting`);
 
-pageRender(greeting.innerHTML);
+const renderGreeting = () => {
+  pageRender(greeting.innerHTML);
+};
+
+export default renderGreeting;

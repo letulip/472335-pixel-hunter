@@ -1,4 +1,4 @@
-import pageRender from "main";
+import pageRender from "/js/renderModule.js";
 
 const rules = document.querySelector(`#rules`);
 
