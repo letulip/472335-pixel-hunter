@@ -1,7 +1,7 @@
 'use strict';
 
 (() => {
-  const templatesList = [`intro`, `greeting`, `rules`, `game-1`, `game-2`, `game-3`, `modal-error`, `modal-confirm`]
+  const templatesList = [`intro`, `greeting`, `rules`, `game-1`, `game-2`, `game-3`]
     .map((template) => {
       return document.querySelector(`#${template}`);
     });
@@ -46,19 +46,15 @@
   };
 
   const previousPage = () => {
-    if (--currentPageNumber < 0) {
-      currentPageNumber = 0;
-      return;
+    if (currentPageNumber > 0) {
+      pageRender(--currentPageNumber);
     }
-    pageRender(currentPageNumber);
   };
 
   const nextPage = () => {
-    if (++currentPageNumber >= templatesList.length) {
-      currentPageNumber = templatesList.length;
-      return;
+    if (currentPageNumber < templatesList.length - 1) {
+      pageRender(++currentPageNumber);
     }
-    pageRender(currentPageNumber);
   };
 
   document.addEventListener(`keydown`, (evt) => {
