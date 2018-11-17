@@ -32,10 +32,10 @@
 
     const navArrows = navigationElements.querySelectorAll(`.arrows__btn`);
     navArrows[0].addEventListener(`click`, () => {
-      previousPageHandler();
+      previousPage();
     });
     navArrows[1].addEventListener(`click`, () => {
-      nextPageHandler();
+      nextPage();
     });
 
     bodyElement.append(navigationElements);
@@ -45,39 +45,35 @@
     mainElement.innerHTML = templatesList[page].innerHTML;
   };
 
-  const pageToDisplay = (page) => {
-    if (page < 0) {
+  const previousPage = () => {
+    if (--currentPageNumber < 0) {
       currentPageNumber = 0;
       return;
     }
-    if (page >= templatesList.length) {
+    pageRender(currentPageNumber);
+  };
+
+  const nextPage = () => {
+    if (++currentPageNumber >= templatesList.length) {
       currentPageNumber = templatesList.length;
       return;
     }
-    pageRender(page);
-  };
-
-  const previousPageHandler = () => {
-    pageToDisplay(--currentPageNumber);
-  };
-
-  const nextPageHandler = () => {
-    pageToDisplay(++currentPageNumber);
+    pageRender(currentPageNumber);
   };
 
   document.addEventListener(`keydown`, (evt) => {
     if (evt.code === `ArrowLeft`) {
       evt.preventDefault();
-      previousPageHandler();
+      previousPage();
       return;
     }
     if (evt.code === `ArrowRight`) {
       evt.preventDefault();
-      nextPageHandler();
+      nextPage();
       return;
     }
   });
 
-  pageToDisplay(currentPageNumber);
+  pageRender(currentPageNumber);
   addArrows();
 })();
