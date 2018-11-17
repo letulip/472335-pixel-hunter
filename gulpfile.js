@@ -1,5 +1,3 @@
-'use strict';
-
 const del = require(`del`);
 const gulp = require(`gulp`);
 const sass = require(`gulp-sass`);
@@ -54,7 +52,7 @@ gulp.task(`sprite`, () => {
 // });
 
 gulp.task(`scripts`, () => {
-  return gulp.src(`js/main.js`)
+  return gulp.src(`js/**/*.js`)
     .pipe(plumber())
     .pipe(sourcemaps.init())
     .pipe(rollup({}, `iife`))
