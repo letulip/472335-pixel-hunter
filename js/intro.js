@@ -1,5 +1,5 @@
-import pageRender from "/js/renderModule.js";
-import renderGreeting from "/js/greeting.js";
+import pageRender from '../js/renderModule.js';
+import renderGreeting from '../js/greeting.js';
 
 const intro = document.querySelector(`#intro`);
 

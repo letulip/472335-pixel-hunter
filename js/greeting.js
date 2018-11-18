@@ -1,5 +1,5 @@
-import pageRender from "/js/renderModule.js";
-import renderRules from "/js/rules.js";
+import pageRender from '../js/renderModule.js';
+import renderRules from '../js/rules.js';
 
 const greeting = document.querySelector(`#greeting`);
 
