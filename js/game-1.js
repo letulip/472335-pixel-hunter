@@ -1,5 +1,5 @@
 import pageRender from '../js/renderModule.js';
-import renderRules from '../js/rules.js';
+import renderGreeting from '../js/greeting.js';
 import renderGame2 from '../js/game-2.js';
 
 const game1 = document.querySelector(`#game-1`);
@@ -9,7 +9,7 @@ const renderGame1 = () => {
 
   const backButton = document.querySelector(`.back`);
   backButton.addEventListener(`click`, () => {
-    renderRules();
+    renderGreeting();
   });
 
   const inputsList = document.querySelectorAll(`input`);

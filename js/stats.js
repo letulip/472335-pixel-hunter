@@ -1,5 +1,5 @@
 import pageRender from '../js/renderModule.js';
-import renderRules from '../js/rules.js';
+import renderGreeting from '../js/greeting.js';
 
 const stats = document.querySelector(`#stats`);
 
@@ -8,7 +8,7 @@ const renderStats = () => {
 
   const backButton = document.querySelector(`.back`);
   backButton.addEventListener(`click`, () => {
-    renderRules();
+    renderGreeting();
   });
 
   const gameOptionsList = document.querySelectorAll(`.game__option`);
