@@ -1,5 +1,5 @@
-import pageRender from '../js/renderModule.js';
-import renderGreeting from '../js/greeting.js';
+import pageRender from './renderModule.js';
+import renderGreeting from './greeting.js';
 
 const stats = document.querySelector(`#stats`);
 

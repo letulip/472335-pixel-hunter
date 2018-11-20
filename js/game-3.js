@@ -1,6 +1,6 @@
-import pageRender from '../js/renderModule.js';
-import renderGreeting from '../js/greeting.js';
-import renderStats from '../js/stats.js';
+import pageRender from './renderModule.js';
+import renderGreeting from './greeting.js';
+import renderStats from './stats.js';
 
 const game3 = document.querySelector(`#game-3`);
 

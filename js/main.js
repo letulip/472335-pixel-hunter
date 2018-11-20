@@ -1,3 +1,3 @@
-import renderIntro from '../js/intro.js';
+import renderIntro from './intro.js';
 
 renderIntro();
