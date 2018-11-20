@@ -62,14 +62,14 @@ const game1 = `
 
 const checkedCounter = (list) => {
   let count = 0;
-  list.forEach((inputItem) => {
-    if (inputItem.checked === true) {
+  for (let i = 0; i < list.length; i++) {
+    if (list[i].checked) {
       ++count;
       if (count === 2) {
         renderGame2();
       }
     }
-  });
+  }
 };
 
 const renderGame1 = () => {

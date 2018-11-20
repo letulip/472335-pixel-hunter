@@ -40,7 +40,7 @@ const renderRules = () => {
   });
 
   const rulesInput = document.querySelector(`.rules__input`);
-  rulesInput.addEventListener(`change`, () => {
+  rulesInput.addEventListener(`keyup`, () => {
     const goButton = document.querySelector(`.continue`);
 
     if (rulesInput.value) {

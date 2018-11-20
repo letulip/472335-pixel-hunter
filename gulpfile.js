@@ -45,12 +45,6 @@ gulp.task(`sprite`, () => {
   .pipe(gulp.dest(`build/img`));
 });
 
-// gulp.task(`scripts`, () => {
-//   return gulp.src(`js/**/*.js`).
-//     pipe(plumber()).
-//     pipe(gulp.dest(`build/js/`));
-// });
-
 gulp.task(`scripts`, () => {
   return gulp.src(`js/**/*.js`)
     .pipe(plumber())
