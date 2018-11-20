@@ -60,6 +60,18 @@ const game1 = `
   </ul>
 </section>`;
 
+const checkedCounter = (list) => {
+  let count = 0;
+  list.forEach((inputItem) => {
+    if (inputItem.checked === true) {
+      ++count;
+      if (count === 2) {
+        renderGame2();
+      }
+    }
+  });
+};
+
 const renderGame1 = () => {
   pageRender(game1);
 
@@ -71,8 +83,8 @@ const renderGame1 = () => {
   const inputsList = document.querySelectorAll(`input`);
   inputsList.forEach((input) => {
     input.addEventListener(`change`, () => {
-      if ((inputsList[0].checked || inputsList[1].checked) && (inputsList[2].checked || inputsList[3].checked)) {
-        renderGame2();
+      if (input.checked) {
+        checkedCounter(inputsList);
       }
     });
   });
