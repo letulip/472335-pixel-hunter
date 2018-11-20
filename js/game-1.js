@@ -67,6 +67,7 @@ const checkedCounter = (list) => {
       ++count;
       if (count === 2) {
         renderGame2();
+        return;
       }
     }
   }
