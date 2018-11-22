@@ -16,9 +16,34 @@ const a4 = {
   count: 0,
 };
 
+// const a5 = {
+//   count: 10,
+//   points: 1150,
+//   lives: 3,
+//   time: 50
+// };
+
+const countList = [-1, 0, 5, 10, 11];
+const pointsList = [500, 650, 1000, 1150, 1500, 1650];
+const livesList = [0, 1, 2, 3];
+const timesList = [49, 50, 51, 99, 100, 101, 150];
+
+const getRandomInt = (min, max) => {
+  return Math.floor(Math.random() * (max - min)) + min;
+};
+
+const answersObjectGenerator = () => {
+  return {
+    count: getRandomInt(0, countList.length),
+    points: getRandomInt(0, pointsList.length),
+    lives: getRandomInt(0, livesList.length),
+    time: getRandomInt(0, timesList.length)
+  };
+};
+
 const pointsCount = (answersObject) => {
   if (!answersObject || typeof answersObject !== `object` || !answersObject.isArray) {
-    return `answers should be an object`;
+    return `answersObject should be a non empty object`;
   }
   if (answersObject.count < 10) {
     return -1;
@@ -52,5 +77,11 @@ describe(`Points Counter`, () => {
     assert(pointsCount(true));
     assert(pointsCount({}));
     assert(pointsCount([]));
+  });
+
+  it(`should deal with valid data`, () => {
+    for (let i = 0; i < 1000; i++) {
+      assert(pointsCount(answersObjectGenerator()));
+    }
   });
 });
