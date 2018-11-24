@@ -9,10 +9,10 @@ const INITIAL_STATE = Object.freeze({
 
 const levelChange = (state, level) => {
   if (typeof level !== `number`) {
-    return state;
+    throw new Error(`Level should be of type number`);
   }
   if (level < 0) {
-    return state;
+    throw new Error(`Level should not be negative`);
   }
 
   const newGame = Object.assign({}, state, {
@@ -30,11 +30,11 @@ describe(`Check level change`, () => {
     assert.equal(levelChange(INITIAL_STATE, 102).level, 102);
   });
   it(`should not allow set negative values`, () => {
-    assert.equal(levelChange(INITIAL_STATE, -1).level, 0);
+    assert.throws(() => levelChange(INITIAL_STATE, -1).level, 0);
   });
   it(`should now allow set non number value`, () => {
-    assert.equal(levelChange(INITIAL_STATE, []).level, 0);
-    assert.equal(levelChange(INITIAL_STATE, {}).level, 0);
-    assert.equal(levelChange(INITIAL_STATE, undefined).level, 0);
+    assert.throws(() => levelChange(INITIAL_STATE, []).level, 0);
+    assert.throws(() => levelChange(INITIAL_STATE, {}).level, 0);
+    assert.throws(() => levelChange(INITIAL_STATE, undefined).level, 0);
   });
 });
