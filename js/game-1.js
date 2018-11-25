@@ -3,6 +3,13 @@ import renderHeader from './header.js';
 import renderGreeting from './greeting.js';
 import renderGame2 from './game-2.js';
 
+const INITIAL_STATE = {
+  level: 0,
+  correctAnswers: 0,
+  lives: 3,
+  time: 0
+};
+
 const game1 = `
   <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
   <form class="game__content">
@@ -32,13 +39,13 @@ const game1 = `
   <ul class="stats">
   </ul>`;
 
-const checkedCounter = (list) => {
+const checkedCounter = (list, stateFromGame1) => {
   let count = 0;
   for (let i = 0; i < list.length; i++) {
     if (list[i].checked) {
       ++count;
       if (count === 2) {
-        renderGame2();
+        renderGame2(stateFromGame1);
         return;
       }
     }
@@ -46,7 +53,7 @@ const checkedCounter = (list) => {
 };
 
 const renderGame1 = () => {
-  renderHeader();
+  renderHeader(INITIAL_STATE);
   gameRender(game1);
   statsRender();
 
@@ -59,7 +66,7 @@ const renderGame1 = () => {
   inputsList.forEach((input) => {
     input.addEventListener(`change`, () => {
       if (input.checked) {
-        checkedCounter(inputsList);
+        checkedCounter(inputsList, INITIAL_STATE);
       }
     });
   });

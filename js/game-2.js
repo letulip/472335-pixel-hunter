@@ -1,4 +1,5 @@
 import {gameRender, statsRender} from './renderModule.js';
+import renderHeader from './header.js';
 import renderGreeting from './greeting.js';
 import renderGame3 from './game-3.js';
 
@@ -20,7 +21,8 @@ const game2 = `
   <ul class="stats">
   </ul>`;
 
-const renderGame2 = () => {
+const renderGame2 = (stateFromGame1) => {
+  renderHeader(stateFromGame1);
   gameRender(game2);
   statsRender();
 
@@ -32,7 +34,7 @@ const renderGame2 = () => {
   const inputsList = document.querySelectorAll(`input`);
   inputsList.forEach((input) => {
     input.addEventListener(`change`, () => {
-      renderGame3();
+      renderGame3(stateFromGame1);
     });
   });
 };

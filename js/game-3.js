@@ -1,4 +1,5 @@
 import {gameRender, statsRender} from './renderModule.js';
+import renderHeader from './header.js';
 import renderGreeting from './greeting.js';
 import renderStats from './stats.js';
 
@@ -18,7 +19,8 @@ const game3 = `
   <ul class="stats">
   </ul>`;
 
-const renderGame3 = () => {
+const renderGame3 = (stateFromGame2) => {
+  renderHeader(stateFromGame2);
   gameRender(game3);
   statsRender();
 
@@ -30,7 +32,7 @@ const renderGame3 = () => {
   const gameOptionsList = document.querySelectorAll(`.game__option`);
   gameOptionsList.forEach((option) => {
     option.addEventListener(`click`, () => {
-      renderStats();
+      renderStats(stateFromGame2);
     });
   });
 };
