@@ -1,4 +1,4 @@
-import {pageRender} from './renderModule.js';
+import {contentRender} from './renderModule.js';
 import renderGreeting from './greeting.js';
 import renderGame1 from './game-1.js';
 
@@ -32,7 +32,7 @@ const rules = `
 </section>`;
 
 const renderRules = () => {
-  pageRender(rules);
+  contentRender(rules);
 
   const backButton = document.querySelector(`.back`);
   backButton.addEventListener(`click`, () => {

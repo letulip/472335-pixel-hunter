@@ -1,4 +1,4 @@
-import {pageRender} from './renderModule.js';
+import {contentRender} from './renderModule.js';
 import renderGreeting from './greeting.js';
 
 const intro = `
@@ -8,7 +8,7 @@ const intro = `
 </section>`;
 
 const renderIntro = () => {
-  pageRender(intro);
+  contentRender(intro);
 
   const asterisk = document.querySelector(`.asterisk`);
   asterisk.addEventListener(`click`, () => {

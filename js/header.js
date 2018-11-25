@@ -1,4 +1,4 @@
-import {pageRender} from './renderModule.js';
+import {contentRender} from './renderModule.js';
 import renderGreeting from './greeting.js';
 
 const header = `
@@ -23,7 +23,7 @@ const header = `
 </section>`;
 
 const renderHeader = () => {
-  pageRender(header);
+  contentRender(header);
 
   const backButton = document.querySelector(`.back`);
   backButton.addEventListener(`click`, () => {

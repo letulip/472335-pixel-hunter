@@ -1,4 +1,4 @@
-import {pageRender} from './renderModule.js';
+import {contentRender} from './renderModule.js';
 import renderRules from './rules.js';
 
 const greeting = `
@@ -24,7 +24,7 @@ const greeting = `
 </section>`;
 
 const renderGreeting = () => {
-  pageRender(greeting);
+  contentRender(greeting);
 
   const greetingContinue = document.querySelector(`.greeting__continue`);
   greetingContinue.addEventListener(`click`, () => {

@@ -1,4 +1,4 @@
-import {gameRender} from './renderModule.js';
+import {gameRender, statsRender} from './renderModule.js';
 import renderGreeting from './greeting.js';
 import renderGame3 from './game-3.js';
 
@@ -18,20 +18,11 @@ const game2 = `
     </div>
   </form>
   <ul class="stats">
-    <li class="stats__result stats__result--wrong"></li>
-    <li class="stats__result stats__result--slow"></li>
-    <li class="stats__result stats__result--fast"></li>
-    <li class="stats__result stats__result--correct"></li>
-    <li class="stats__result stats__result--wrong"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--slow"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--fast"></li>
-    <li class="stats__result stats__result--unknown"></li>
   </ul>`;
 
 const renderGame2 = () => {
   gameRender(game2);
+  statsRender();
 
   const backButton = document.querySelector(`.back`);
   backButton.addEventListener(`click`, () => {

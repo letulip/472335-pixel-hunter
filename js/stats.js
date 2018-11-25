@@ -1,4 +1,4 @@
-import {pageRender} from './renderModule.js';
+import {contentRender} from './renderModule.js';
 import renderGreeting from './greeting.js';
 
 const stats = `
@@ -115,18 +115,11 @@ const stats = `
 </section>`;
 
 const renderStats = () => {
-  pageRender(stats);
+  contentRender(stats);
 
   const backButton = document.querySelector(`.back`);
   backButton.addEventListener(`click`, () => {
     renderGreeting();
-  });
-
-  const gameOptionsList = document.querySelectorAll(`.game__option`);
-  gameOptionsList.forEach((option) => {
-    option.addEventListener(`click`, () => {
-      renderStats();
-    });
   });
 };
 
