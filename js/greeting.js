@@ -1,4 +1,4 @@
-import pageRender from './renderModule.js';
+import {pageRender} from './renderModule.js';
 import renderRules from './rules.js';
 
 const greeting = `

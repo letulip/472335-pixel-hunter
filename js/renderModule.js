@@ -1,8 +1,13 @@
 const mainElement = document.querySelector(`#main`);
 
 const pageRender = (strToRender) => {
-  // debugger;
   mainElement.innerHTML = strToRender;
+  // debugger;
 };
 
-export default pageRender;
+const gameRender = (strToRender) => {
+  const game = document.querySelector(`.game`);
+  game.innerHTML = strToRender;
+};
+
+export {pageRender, gameRender};
