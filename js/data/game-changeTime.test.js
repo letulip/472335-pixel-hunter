@@ -8,7 +8,9 @@ const INITIAL_STATE = Object.freeze({
   userName: ``
 });
 
-const timeIncrease = (state, value) => {
+const defaultTimerValue = 20;
+
+const timerTick = (state, value) => {
   const newTime = state.time + value;
   return newTime;
 };
@@ -21,11 +23,18 @@ const timeCount = (state, time) => {
     throw new Error(`Time should not be negative`);
   }
 
-  const newGame = Object.assign({}, state, {
-    'time': timeIncrease(state, time)
+  const newState = Object.assign({}, state, {
+    'time': timerTick(state, time)
   });
 
-  return newGame;
+  return newState;
+};
+
+const resetTimer = (state) => {
+  const newState = Object.assign({}, state, {
+    'time': defaultTimerValue
+  });
+  return newState;
 };
 
 describe(`Check time change`, () => {
@@ -51,3 +60,9 @@ describe(`Check time change`, () => {
 //     assert.equal(timeCount(timeCount(INITIAL_STATE, 150), 50).time, 200);
 //   });
 // });
+
+describe(`Check reset Timer`, () => {
+  it(`should reset time value`, () => {
+    assert.equal(resetTimer(INITIAL_STATE).time, 20);
+  });
+});
