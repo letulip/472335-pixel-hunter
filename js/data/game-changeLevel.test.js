@@ -31,6 +31,13 @@ const setNextLevel = (state) => {
   return newState;
 };
 
+const hasNextLevel = (level) => {
+  if (level === 10) {
+    return false;
+  }
+  return true;
+};
+
 describe(`Check level change`, () => {
   it(`should change level of game`, () => {
     assert.equal(changeLevel(INITIAL_STATE, 1).level, 1);
@@ -50,5 +57,12 @@ describe(`Check set Next level`, () => {
   it(`should set next level of game`, () => {
     assert.equal(setNextLevel(INITIAL_STATE).level, 1);
     assert.equal(setNextLevel(setNextLevel(INITIAL_STATE)).level, 2);
+  });
+});
+
+describe(`Check has Next level`, () => {
+  it(`should check for next level existense`, () => {
+    assert.equal(hasNextLevel(INITIAL_STATE), true);
+    assert.equal(hasNextLevel(10), false);
   });
 });
