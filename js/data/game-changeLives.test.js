@@ -31,8 +31,6 @@ describe(`Check lives change`, () => {
   it(`should change lives of player in game`, () => {
     assert.equal(livesChange(INITIAL_STATE, 1).lives, 1);
     assert.equal(livesChange(INITIAL_STATE, 2).lives, 2);
-    assert.equal(livesChange(INITIAL_STATE, 10).lives, 10);
-    assert.equal(livesChange(INITIAL_STATE, 102).lives, 102);
   });
   it(`should take only number`, () => {
     assert.throws(() => livesChange(INITIAL_STATE, []).level, /Lives should be of type number/);

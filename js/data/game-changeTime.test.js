@@ -31,8 +31,6 @@ describe(`Check time change`, () => {
   it(`should change time of game`, () => {
     assert.equal(timeCount(INITIAL_STATE, 1).time, 1);
     assert.equal(timeCount(INITIAL_STATE, 2).time, 2);
-    assert.equal(timeCount(INITIAL_STATE, 10).time, 10);
-    assert.equal(timeCount(INITIAL_STATE, 102).time, 102);
   });
   it(`should not allow set negative values`, () => {
     assert.throws(() => timeCount(INITIAL_STATE, -1).time, 0);
