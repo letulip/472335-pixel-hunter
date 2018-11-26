@@ -1,10 +1,11 @@
 import {assert} from 'chai';
 
 const INITIAL_STATE = Object.freeze({
-  points: 0,
   lives: 3,
   level: 0,
-  time: 0
+  time: 30,
+  answers: [],
+  userName: ``
 });
 
 const livesDecrease = (state, value) => {
