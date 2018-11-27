@@ -43,5 +43,6 @@ describe(`Check tick Timer`, () => {
   it(`should decrease time value`, () => {
     assert.equal(timerTick(INITIAL_STATE).time, -1);
     assert.equal(timerTick(timerTick(INITIAL_STATE)).time, -2);
+    assert.equal(timerTick(timerTick(timeStart(INITIAL_STATE))).time, 28);
   });
 });
