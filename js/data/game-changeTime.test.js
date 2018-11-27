@@ -22,9 +22,9 @@ const timerTick = () => {
 };
 
 const timeCount = (state) => {
-  const newState = Object.assign({}, state, {
+  const newState = Object.freeze(Object.assign({}, state, {
     'time': resetTimer()
-  });
+  }));
   // timerTick();
 
   return newState;

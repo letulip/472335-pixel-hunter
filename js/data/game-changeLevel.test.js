@@ -25,9 +25,9 @@ const changeLevel = (state, level) => {
 
 const setNextLevel = (state) => {
   let newLevel = state.level;
-  const newState = Object.assign({}, state, {
+  const newState = Object.freeze(Object.assign({}, state, {
     'level': ++newLevel
-  });
+  }));
   return newState;
 };
 
