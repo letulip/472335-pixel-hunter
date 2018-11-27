@@ -8,7 +8,26 @@ const INITIAL_STATE = Object.freeze({
   userName: ``
 });
 
-const FINAL_STATE = Object.freeze({
+const FINAL_STATE_TRUE = Object.freeze({
+  lives: 3,
+  level: 0,
+  time: 30,
+  answers: [
+    {time: 5, isCorrect: true},
+    {time: 10, isCorrect: true},
+    {time: 15, isCorrect: true},
+    {time: 25, isCorrect: true},
+    {time: 30, isCorrect: true},
+    {time: 5, isCorrect: true},
+    {time: 10, isCorrect: true},
+    {time: 15, isCorrect: true},
+    {time: 25, isCorrect: true},
+    {time: 30, isCorrect: true}
+  ],
+  userName: ``
+});
+
+const FINAL_STATE_FALSE = Object.freeze({
   lives: 3,
   level: 0,
   time: 30,
@@ -29,24 +48,27 @@ const FINAL_STATE = Object.freeze({
 
 const fastTime = 10;
 const slowTime = 20;
+const fastPoints = 150;
+const commonPoints = 100;
+const slowPoints = 50;
 
 const countPoints = (state) => {
   let points = 0;
-  state.answers.forEach((answer) => {
-    if (answer.isCorrect) {
-      if (answer.time <= fastTime) {
-        points += 150;
-        return;
+  for (let i = 0; i < state.answers.length; i++) {
+    if (state.answers[i].isCorrect) {
+      if (state.answers[i].time <= fastTime) {
+        points += fastPoints;
       }
-      if (answer.time <= slowTime) {
-        points += 100;
-        return;
-      } else {
-        points += 50;
-        return;
+      if (state.answers[i].time > slowTime) {
+        points += slowPoints;
       }
+      if (state.answers[i].time < slowTime && state.answers[i].time > fastTime) {
+        points += commonPoints;
+      }
+    } else {
+      points = `FAIL!!!`;
     }
-  });
+  }
   return points;
 };
 
@@ -70,7 +92,10 @@ describe(`Check answer change`, () => {
 });
 
 describe(`Check count points`, () => {
-  it(`should add new answer object to answers array`, () => {
-    assert.equal(countPoints(FINAL_STATE), 500);
+  it(`should count points properly`, () => {
+    assert.equal(countPoints(FINAL_STATE_TRUE), 1000);
+  });
+  it(`should return FAIL if not all answers were correct`, () => {
+    assert.equal(countPoints(FINAL_STATE_FALSE), `FAIL!!!`);
   });
 });
