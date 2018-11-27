@@ -25,7 +25,7 @@ const timeCount = (state) => {
   const newState = Object.assign({}, state, {
     'time': resetTimer()
   });
-  timerTick();
+  // timerTick();
 
   return newState;
 };
