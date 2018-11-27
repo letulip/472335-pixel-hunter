@@ -10,22 +10,15 @@ const INITIAL_STATE = Object.freeze({
 
 const defaultTimerValue = 30;
 
-const timerTick = () => {
-  let i = defaultTimerValue;
-  const timerId = setInterval(() => {
-    // действие
-    if (i === 0) {
-      clearInterval(timerId);
-    }
-    i--;
-  }, 1000);
+const timerTick = (state) => {
+  const newState = Object.freeze(Object.assign({}, state, {time: state.time - 1}));
+  return newState;
 };
 
-const timeCount = (state) => {
+const timeStart = (state) => {
   const newState = Object.freeze(Object.assign({}, state, {
     'time': resetTimer()
   }));
-  // timerTick();
 
   return newState;
 };
@@ -36,12 +29,19 @@ const resetTimer = () => {
 
 describe(`Check time count`, () => {
   it(`should return object with default time value`, () => {
-    assert.equal(timeCount(INITIAL_STATE).time, 30);
+    assert.equal(timeStart(INITIAL_STATE).time, 30);
   });
 });
 
 describe(`Check reset Timer`, () => {
   it(`should reset time value`, () => {
     assert.equal(resetTimer(), 30);
+  });
+});
+
+describe(`Check tick Timer`, () => {
+  it(`should decrease time value`, () => {
+    assert.equal(timerTick(INITIAL_STATE).time, -1);
+    assert.equal(timerTick(timerTick(INITIAL_STATE)).time, -2);
   });
 });
