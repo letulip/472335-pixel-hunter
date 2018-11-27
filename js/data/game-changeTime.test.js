@@ -30,8 +30,9 @@ const timeCount = (state, time) => {
   }
 
   const newState = Object.assign({}, state, {
-    'time': timerTick(state, time)
+    'time': defaultTimerValue
   });
+  timerTick();
 
   return newState;
 };
