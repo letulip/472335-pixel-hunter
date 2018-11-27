@@ -11,11 +11,14 @@ const INITIAL_STATE = Object.freeze({
 const defaultTimerValue = 30;
 
 const timerTick = () => {
-  // const roundTime = resetTimer(INITIAL_STATE).time;
-  // const timeNow = Date.now();
-  // const timeOut = timeNow + roundTime * 1000;
-
-  // как сделать таймер?
+  let i = defaultTimerValue;
+  const timerId = setInterval(() => {
+    // действие
+    if (i === 0) {
+      clearInterval(timerId);
+    }
+    i--;
+  }, 1000);
 };
 
 const timeCount = (state, time) => {
