@@ -35,7 +35,7 @@ const renderRules = () => {
   pageRender(rules);
 
   const backButton = document.querySelector(`.back`);
-  backButton.addEventListener(`click`, () => {
+  backButton.addEventListener(`input`, () => {
     renderGreeting();
   });
 
