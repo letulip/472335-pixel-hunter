@@ -4,10 +4,18 @@ const INITIAL_STATE = Object.freeze({
   lives: 3,
   level: 0,
   time: 0,
-  questions: Object.freeze([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]),
+  questions: Object.freeze([]),
   answers: Object.freeze([]),
   userName: ``
 });
+
+const QUESTIONS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+const addQuestions = (state, questions) => {
+  return Object.freeze(Object.assign({}, state, {
+    questions: Object.freeze([...questions])
+  }));
+};
 
 const changeLevel = (state, level) => {
   if (typeof level !== `number`) {
@@ -17,9 +25,9 @@ const changeLevel = (state, level) => {
     throw new Error(`Level should not be negative`);
   }
 
-  return Object.assign({}, state, {
+  return Object.freeze(Object.assign({}, state, {
     'level': level
-  });
+  }));
 };
 
 const setNextLevel = (state) => {
@@ -56,7 +64,13 @@ describe(`Check set Next level`, () => {
 
 describe(`Check has Next level`, () => {
   it(`should check for next level existense`, () => {
-    assert.equal(hasNextLevel(INITIAL_STATE.level, INITIAL_STATE.questions), true);
-    assert.equal(hasNextLevel(10, INITIAL_STATE.questions), false);
+    assert.equal(hasNextLevel(INITIAL_STATE.level, addQuestions(INITIAL_STATE, QUESTIONS).questions), true);
+    assert.equal(hasNextLevel(10, addQuestions(INITIAL_STATE, QUESTIONS).questions), false);
+  });
+});
+
+describe(`Check add question`, () => {
+  it(`should add a new question`, () => {
+    assert.equal(JSON.stringify(addQuestions(INITIAL_STATE, QUESTIONS).questions), JSON.stringify([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]));
   });
 });
