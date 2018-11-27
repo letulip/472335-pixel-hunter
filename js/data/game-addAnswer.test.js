@@ -3,7 +3,7 @@ import {assert} from 'chai';
 const INITIAL_STATE = Object.freeze({
   lives: 3,
   level: 0,
-  time: 30,
+  time: 0,
   answers: [],
   userName: ``
 });

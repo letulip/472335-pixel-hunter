@@ -3,16 +3,19 @@ import {assert} from 'chai';
 const INITIAL_STATE = Object.freeze({
   lives: 3,
   level: 0,
-  time: 30,
+  time: 0,
   answers: [],
   userName: ``
 });
 
-const defaultTimerValue = 20;
+const defaultTimerValue = 30;
 
-const timerTick = (state, value) => {
-  const newTime = state.time + value;
-  return newTime;
+const timerTick = () => {
+  // const roundTime = resetTimer(INITIAL_STATE).time;
+  // const timeNow = Date.now();
+  // const timeOut = timeNow + roundTime * 1000;
+
+  // как сделать таймер?
 };
 
 const timeCount = (state, time) => {
@@ -63,6 +66,6 @@ describe(`Check time change`, () => {
 
 describe(`Check reset Timer`, () => {
   it(`should reset time value`, () => {
-    assert.equal(resetTimer(INITIAL_STATE).time, 20);
+    assert.equal(resetTimer(INITIAL_STATE).time, 30);
   });
 });
