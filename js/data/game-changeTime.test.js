@@ -4,7 +4,7 @@ const INITIAL_STATE = Object.freeze({
   lives: 3,
   level: 0,
   time: 0,
-  answers: [],
+  answers: Object.freeze([]),
   userName: ``
 });
 

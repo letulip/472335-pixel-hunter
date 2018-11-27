@@ -4,7 +4,8 @@ const INITIAL_STATE = Object.freeze({
   lives: 3,
   level: 0,
   time: 0,
-  answers: [],
+  questions: Object.freeze([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]),
+  answers: Object.freeze([]),
   userName: ``
 });
 
@@ -27,11 +28,8 @@ const setNextLevel = (state) => {
   }));
 };
 
-const hasNextLevel = (level) => {
-  if (level === 10) {
-    return false;
-  }
-  return true;
+const hasNextLevel = (level, questions) => {
+  return level < questions.length;
 };
 
 describe(`Check level change`, () => {
@@ -58,7 +56,7 @@ describe(`Check set Next level`, () => {
 
 describe(`Check has Next level`, () => {
   it(`should check for next level existense`, () => {
-    assert.equal(hasNextLevel(INITIAL_STATE), true);
-    assert.equal(hasNextLevel(10), false);
+    assert.equal(hasNextLevel(INITIAL_STATE.level, INITIAL_STATE.questions), true);
+    assert.equal(hasNextLevel(10, INITIAL_STATE.questions), false);
   });
 });
