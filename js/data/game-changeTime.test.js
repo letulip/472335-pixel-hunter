@@ -30,18 +30,15 @@ const timeCount = (state, time) => {
   }
 
   const newState = Object.assign({}, state, {
-    'time': defaultTimerValue
+    'time': resetTimer()
   });
   timerTick();
 
   return newState;
 };
 
-const resetTimer = (state) => {
-  const newState = Object.assign({}, state, {
-    'time': defaultTimerValue
-  });
-  return newState;
+const resetTimer = () => {
+  return defaultTimerValue;
 };
 
 describe(`Check time change`, () => {
@@ -70,6 +67,6 @@ describe(`Check time change`, () => {
 
 describe(`Check reset Timer`, () => {
   it(`should reset time value`, () => {
-    assert.equal(resetTimer(INITIAL_STATE).time, 30);
+    assert.equal(resetTimer(), 30);
   });
 });
