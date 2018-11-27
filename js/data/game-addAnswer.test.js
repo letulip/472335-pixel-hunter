@@ -73,10 +73,7 @@ const countPoints = (state) => {
 };
 
 const addAnswer = (state, answer) => {
-
-  const newState = Object.freeze(Object.assign({}, state, {answers: Object.freeze([...state.answers, answer])}));
-
-  return newState;
+  return Object.freeze(Object.assign({}, state, {answers: Object.freeze([...state.answers, answer])}));
 };
 
 describe(`Check answer change`, () => {

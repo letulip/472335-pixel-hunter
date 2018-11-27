@@ -16,19 +16,15 @@ const changeLevel = (state, level) => {
     throw new Error(`Level should not be negative`);
   }
 
-  const newState = Object.assign({}, state, {
+  return Object.assign({}, state, {
     'level': level
   });
-
-  return newState;
 };
 
 const setNextLevel = (state) => {
-  let newLevel = state.level;
-  const newState = Object.freeze(Object.assign({}, state, {
-    'level': ++newLevel
+  return Object.freeze(Object.assign({}, state, {
+    'level': state.level + 1
   }));
-  return newState;
 };
 
 const hasNextLevel = (level) => {

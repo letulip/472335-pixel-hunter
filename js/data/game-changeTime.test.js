@@ -8,34 +8,21 @@ const INITIAL_STATE = Object.freeze({
   userName: ``
 });
 
-const defaultTimerValue = 30;
+const DEFAULT_TIMER_VALUE = 30;
 
 const timerTick = (state) => {
-  const newState = Object.freeze(Object.assign({}, state, {time: state.time - 1}));
-  return newState;
+  return Object.freeze(Object.assign({}, state, {time: state.time - 1}));
 };
 
-const timeStart = (state) => {
-  const newState = Object.freeze(Object.assign({}, state, {
-    'time': resetTimer()
+const resetTimer = (state) => {
+  return Object.freeze(Object.assign({}, state, {
+    'time': DEFAULT_TIMER_VALUE
   }));
-
-  return newState;
 };
-
-const resetTimer = () => {
-  return defaultTimerValue;
-};
-
-describe(`Check time count`, () => {
-  it(`should return object with default time value`, () => {
-    assert.equal(timeStart(INITIAL_STATE).time, 30);
-  });
-});
 
 describe(`Check reset Timer`, () => {
   it(`should reset time value`, () => {
-    assert.equal(resetTimer(), 30);
+    assert.equal(resetTimer(INITIAL_STATE).time, 30);
   });
 });
 
@@ -43,6 +30,6 @@ describe(`Check tick Timer`, () => {
   it(`should decrease time value`, () => {
     assert.equal(timerTick(INITIAL_STATE).time, -1);
     assert.equal(timerTick(timerTick(INITIAL_STATE)).time, -2);
-    assert.equal(timerTick(timerTick(timeStart(INITIAL_STATE))).time, 28);
+    assert.equal(timerTick(timerTick(resetTimer(INITIAL_STATE))).time, 28);
   });
 });

@@ -13,8 +13,7 @@ const isDead = (lives) => {
 };
 
 const livesChange = (state) => {
-  const newState = Object.freeze(Object.assign({}, state, {lives: state.lives - 1}));
-  return newState;
+  return Object.freeze(Object.assign({}, state, {lives: state.lives - 1}));
 };
 
 describe(`Check lives change`, () => {
