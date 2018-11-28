@@ -57,27 +57,28 @@ const resetTimer = (state) => {
   }));
 };
 
-const fastTime = 10;
-const slowTime = 20;
-const fastPoints = 150;
-const commonPoints = 100;
-const slowPoints = 50;
+const FAST_TIME = 10;
+const SLOW_TIME = 20;
+const FAST_POINTS = 150;
+const COMMON_POINTS = 100;
+const SLOW_POINTS = 50;
 
 const countPoints = (answers) => {
   let points = 0;
   for (let i = 0; i < answers.length; i++) {
+    if (!answers[i].isAnswer) {
+      return -1;
+    }
     if (answers[i].isCorrect) {
-      if (answers[i].time <= fastTime) {
-        points += fastPoints;
+      if (answers[i].time <= FAST_TIME) {
+        points += FAST_POINTS;
       }
-      if (answers[i].time > slowTime) {
-        points += slowPoints;
+      if (answers[i].time > SLOW_TIME) {
+        points += SLOW_POINTS;
       }
-      if (answers[i].time < slowTime && answers[i].time > fastTime) {
-        points += commonPoints;
+      if (answers[i].time <= SLOW_TIME && answers[i].time > FAST_TIME) {
+        points += COMMON_POINTS;
       }
-    } else {
-      points = `FAIL!!!`;
     }
   }
   return points;

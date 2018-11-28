@@ -72,29 +72,42 @@ describe(`Check tick Timer`, () => {
 });
 
 const FINAL_ANSWERS_TRUE = Object.freeze([
-  {time: 5, isCorrect: true},
-  {time: 10, isCorrect: true},
-  {time: 15, isCorrect: true},
-  {time: 25, isCorrect: true},
-  {time: 30, isCorrect: true},
-  {time: 5, isCorrect: true},
-  {time: 10, isCorrect: true},
-  {time: 15, isCorrect: true},
-  {time: 25, isCorrect: true},
-  {time: 30, isCorrect: true}
+  {isAnswer: true, time: 5, isCorrect: true},
+  {isAnswer: true, time: 10, isCorrect: true},
+  {isAnswer: true, time: 15, isCorrect: true},
+  {isAnswer: true, time: 25, isCorrect: true},
+  {isAnswer: true, time: 30, isCorrect: true},
+  {isAnswer: true, time: 5, isCorrect: true},
+  {isAnswer: true, time: 10, isCorrect: true},
+  {isAnswer: true, time: 15, isCorrect: true},
+  {isAnswer: true, time: 25, isCorrect: true},
+  {isAnswer: true, time: 30, isCorrect: true}
 ]);
 
 const FINAL_ANSWERS_FALSE = Object.freeze([
-  {time: 5, isCorrect: true},
-  {time: 10, isCorrect: true},
-  {time: 15, isCorrect: true},
-  {time: 25, isCorrect: true},
-  {time: 30, isCorrect: true},
-  {time: 5, isCorrect: false},
-  {time: 10, isCorrect: false},
-  {time: 15, isCorrect: false},
-  {time: 25, isCorrect: false},
-  {time: 30, isCorrect: false}
+  {isAnswer: true, time: 5, isCorrect: true},
+  {isAnswer: true, time: 10, isCorrect: true},
+  {isAnswer: true, time: 15, isCorrect: true},
+  {isAnswer: true, time: 25, isCorrect: true},
+  {isAnswer: true, time: 30, isCorrect: true},
+  {isAnswer: true, time: 5, isCorrect: false},
+  {isAnswer: true, time: 10, isCorrect: false},
+  {isAnswer: true, time: 15, isCorrect: false},
+  {isAnswer: true, time: 25, isCorrect: false},
+  {isAnswer: true, time: 30, isCorrect: false}
+]);
+
+const FINAL_ANSWERS_LOOSE = Object.freeze([
+  {isAnswer: true, time: 5, isCorrect: true},
+  {isAnswer: true, time: 10, isCorrect: true},
+  {isAnswer: true, time: 15, isCorrect: true},
+  {isAnswer: true, time: 25, isCorrect: true},
+  {isAnswer: true, time: 30, isCorrect: true},
+  {isAnswer: true, time: 5, isCorrect: false},
+  {isAnswer: true, time: 10, isCorrect: false},
+  {isAnswer: false, time: 15, isCorrect: false},
+  {isAnswer: true, time: 25, isCorrect: false},
+  {isAnswer: true, time: 30, isCorrect: false}
 ]);
 
 describe(`Check answer change`, () => {
@@ -108,7 +121,10 @@ describe(`Check count points`, () => {
   it(`should count points properly`, () => {
     assert.equal(countPoints(FINAL_ANSWERS_TRUE), 1000);
   });
-  it(`should return FAIL if not all answers were correct`, () => {
-    assert.equal(countPoints(FINAL_ANSWERS_FALSE), `FAIL!!!`);
+  it(`should count points properly`, () => {
+    assert.equal(countPoints(FINAL_ANSWERS_FALSE), 500);
+  });
+  it(`should return -1 if got less then 10 answers`, () => {
+    assert.equal(countPoints(FINAL_ANSWERS_LOOSE), -1);
   });
 });
