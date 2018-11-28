@@ -85,8 +85,8 @@ const countPoints = (state) => {
   return -1;
 };
 
-const addAnswer = (state, answer) => {
-  return Object.freeze(Object.assign({}, state, {answers: Object.freeze([...state.answers, answer])}));
+const addAnswer = (state, time, isCorrect) => {
+  return Object.freeze(Object.assign({}, state, {answers: Object.freeze([...state.answers, {'time': time, 'isCorrect': isCorrect}])}));
 };
 
 export {INITIAL_STATE, addQuestions, changeLevel, setNextLevel, hasNextLevel, isDead, decreaseLives, tickTimer, resetTimer, countPoints, addAnswer};

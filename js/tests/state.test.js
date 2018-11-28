@@ -148,8 +148,8 @@ const FINAL_STATE_LOOSE = Object.freeze({
 
 describe(`Check answer change`, () => {
   it(`should add new answer object to answers array`, () => {
-    assert.equal(JSON.stringify(addAnswer(INITIAL_STATE, {time: 25, isCorrect: true}).answers[0]), JSON.stringify({time: 25, isCorrect: true}));
-    assert.equal(JSON.stringify(addAnswer(addAnswer(INITIAL_STATE, {time: 15, isCorrect: true}), {time: 25, isCorrect: true}).answers[1]), JSON.stringify({time: 25, isCorrect: true}));
+    assert.equal(JSON.stringify(addAnswer(INITIAL_STATE, 25, true).answers[0]), JSON.stringify({time: 25, isCorrect: true}));
+    assert.equal(JSON.stringify(addAnswer(addAnswer(INITIAL_STATE, 15, true), 25, true).answers[1]), JSON.stringify({time: 25, isCorrect: true}));
   });
 });
 
