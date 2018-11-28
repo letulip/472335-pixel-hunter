@@ -1,6 +1,6 @@
 import {assert} from 'chai';
 
-import {INITIAL_STATE, addQuestions, changeLevel, setNextLevel, hasNextLevel, isDead, livesChange, timerTick, resetTimer, countPoints, addAnswer} from '../state.js';
+import {INITIAL_STATE, addQuestions, changeLevel, setNextLevel, hasNextLevel, isDead, decreaseLives, tickTimer, resetTimer, countPoints, addAnswer} from '../state.js';
 
 const QUESTIONS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -42,18 +42,18 @@ describe(`Check add questions`, () => {
 
 describe(`Check lives change`, () => {
   it(`should return decreased lives value`, () => {
-    assert.equal(livesChange(INITIAL_STATE).lives, 2);
-    assert.equal(livesChange(livesChange(INITIAL_STATE)).lives, 1);
+    assert.equal(decreaseLives(INITIAL_STATE).lives, 2);
+    assert.equal(decreaseLives(decreaseLives(INITIAL_STATE)).lives, 1);
   });
 });
 
 describe(`Check is dead`, () => {
-  it(`should return true`, () => {
-    assert.equal(isDead(2), true);
-    assert.equal(isDead(0), true);
-  });
   it(`should return false`, () => {
-    assert.equal(isDead(-1), false);
+    assert.equal(isDead(2), false);
+    assert.equal(isDead(0), false);
+  });
+  it(`should return true`, () => {
+    assert.equal(isDead(-1), true);
   });
 });
 
@@ -65,50 +65,86 @@ describe(`Check reset Timer`, () => {
 
 describe(`Check tick Timer`, () => {
   it(`should decrease time value`, () => {
-    assert.equal(timerTick(INITIAL_STATE).time, 29);
-    assert.equal(timerTick(timerTick(INITIAL_STATE)).time, 28);
-    assert.equal(timerTick(timerTick(resetTimer(INITIAL_STATE))).time, 28);
+    assert.equal(tickTimer(INITIAL_STATE).time, 29);
+    assert.equal(tickTimer(tickTimer(INITIAL_STATE)).time, 28);
+    assert.equal(tickTimer(tickTimer(resetTimer(INITIAL_STATE))).time, 28);
   });
 });
 
-const FINAL_ANSWERS_TRUE = Object.freeze([
-  {isAnswer: true, time: 5, isCorrect: true},
-  {isAnswer: true, time: 10, isCorrect: true},
-  {isAnswer: true, time: 15, isCorrect: true},
-  {isAnswer: true, time: 25, isCorrect: true},
-  {isAnswer: true, time: 30, isCorrect: true},
-  {isAnswer: true, time: 5, isCorrect: true},
-  {isAnswer: true, time: 10, isCorrect: true},
-  {isAnswer: true, time: 15, isCorrect: true},
-  {isAnswer: true, time: 25, isCorrect: true},
-  {isAnswer: true, time: 30, isCorrect: true}
-]);
+const FINAL_STATE_TRUE = Object.freeze({
+  lives: 3,
+  level: 0,
+  time: 30,
+  questions: Object.freeze([]),
+  answers: Object.freeze([
+    {time: 5, isCorrect: true},
+    {time: 10, isCorrect: true},
+    {time: 15, isCorrect: true},
+    {time: 25, isCorrect: true},
+    {time: 30, isCorrect: true},
+    {time: 5, isCorrect: true},
+    {time: 10, isCorrect: true},
+    {time: 15, isCorrect: true},
+    {time: 25, isCorrect: true},
+    {time: 29, isCorrect: true}
+  ]),
+  userName: ``});
 
-const FINAL_ANSWERS_FALSE = Object.freeze([
-  {isAnswer: true, time: 5, isCorrect: true},
-  {isAnswer: true, time: 10, isCorrect: true},
-  {isAnswer: true, time: 15, isCorrect: true},
-  {isAnswer: true, time: 25, isCorrect: true},
-  {isAnswer: true, time: 30, isCorrect: true},
-  {isAnswer: true, time: 5, isCorrect: false},
-  {isAnswer: true, time: 10, isCorrect: false},
-  {isAnswer: true, time: 15, isCorrect: false},
-  {isAnswer: true, time: 25, isCorrect: false},
-  {isAnswer: true, time: 30, isCorrect: false}
-]);
+const FINAL_STATE_TRUE_2 = Object.freeze({
+  lives: 2,
+  level: 0,
+  time: 30,
+  questions: Object.freeze([]),
+  answers: Object.freeze([
+    {time: 5, isCorrect: true},
+    {time: 10, isCorrect: true},
+    {time: 15, isCorrect: true},
+    {time: 25, isCorrect: true},
+    {time: 30, isCorrect: true},
+    {time: 5, isCorrect: false},
+    {time: 10, isCorrect: false},
+    {time: 15, isCorrect: false},
+    {time: 25, isCorrect: false},
+    {time: 29, isCorrect: false}
+  ]),
+  userName: ``});
 
-const FINAL_ANSWERS_LOOSE = Object.freeze([
-  {isAnswer: true, time: 5, isCorrect: true},
-  {isAnswer: true, time: 10, isCorrect: true},
-  {isAnswer: true, time: 15, isCorrect: true},
-  {isAnswer: true, time: 25, isCorrect: true},
-  {isAnswer: true, time: 30, isCorrect: true},
-  {isAnswer: true, time: 5, isCorrect: false},
-  {isAnswer: true, time: 10, isCorrect: false},
-  {isAnswer: false, time: 15, isCorrect: false},
-  {isAnswer: true, time: 25, isCorrect: false},
-  {isAnswer: true, time: 30, isCorrect: false}
-]);
+const FINAL_STATE_FALSE = Object.freeze({
+  lives: -1,
+  level: 0,
+  time: 30,
+  questions: Object.freeze([]),
+  answers: Object.freeze([
+    {time: 5, isCorrect: true},
+    {time: 10, isCorrect: true},
+    {time: 15, isCorrect: true},
+    {time: 25, isCorrect: true},
+    {time: 30, isCorrect: true},
+    {time: 5, isCorrect: false},
+    {time: 10, isCorrect: false},
+    {time: 15, isCorrect: false},
+    {time: 25, isCorrect: false},
+    {time: 29, isCorrect: false}
+  ]),
+  userName: ``});
+
+const FINAL_STATE_LOOSE = Object.freeze({
+  lives: 3,
+  level: 0,
+  time: 30,
+  questions: Object.freeze([]),
+  answers: Object.freeze([
+    {time: 5, isCorrect: true},
+    {time: 10, isCorrect: true},
+    {time: 15, isCorrect: true},
+    {time: 25, isCorrect: true},
+    {time: 30, isCorrect: true},
+    {time: 5, isCorrect: false},
+    {time: 10, isCorrect: false},
+    {time: 15, isCorrect: false},
+    {time: 25, isCorrect: false}
+  ]),
+  userName: ``});
 
 describe(`Check answer change`, () => {
   it(`should add new answer object to answers array`, () => {
@@ -119,12 +155,11 @@ describe(`Check answer change`, () => {
 
 describe(`Check count points`, () => {
   it(`should count points properly`, () => {
-    assert.equal(countPoints(FINAL_ANSWERS_TRUE), 1000);
+    assert.equal(countPoints(FINAL_STATE_TRUE), 1150);
+    assert.equal(countPoints(FINAL_STATE_TRUE_2), 600);
   });
-  it(`should count points properly`, () => {
-    assert.equal(countPoints(FINAL_ANSWERS_FALSE), 500);
-  });
-  it(`should return -1 if got less then 10 answers`, () => {
-    assert.equal(countPoints(FINAL_ANSWERS_LOOSE), -1);
+  it(`should return -1 if got less then 10 answers or less then 0 lives`, () => {
+    assert.equal(countPoints(FINAL_STATE_FALSE), -1);
+    assert.equal(countPoints(FINAL_STATE_LOOSE), -1);
   });
 });

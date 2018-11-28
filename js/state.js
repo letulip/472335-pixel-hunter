@@ -8,6 +8,14 @@ const INITIAL_STATE = Object.freeze({
   userName: ``
 });
 
+const DEFAULT_TIMER_VALUE = 30;
+const FAST_TIME = 10;
+const SLOW_TIME = 20;
+const FAST_POINTS = 150;
+const COMMON_POINTS = 100;
+const SLOW_POINTS = 50;
+const LIVE_POINTS = 50;
+
 const addQuestions = (state, questions) => {
   return Object.freeze(Object.assign({}, state, {
     questions: Object.freeze([...questions])
@@ -38,16 +46,14 @@ const hasNextLevel = (level, questions) => {
 };
 
 const isDead = (lives) => {
-  return lives >= 0;
+  return !(lives >= 0);
 };
 
-const livesChange = (state) => {
+const decreaseLives = (state) => {
   return Object.freeze(Object.assign({}, state, {lives: state.lives - 1}));
 };
 
-const DEFAULT_TIMER_VALUE = 30;
-
-const timerTick = (state) => {
+const tickTimer = (state) => {
   return Object.freeze(Object.assign({}, state, {time: state.time - 1}));
 };
 
@@ -57,35 +63,30 @@ const resetTimer = (state) => {
   }));
 };
 
-const FAST_TIME = 10;
-const SLOW_TIME = 20;
-const FAST_POINTS = 150;
-const COMMON_POINTS = 100;
-const SLOW_POINTS = 50;
+const countPoints = (state) => {
+  if (state.lives >= 0 && state.answers.length >= 10) {
+    let points = 0;
+    state.answers.forEach((answer) => {
+      if (answer.isCorrect) {
+        if (answer.time <= FAST_TIME) {
+          points += FAST_POINTS;
+        }
+        if (answer.time > SLOW_TIME) {
+          points += SLOW_POINTS;
+        }
+        if (answer.time <= SLOW_TIME && answer.time > FAST_TIME) {
+          points += COMMON_POINTS;
+        }
+      }
+    });
 
-const countPoints = (answers) => {
-  let points = 0;
-  for (let i = 0; i < answers.length; i++) {
-    if (!answers[i].isAnswer) {
-      return -1;
-    }
-    if (answers[i].isCorrect) {
-      if (answers[i].time <= FAST_TIME) {
-        points += FAST_POINTS;
-      }
-      if (answers[i].time > SLOW_TIME) {
-        points += SLOW_POINTS;
-      }
-      if (answers[i].time <= SLOW_TIME && answers[i].time > FAST_TIME) {
-        points += COMMON_POINTS;
-      }
-    }
+    return points + (state.lives * LIVE_POINTS);
   }
-  return points;
+  return -1;
 };
 
 const addAnswer = (state, answer) => {
   return Object.freeze(Object.assign({}, state, {answers: Object.freeze([...state.answers, answer])}));
 };
 
-export {INITIAL_STATE, addQuestions, changeLevel, setNextLevel, hasNextLevel, isDead, livesChange, timerTick, resetTimer, countPoints, addAnswer};
+export {INITIAL_STATE, addQuestions, changeLevel, setNextLevel, hasNextLevel, isDead, decreaseLives, tickTimer, resetTimer, countPoints, addAnswer};
