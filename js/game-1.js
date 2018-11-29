@@ -3,13 +3,8 @@ import renderHeader from './header.js';
 import renderGreeting from './greeting.js';
 import renderGame2 from './game-2.js';
 import images from './sampleImages.js';
+import {INITIAL_STATE} from './state.js';
 
-const INITIAL_STATE = {
-  level: 0,
-  correctAnswers: 0,
-  lives: 3,
-  time: 0
-};
 
 const game1 = `
   <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
@@ -56,7 +51,8 @@ const checkedCounter = (list, stateFromGame1) => {
 const renderGame1 = () => {
   renderHeader(INITIAL_STATE);
   gameRender(game1);
-  statsRender();
+  // debugger;
+  statsRender(INITIAL_STATE.answers);
 
   const backButton = document.querySelector(`.back`);
   backButton.addEventListener(`click`, () => {

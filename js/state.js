@@ -4,7 +4,17 @@ const INITIAL_STATE = Object.freeze({
   level: 0,
   time: 30,
   questions: Object.freeze([]),
-  answers: Object.freeze([]),
+  answers: Object.freeze([
+    {time: 5, isCorrect: true},
+    {time: 10, isCorrect: true},
+    {time: 15, isCorrect: true},
+    {time: 25, isCorrect: true},
+    {time: 30, isCorrect: true},
+    {time: 5, isCorrect: true},
+    {time: 10, isCorrect: false},
+    {time: 15, isCorrect: false},
+    {time: 25, isCorrect: false},
+  ]),
   userName: ``
 });
 
