@@ -101,10 +101,10 @@ const FINAL_STATE_TRUE_2 = Object.freeze({
     {time: 15, isCorrect: true},
     {time: 25, isCorrect: true},
     {time: 30, isCorrect: true},
-    {time: 5, isCorrect: false},
-    {time: 10, isCorrect: false},
-    {time: 15, isCorrect: false},
-    {time: 25, isCorrect: false},
+    {time: 5, isCorrect: true},
+    {time: 10, isCorrect: true},
+    {time: 15, isCorrect: true},
+    {time: 25, isCorrect: true},
     {time: 29, isCorrect: false}
   ]),
   userName: ``});
@@ -120,7 +120,7 @@ const FINAL_STATE_FALSE = Object.freeze({
     {time: 15, isCorrect: true},
     {time: 25, isCorrect: true},
     {time: 30, isCorrect: true},
-    {time: 5, isCorrect: false},
+    {time: 5, isCorrect: true},
     {time: 10, isCorrect: false},
     {time: 15, isCorrect: false},
     {time: 25, isCorrect: false},
@@ -139,24 +139,24 @@ const FINAL_STATE_LOOSE = Object.freeze({
     {time: 15, isCorrect: true},
     {time: 25, isCorrect: true},
     {time: 30, isCorrect: true},
-    {time: 5, isCorrect: false},
-    {time: 10, isCorrect: false},
-    {time: 15, isCorrect: false},
-    {time: 25, isCorrect: false}
+    {time: 5, isCorrect: true},
+    {time: 10, isCorrect: true},
+    {time: 15, isCorrect: true},
+    {time: 25, isCorrect: true}
   ]),
   userName: ``});
 
 describe(`Check answer change`, () => {
   it(`should add new answer object to answers array`, () => {
-    assert.equal(JSON.stringify(addAnswer(INITIAL_STATE, 25, true).answers[0]), JSON.stringify({time: 25, isCorrect: true}));
-    assert.equal(JSON.stringify(addAnswer(addAnswer(INITIAL_STATE, 15, true), 25, true).answers[1]), JSON.stringify({time: 25, isCorrect: true}));
+    assert.equal(JSON.stringify(addAnswer(INITIAL_STATE, {time: 25, isCorrect: true}).answers[0]), JSON.stringify({time: 25, isCorrect: true}));
+    assert.equal(JSON.stringify(addAnswer(addAnswer(INITIAL_STATE, {time: 15, isCorrect: true}), {time: 25, isCorrect: true}).answers[1]), JSON.stringify({time: 25, isCorrect: true}));
   });
 });
 
 describe(`Check count points`, () => {
   it(`should count points properly`, () => {
     assert.equal(countPoints(FINAL_STATE_TRUE), 1150);
-    assert.equal(countPoints(FINAL_STATE_TRUE_2), 600);
+    assert.equal(countPoints(FINAL_STATE_TRUE_2), 1050);
   });
   it(`should return -1 if got less then 10 answers or less then 0 lives`, () => {
     assert.equal(countPoints(FINAL_STATE_FALSE), -1);
