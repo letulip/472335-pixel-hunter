@@ -2,20 +2,19 @@ import {gameRender, statsRender} from './renderModule.js';
 import renderHeader from './header.js';
 import renderGreeting from './greeting.js';
 import renderStats from './stats.js';
-import images from './sampleImages.js';
-import {addAnswer, resetTimer} from './state.js';
+import {INITIAL_STATE_WITH_QUESTIONS, addAnswer, resetTimer} from './state.js';
 
 const game3 = `
   <p class="game__task">Найдите рисунок среди изображений</p>
   <form class="game__content  game__content--triple">
     <div class="game__option">
-      <img src="${images.paintings[2]}" alt="Option 1" width="304" height="455">
+      <img src="${INITIAL_STATE_WITH_QUESTIONS.questions[2].options[0].src}" alt="Option 1" width="304" height="455">
     </div>
     <div class="game__option  game__option--selected">
-      <img src="${images.photos[1]}" alt="Option 2" width="304" height="455">
+      <img src="${INITIAL_STATE_WITH_QUESTIONS.questions[2].options[1].src}" alt="Option 2" width="304" height="455">
     </div>
     <div class="game__option">
-      <img src="${images.photos[2]}" alt="Option 3" width="304" height="455">
+      <img src="${INITIAL_STATE_WITH_QUESTIONS.questions[2].options[2].src}" alt="Option 3" width="304" height="455">
     </div>
   </form>
   <ul class="stats">

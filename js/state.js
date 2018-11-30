@@ -4,19 +4,81 @@ const INITIAL_STATE = Object.freeze({
   level: 0,
   time: 30,
   questions: Object.freeze([]),
-  answers: Object.freeze([
-    {time: 5, isCorrect: true},
-    {time: 10, isCorrect: true},
-    {time: 15, isCorrect: true},
-    {time: 25, isCorrect: true},
-    {time: 30, isCorrect: true},
-    {time: 5, isCorrect: true},
-    {time: 10, isCorrect: false},
-    {time: 15, isCorrect: false},
-    {time: 25, isCorrect: false},
-  ]),
+  answers: Object.freeze([]),
   userName: ``
 });
+
+const QUESTIONS = [
+  {
+    type: `single`,
+    options: [
+      {src: `https://k42.kn3.net/D2F0370D6.jpg`, type: `paint`}
+    ]
+  },
+  {
+    type: `double`,
+    options: [
+      {src: `https://k42.kn3.net/CF42609C8.jpg`, type: `paint`},
+      {src: `http://i.imgur.com/1KegWPz.jpg`, type: `photo`}
+    ]
+  },
+  {
+    type: `triple`,
+    options: [
+      {src: `https://i.imgur.com/DiHM5Zb.jpg`, type: `photo`},
+      {src: `https://k32.kn3.net/5C7060EC5.jpg`, type: `paint`},
+      {src: `http://i.imgur.com/DKR1HtB.jpg`, type: `photo`}
+    ]
+  },
+  {
+    type: `single`,
+    options: [
+      {src: `https://k42.kn3.net/D2F0370D6.jpg`, type: `paint`}
+    ]
+  },
+  {
+    type: `double`,
+    options: [
+      {src: `https://k42.kn3.net/CF42609C8.jpg`, type: `paint`},
+      {src: `http://i.imgur.com/1KegWPz.jpg`, type: `photo`}
+    ]
+  },
+  {
+    type: `triple`,
+    options: [
+      {src: `https://i.imgur.com/DiHM5Zb.jpg`, type: `photo`},
+      {src: `https://k32.kn3.net/5C7060EC5.jpg`, type: `paint`},
+      {src: `http://i.imgur.com/DKR1HtB.jpg`, type: `photo`}
+    ]
+  },
+  {
+    type: `single`,
+    options: [
+      {src: `https://k42.kn3.net/D2F0370D6.jpg`, type: `painting`}
+    ]
+  },
+  {
+    type: `double`,
+    options: [
+      {src: `https://k42.kn3.net/CF42609C8.jpg`, type: `painting`},
+      {src: `http://i.imgur.com/1KegWPz.jpg`, type: `photo`}
+    ]
+  },
+  {
+    type: `triple`,
+    options: [
+      {src: `https://i.imgur.com/DiHM5Zb.jpg`, type: `photo`},
+      {src: `https://k32.kn3.net/5C7060EC5.jpg`, type: `painting`},
+      {src: `http://i.imgur.com/DKR1HtB.jpg`, type: `photo`}
+    ]
+  },
+  {
+    type: `single`,
+    options: [
+      {src: `https://k42.kn3.net/D2F0370D6.jpg`, type: `painting`}
+    ]
+  },
+];
 
 const DEFAULT_TIMER_VALUE = 30;
 const FAST_TIME = 10;
@@ -99,4 +161,6 @@ const addAnswer = (state, answer) => {
   return Object.freeze(Object.assign({}, state, {answers: Object.freeze([...state.answers, answer])}));
 };
 
-export {INITIAL_STATE, addQuestions, changeLevel, setNextLevel, hasNextLevel, isDead, decreaseLives, tickTimer, resetTimer, countPoints, addAnswer};
+const INITIAL_STATE_WITH_QUESTIONS = addQuestions(INITIAL_STATE, QUESTIONS);
+
+export {INITIAL_STATE, INITIAL_STATE_WITH_QUESTIONS, addQuestions, changeLevel, setNextLevel, hasNextLevel, isDead, decreaseLives, tickTimer, resetTimer, countPoints, addAnswer};

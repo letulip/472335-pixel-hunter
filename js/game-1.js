@@ -2,14 +2,13 @@ import {gameRender, statsRender} from './renderModule.js';
 import renderHeader from './header.js';
 import renderGreeting from './greeting.js';
 import renderGame2 from './game-2.js';
-import images from './sampleImages.js';
-import {INITIAL_STATE, addAnswer, resetTimer} from './state.js';
+import {INITIAL_STATE_WITH_QUESTIONS, addAnswer, resetTimer} from './state.js';
 
 const game1 = `
   <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
   <form class="game__content">
     <div class="game__option">
-      <img src="${images.paintings[0]}" alt="Option 1" width="468" height="458">
+      <img src="${INITIAL_STATE_WITH_QUESTIONS.questions[1].options[0].src}" alt="Option 1" width="468" height="458">
       <label class="game__answer game__answer--photo">
         <input class="visually-hidden" name="question1" type="radio" value="photo">
         <span>Фото</span>
@@ -20,7 +19,7 @@ const game1 = `
       </label>
     </div>
     <div class="game__option">
-      <img src="${images.photos[0]}" alt="Option 2" width="468" height="458">
+      <img src="${INITIAL_STATE_WITH_QUESTIONS.questions[1].options[1].src}" alt="Option 2" width="468" height="458">
       <label class="game__answer  game__answer--photo">
         <input class="visually-hidden" name="question2" type="radio" value="photo">
         <span>Фото</span>
@@ -47,18 +46,17 @@ const checkedCounter = (list, stateFromGame1) => {
   }
 };
 
-const renderGame1 = () => {
-  renderHeader(INITIAL_STATE);
+const renderGame1 = (question) => {
   gameRender(game1);
   const gameSection = document.querySelector(`.game`);
-  statsRender(gameSection, INITIAL_STATE.answers);
+  statsRender(gameSection, INITIAL_STATE_WITH_QUESTIONS.answers);
 
   const backButton = document.querySelector(`.back`);
   backButton.addEventListener(`click`, () => {
     renderGreeting();
   });
 
-  let newState = INITIAL_STATE;
+  let newState = INITIAL_STATE_WITH_QUESTIONS;
 
   const inputsList = document.querySelectorAll(`input`);
   inputsList.forEach((input) => {
