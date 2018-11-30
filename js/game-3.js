@@ -23,7 +23,7 @@ const game3 = `
 const renderGame3 = (stateFromGame2) => {
   renderHeader(stateFromGame2);
   gameRender(game3);
-  statsRender();
+  statsRender(stateFromGame2.answers);
 
   const backButton = document.querySelector(`.back`);
   backButton.addEventListener(`click`, () => {

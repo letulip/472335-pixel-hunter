@@ -3,7 +3,7 @@ import renderHeader from './header.js';
 import renderGreeting from './greeting.js';
 import renderGame2 from './game-2.js';
 import images from './sampleImages.js';
-import {INITIAL_STATE} from './state.js';
+import {INITIAL_STATE, addAnswer} from './state.js';
 
 const game1 = `
   <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
@@ -57,11 +57,20 @@ const renderGame1 = () => {
     renderGreeting();
   });
 
+  let newState = INITIAL_STATE;
+
   const inputsList = document.querySelectorAll(`input`);
   inputsList.forEach((input) => {
     input.addEventListener(`change`, () => {
       if (input.checked) {
-        checkedCounter(inputsList, INITIAL_STATE);
+        const answer = {
+          time: 20,
+          isCorrect: true
+        };
+        const tempState = addAnswer(newState, answer);
+        statsRender(tempState.answers);
+        checkedCounter(inputsList, tempState);
+        newState = tempState;
       }
     });
   });
