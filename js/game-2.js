@@ -3,7 +3,7 @@ import renderHeader from './header.js';
 import renderGreeting from './greeting.js';
 import renderGame3 from './game-3.js';
 import images from './sampleImages.js';
-import {addAnswer} from './state.js';
+import {addAnswer, resetTimer} from './state.js';
 
 const game2 = `
   <p class="game__task">Угадай, фото или рисунок?</p>
@@ -25,8 +25,10 @@ const game2 = `
 
 const renderGame2 = (stateFromGame1) => {
   renderHeader(stateFromGame1);
+  resetTimer(stateFromGame1);
   gameRender(game2);
-  statsRender(stateFromGame1.answers);
+  const gameSection = document.querySelector(`.game`);
+  statsRender(gameSection, stateFromGame1.answers);
 
   const backButton = document.querySelector(`.back`);
   backButton.addEventListener(`click`, () => {
@@ -38,12 +40,13 @@ const renderGame2 = (stateFromGame1) => {
   const inputsList = document.querySelectorAll(`input`);
   inputsList.forEach((input) => {
     input.addEventListener(`change`, () => {
+      const timer = document.querySelector(`.game__timer`);
       const answer = {
-        time: 20,
+        time: timer.textContent,
         isCorrect: true
       };
       const tempState = addAnswer(newState, answer);
-      statsRender(tempState.answers);
+      statsRender(gameSection, tempState.answers);
       renderGame3(tempState);
     });
   });

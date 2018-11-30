@@ -3,6 +3,7 @@ import renderHeader from './header.js';
 import renderGreeting from './greeting.js';
 import renderStats from './stats.js';
 import images from './sampleImages.js';
+import {addAnswer, resetTimer} from './state.js';
 
 const game3 = `
   <p class="game__task">Найдите рисунок среди изображений</p>
@@ -22,8 +23,10 @@ const game3 = `
 
 const renderGame3 = (stateFromGame2) => {
   renderHeader(stateFromGame2);
+  resetTimer(stateFromGame2);
   gameRender(game3);
-  statsRender(stateFromGame2.answers);
+  const gameSection = document.querySelector(`.game`);
+  statsRender(gameSection, stateFromGame2.answers);
 
   const backButton = document.querySelector(`.back`);
   backButton.addEventListener(`click`, () => {
@@ -33,7 +36,14 @@ const renderGame3 = (stateFromGame2) => {
   const gameOptionsList = document.querySelectorAll(`.game__option`);
   gameOptionsList.forEach((option) => {
     option.addEventListener(`click`, () => {
-      renderStats(stateFromGame2);
+      const timer = document.querySelector(`.game__timer`);
+      const answer = {
+        time: timer.textContent,
+        isCorrect: true
+      };
+      const tempState = addAnswer(stateFromGame2, answer);
+      statsRender(gameSection, tempState.answers);
+      renderStats(tempState);
     });
   });
 };

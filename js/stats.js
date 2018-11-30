@@ -1,5 +1,6 @@
-import {contentRender} from './renderModule.js';
+import {contentRender, statsRender} from './renderModule.js';
 import renderGreeting from './greeting.js';
+import {countPoints} from './state.js';
 
 const getWinStatus = (state) => {
   let winStatus = ``;
@@ -11,37 +12,21 @@ const getWinStatus = (state) => {
   return winStatus;
 };
 
-const renderStats = (stateFromGame3) => {
+const results = [];
 
-  const stats = `
-  <header class="header">
-    <button class="back">
-      <span class="visually-hidden">Вернуться к началу</span>
-      <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
-        <use xlink:href="img/sprite.svg#arrow-left"></use>
-      </svg>
-      <svg class="icon" width="101" height="44" viewBox="0 0 101 44" fill="#000000">
-        <use xlink:href="img/sprite.svg#logo-small"></use>
-      </svg>
-    </button>
-  </header>
-  <section class="result">
-    <h2 class="result__title">${getWinStatus(stateFromGame3)}</h2>
+const renderStats = (stateFromGame3) => {
+  results.push(stateFromGame3);
+  console.log(results);
+
+  const createResultTable = (number, resultElement) => {
+    const resultTable = document.createElement(`table`);
+    resultTable.classList.add(`result__table`);
+    let statsContent = `
     <table class="result__table">
       <tr>
-        <td class="result__number">1.</td>
+        <td class="result__number">${number + 1}.</td>
         <td colspan="2">
           <ul class="stats">
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--slow"></li>
-            <li class="stats__result stats__result--fast"></li>
-            <li class="stats__result stats__result--correct"></li>
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--unknown"></li>
-            <li class="stats__result stats__result--slow"></li>
-            <li class="stats__result stats__result--unknown"></li>
-            <li class="stats__result stats__result--fast"></li>
-            <li class="stats__result stats__result--unknown"></li>
           </ul>
         </td>
         <td class="result__points">× 100</td>
@@ -71,62 +56,39 @@ const renderStats = (stateFromGame3) => {
       <tr>
         <td colspan="5" class="result__total  result__total--final">950</td>
       </tr>
-    </table>
-    <table class="result__table">
-      <tr>
-        <td class="result__number">2.</td>
-        <td>
-          <ul class="stats">
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--slow"></li>
-            <li class="stats__result stats__result--fast"></li>
-            <li class="stats__result stats__result--correct"></li>
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--unknown"></li>
-            <li class="stats__result stats__result--slow"></li>
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--fast"></li>
-            <li class="stats__result stats__result--wrong"></li>
-          </ul>
-        </td>
-        <td class="result__total"></td>
-        <td class="result__total  result__total--final">fail</td>
-      </tr>
-    </table>
-    <table class="result__table">
-      <tr>
-        <td class="result__number">3.</td>
-        <td colspan="2">
-          <ul class="stats">
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--slow"></li>
-            <li class="stats__result stats__result--fast"></li>
-            <li class="stats__result stats__result--correct"></li>
-            <li class="stats__result stats__result--wrong"></li>
-            <li class="stats__result stats__result--unknown"></li>
-            <li class="stats__result stats__result--slow"></li>
-            <li class="stats__result stats__result--unknown"></li>
-            <li class="stats__result stats__result--fast"></li>
-            <li class="stats__result stats__result--unknown"></li>
-          </ul>
-        </td>
-        <td class="result__points">× 100</td>
-        <td class="result__total">900</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td class="result__extra">Бонус за жизни:</td>
-        <td class="result__extra">2 <span class="stats__result stats__result--alive"></span></td>
-        <td class="result__points">× 50</td>
-        <td class="result__total">100</td>
-      </tr>
-      <tr>
-        <td colspan="5" class="result__total  result__total--final">950</td>
-      </tr>
-    </table>
+    </table>`;
+    resultTable.innerHTML = statsContent;
+    statsRender(resultTable, resultElement.answers);
+    return resultTable;
+  };
+
+  const statsLayout = `
+  <header class="header">
+    <button class="back">
+      <span class="visually-hidden">Вернуться к началу</span>
+      <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
+        <use xlink:href="img/sprite.svg#arrow-left"></use>
+      </svg>
+      <svg class="icon" width="101" height="44" viewBox="0 0 101 44" fill="#000000">
+        <use xlink:href="img/sprite.svg#logo-small"></use>
+      </svg>
+    </button>
+  </header>
+  <section class="result">
+    <h2 class="result__title">${getWinStatus(stateFromGame3)}</h2>
   </section>`;
 
-  contentRender(stats);
+  contentRender(statsLayout);
+
+  const resultSection = document.querySelector(`.result`);
+  const previousResults = resultSection.querySelectorAll(`.result__table`);
+  previousResults.forEach((result) => {
+    resultSection.deleteElement(result);
+  });
+
+  for (let i = 0; i < results.length; i++) {
+    resultSection.appendChild(createResultTable(i, results[i]));
+  }
 
   const backButton = document.querySelector(`.back`);
   backButton.addEventListener(`click`, () => {
