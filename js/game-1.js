@@ -3,8 +3,7 @@ import renderHeader from './header.js';
 import renderGreeting from './greeting.js';
 import renderGame2 from './game-2.js';
 import images from './sampleImages.js';
-import {INITIAL_STATE} from './state.js';
-
+import {INITIAL_STATE, addAnswer, resetTimer} from './state.js';
 
 const game1 = `
   <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
@@ -51,19 +50,30 @@ const checkedCounter = (list, stateFromGame1) => {
 const renderGame1 = () => {
   renderHeader(INITIAL_STATE);
   gameRender(game1);
-  // debugger;
-  statsRender(INITIAL_STATE.answers);
+  const gameSection = document.querySelector(`.game`);
+  statsRender(gameSection, INITIAL_STATE.answers);
 
   const backButton = document.querySelector(`.back`);
   backButton.addEventListener(`click`, () => {
     renderGreeting();
   });
 
+  let newState = INITIAL_STATE;
+
   const inputsList = document.querySelectorAll(`input`);
   inputsList.forEach((input) => {
     input.addEventListener(`change`, () => {
       if (input.checked) {
-        checkedCounter(inputsList, INITIAL_STATE);
+        const timer = document.querySelector(`.game__timer`);
+        const answer = {
+          time: timer.textContent,
+          isCorrect: true
+        };
+        const tempState = addAnswer(newState, answer);
+        statsRender(gameSection, tempState.answers);
+        checkedCounter(inputsList, tempState);
+        newState = tempState;
+        resetTimer(newState);
       }
     });
   });
