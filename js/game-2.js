@@ -1,10 +1,10 @@
 import {gameRender, statsRender} from './renderModule.js';
 import renderHeader from './header.js';
 import renderGreeting from './greeting.js';
-import renderGame3 from './game-3.js';
-import {addAnswer, resetTimer} from './state.js';
+import renderStats from './stats.js';
+import {addAnswer, resetTimer, setNextLevel, hasNextLevel} from './state.js';
 
-const renderGame2 = (state) => {
+const renderGame2 = (state, cb) => {
 
   const game2 = `
     <p class="game__task">Угадай, фото или рисунок?</p>
@@ -46,7 +46,12 @@ const renderGame2 = (state) => {
       };
       const tempState = addAnswer(state, answer);
       statsRender(gameSection, tempState.answers);
-      // renderGame3(tempState);
+      // debugger;
+      if (hasNextLevel(tempState.level, tempState.questions)) {
+        cb(setNextLevel(tempState));
+      } else {
+        renderStats(tempState);
+      }
     });
   });
 };

@@ -1,6 +1,7 @@
 import {contentRender} from './renderModule.js';
 import renderGreeting from './greeting.js';
-import renderGame2 from './game-2.js';
+// import renderGame2 from './game-2.js';
+import renderGame from './game.js';
 import {INITIAL_STATE_WITH_QUESTIONS} from './state.js';
 
 const rules = `
@@ -47,7 +48,7 @@ const renderRules = () => {
     if (rulesInput.value) {
       goButton.removeAttribute(`disabled`);
       goButton.addEventListener(`click`, () => {
-        renderGame2(INITIAL_STATE_WITH_QUESTIONS);
+        renderGame(INITIAL_STATE_WITH_QUESTIONS);
       });
     } else {
       goButton.setAttribute(`disabled`, `true`);
