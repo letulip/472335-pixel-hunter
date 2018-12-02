@@ -1,8 +1,7 @@
 import {gameRender, statsRender} from './renderModule.js';
 import renderHeader from './header.js';
 import renderGreeting from './greeting.js';
-import renderStats from './stats.js';
-import {addAnswer, resetTimer, setNextLevel, hasNextLevel} from './state.js';
+import {addAnswer, resetTimer, setNextLevel} from './state.js';
 
 const renderGame2 = (state, cb) => {
 
@@ -10,7 +9,7 @@ const renderGame2 = (state, cb) => {
     <p class="game__task">Угадай, фото или рисунок?</p>
     <form class="game__content  game__content--wide">
       <div class="game__option">
-        <img src="${state.questions[0].options[0].src}" alt="Option 1" width="705" height="455">
+        <img src="${state.questions[state.level].options[0].src}" alt="Option 1" width="705" height="455">
         <label class="game__answer  game__answer--photo">
           <input class="visually-hidden" name="question1" type="radio" value="photo">
           <span>Фото</span>
@@ -47,11 +46,7 @@ const renderGame2 = (state, cb) => {
       const tempState = addAnswer(state, answer);
       statsRender(gameSection, tempState.answers);
       // debugger;
-      if (hasNextLevel(tempState.level, tempState.questions)) {
-        cb(setNextLevel(tempState));
-      } else {
-        renderStats(tempState);
-      }
+      cb(setNextLevel(tempState));
     });
   });
 };

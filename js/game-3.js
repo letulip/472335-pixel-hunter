@@ -1,8 +1,7 @@
 import {gameRender, statsRender} from './renderModule.js';
 import renderHeader from './header.js';
 import renderGreeting from './greeting.js';
-import renderStats from './stats.js';
-import {addAnswer, resetTimer, setNextLevel, hasNextLevel} from './state.js';
+import {addAnswer, resetTimer, setNextLevel} from './state.js';
 
 const renderGame3 = (state, cb) => {
 
@@ -10,13 +9,13 @@ const renderGame3 = (state, cb) => {
     <p class="game__task">Найдите рисунок среди изображений</p>
     <form class="game__content  game__content--triple">
       <div class="game__option">
-        <img src="${state.questions[2].options[0].src}" alt="Option 1" width="304" height="455">
+        <img src="${state.questions[state.level].options[0].src}" alt="Option 1" width="304" height="455">
       </div>
       <div class="game__option  game__option--selected">
-        <img src="${state.questions[2].options[1].src}" alt="Option 2" width="304" height="455">
+        <img src="${state.questions[state.level].options[1].src}" alt="Option 2" width="304" height="455">
       </div>
       <div class="game__option">
-        <img src="${state.questions[2].options[2].src}" alt="Option 3" width="304" height="455">
+        <img src="${state.questions[state.level].options[2].src}" alt="Option 3" width="304" height="455">
       </div>
     </form>
     <ul class="stats">
@@ -43,11 +42,7 @@ const renderGame3 = (state, cb) => {
       };
       const tempState = addAnswer(state, answer);
       statsRender(gameSection, tempState.answers);
-      if (hasNextLevel(tempState.level, tempState.questions)) {
-        cb(setNextLevel(tempState));
-      } else {
-        renderStats(tempState);
-      }
+      cb(setNextLevel(tempState));
     });
   });
 };

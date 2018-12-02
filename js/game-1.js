@@ -1,9 +1,7 @@
 import {gameRender, statsRender} from './renderModule.js';
 import renderHeader from './header.js';
 import renderGreeting from './greeting.js';
-// import renderGame2 from './game-2.js';
-import renderStats from './stats.js';
-import {addAnswer, resetTimer, setNextLevel, hasNextLevel} from './state.js';
+import {addAnswer, resetTimer, setNextLevel} from './state.js';
 
 const checkedCounter = (list, tempState, cb) => {
   let count = 0;
@@ -11,11 +9,7 @@ const checkedCounter = (list, tempState, cb) => {
     if (list[i].checked) {
       ++count;
       if (count === 2) {
-        if (hasNextLevel(tempState.level, tempState.questions)) {
-          cb(setNextLevel(tempState));
-        } else {
-          renderStats(tempState);
-        }
+        cb(setNextLevel(tempState));
       }
     }
   }
@@ -27,7 +21,7 @@ const renderGame1 = (state, cb) => {
     <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
     <form class="game__content">
       <div class="game__option">
-        <img src="${state.questions[1].options[0].src}" alt="Option 1" width="468" height="458">
+        <img src="${state.questions[state.level].options[0].src}" alt="Option 1" width="468" height="458">
         <label class="game__answer game__answer--photo">
           <input class="visually-hidden" name="question1" type="radio" value="photo">
           <span>Фото</span>
@@ -38,7 +32,7 @@ const renderGame1 = (state, cb) => {
         </label>
       </div>
       <div class="game__option">
-        <img src="${state.questions[1].options[1].src}" alt="Option 2" width="468" height="458">
+        <img src="${state.questions[state.level].options[1].src}" alt="Option 2" width="468" height="458">
         <label class="game__answer  game__answer--photo">
           <input class="visually-hidden" name="question2" type="radio" value="photo">
           <span>Фото</span>
