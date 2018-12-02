@@ -33,16 +33,22 @@ const renderGame3 = (state, cb) => {
   });
 
   const gameOptionsList = document.querySelectorAll(`.game__option`);
-  gameOptionsList.forEach((option) => {
+  gameOptionsList.forEach((option, number) => {
     option.addEventListener(`click`, () => {
       const timer = document.querySelector(`.game__timer`);
-      const answer = {
-        time: timer.textContent,
-        isCorrect: true
-      };
-      const tempState = addAnswer(state, answer);
-      statsRender(gameSection, tempState.answers);
-      cb(setNextLevel(tempState));
+      let answer = {};
+      if (number === 1) {
+        answer = {
+          time: timer.textContent,
+          isCorrect: true
+        };
+      } else {
+        answer = {
+          time: timer.textContent,
+          isCorrect: false
+        };
+      }
+      cb(setNextLevel(addAnswer(state, answer)));
     });
   });
 };
