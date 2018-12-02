@@ -4,7 +4,7 @@ import {countPoints} from './state.js';
 
 const getWinStatus = (state) => {
   let winStatus = ``;
-  if (state.answers === 10) {
+  if (state.answers.length === 10) {
     winStatus = `Победа!`;
   } else {
     winStatus = `Не в этот раз, попробуй еще!`;
@@ -14,10 +14,15 @@ const getWinStatus = (state) => {
 
 const results = [];
 
-const renderTotalStats = (stateFromGame3) => {
-  results.push(stateFromGame3);
+const renderTotalStats = (state) => {
+  results.push(state);
 
   const createResultTable = (number, resultElement) => {
+    const TOTAL_POINTS = countPoints(resultElement.answers, resultElement.lives);
+    const BONUS_POINTS = 50;
+    const COMMON_POINTS = 100;
+    const TOTAL_LIVES = resultElement.lives < 0 ? 0 : resultElement.lives;
+
     const resultTable = document.createElement(`table`);
     resultTable.classList.add(`result__table`);
     let statsContent = `
@@ -29,31 +34,31 @@ const renderTotalStats = (stateFromGame3) => {
           </ul>
         </td>
         <td class="result__points">× 100</td>
-        <td class="result__total">900</td>
+        <td class="result__total">${TOTAL_POINTS.correctAnswers * COMMON_POINTS}</td>
       </tr>
       <tr>
         <td></td>
         <td class="result__extra">Бонус за скорость:</td>
-        <td class="result__extra">1 <span class="stats__result stats__result--fast"></span></td>
+        <td class="result__extra">${TOTAL_POINTS.fastAnswers} <span class="stats__result stats__result--fast"></span></td>
         <td class="result__points">× 50</td>
-        <td class="result__total">50</td>
+        <td class="result__total">${TOTAL_POINTS.fastAnswers * BONUS_POINTS}</td>
       </tr>
       <tr>
         <td></td>
         <td class="result__extra">Бонус за жизни:</td>
-        <td class="result__extra">2 <span class="stats__result stats__result--alive"></span></td>
+        <td class="result__extra">${TOTAL_LIVES} <span class="stats__result stats__result--alive"></span></td>
         <td class="result__points">× 50</td>
-        <td class="result__total">100</td>
+        <td class="result__total">${TOTAL_LIVES * BONUS_POINTS}</td>
       </tr>
       <tr>
         <td></td>
         <td class="result__extra">Штраф за медлительность:</td>
-        <td class="result__extra">2 <span class="stats__result stats__result--slow"></span></td>
+        <td class="result__extra">${TOTAL_POINTS.slowAnswers} <span class="stats__result stats__result--slow"></span></td>
         <td class="result__points">× 50</td>
-        <td class="result__total">-100</td>
+        <td class="result__total">-${TOTAL_POINTS.slowAnswers * BONUS_POINTS}</td>
       </tr>
       <tr>
-        <td colspan="5" class="result__total  result__total--final">950</td>
+        <td colspan="5" class="result__total  result__total--final">${TOTAL_POINTS.points}</td>
       </tr>
     </table>`;
     resultTable.innerHTML = statsContent;
@@ -74,7 +79,7 @@ const renderTotalStats = (stateFromGame3) => {
     </button>
   </header>
   <section class="result">
-    <h2 class="result__title">${getWinStatus(stateFromGame3)}</h2>
+    <h2 class="result__title">${getWinStatus(state)}</h2>
   </section>`;
 
   contentRender(statsLayout);

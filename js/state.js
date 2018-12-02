@@ -81,11 +81,10 @@ const QUESTIONS = [
 ];
 
 const DEFAULT_TIMER_VALUE = 30;
-const FAST_TIME = 10;
-const SLOW_TIME = 20;
-const FAST_POINTS = 150;
+const FAST_TIME = 20;
+const SLOW_TIME = 10;
+const BONUS_POINTS = 50;
 const COMMON_POINTS = 100;
-const SLOW_POINTS = 50;
 const LIVE_POINTS = 50;
 
 const addQuestions = (state, questions) => {
@@ -118,7 +117,7 @@ const hasNextLevel = (level, questions) => {
 };
 
 const isDead = (lives) => {
-  return !(lives >= 0);
+  return (lives < 0);
 };
 
 const decreaseLives = (state) => {
@@ -135,26 +134,34 @@ const resetTimer = (state) => {
   }));
 };
 
-const countPoints = (state) => {
-  if (state.lives >= 0 && state.answers.length >= 10) {
-    let points = 0;
-    state.answers.forEach((answer) => {
+const countPoints = (answers, lives) => {
+  const TOTAL_POINTS = {
+    points: 0,
+    correctAnswers: 0,
+    fastAnswers: 0,
+    slowAnswers: 0
+  };
+  if (lives >= 0 && answers.length >= 10) {
+    answers.forEach((answer) => {
       if (answer.isCorrect) {
-        if (answer.time <= FAST_TIME) {
-          points += FAST_POINTS;
+        TOTAL_POINTS.correctAnswers += 1;
+        TOTAL_POINTS.points += COMMON_POINTS;
+        if (answer.time >= FAST_TIME) {
+          TOTAL_POINTS.points += BONUS_POINTS;
+          TOTAL_POINTS.fastAnswers += 1;
         }
-        if (answer.time > SLOW_TIME) {
-          points += SLOW_POINTS;
-        }
-        if (answer.time <= SLOW_TIME && answer.time > FAST_TIME) {
-          points += COMMON_POINTS;
+        if (answer.time < SLOW_TIME) {
+          TOTAL_POINTS.points -= BONUS_POINTS;
+          TOTAL_POINTS.slowAnswers += 1;
         }
       }
     });
+    TOTAL_POINTS.points += lives * LIVE_POINTS;
 
-    return points + (state.lives * LIVE_POINTS);
+    return TOTAL_POINTS;
+  } else {
+    return TOTAL_POINTS;
   }
-  return -1;
 };
 
 const addAnswer = (state, answer) => {

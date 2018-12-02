@@ -155,8 +155,8 @@ describe(`Check answer change`, () => {
 
 describe(`Check count points`, () => {
   it(`should count points properly`, () => {
-    assert.equal(countPoints(FINAL_STATE_TRUE), 1150);
-    assert.equal(countPoints(FINAL_STATE_TRUE_2), 1050);
+    assert.equal(countPoints(FINAL_STATE_TRUE).points, 1150);
+    assert.equal(countPoints(FINAL_STATE_TRUE_2).points, 1050);
   });
   it(`should return -1 if got less then 10 answers or less then 0 lives`, () => {
     assert.equal(countPoints(FINAL_STATE_FALSE), -1);
