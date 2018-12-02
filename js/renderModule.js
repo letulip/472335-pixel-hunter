@@ -2,12 +2,12 @@ const mainElement = document.querySelector(`#main`);
 
 const contentRender = (strToRender) => {
   mainElement.innerHTML = strToRender;
-  // debugger;
 };
 
-const gameRender = (strToRender) => {
+const gameRender = (strToRender, state) => {
   const game = document.querySelector(`.game`);
   game.innerHTML = strToRender;
+  statsRender(game, state.answers);
 };
 
 const statsRender = (section, answers) => {

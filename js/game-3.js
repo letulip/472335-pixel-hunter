@@ -1,7 +1,5 @@
-import {gameRender, statsRender} from './renderModule.js';
-import renderHeader from './header.js';
-import renderGreeting from './greeting.js';
-import {addAnswer, resetTimer, setNextLevel} from './state.js';
+import {gameRender} from './renderModule.js';
+import {addAnswer, setNextLevel} from './state.js';
 
 const renderGame3 = (state, cb) => {
 
@@ -21,16 +19,7 @@ const renderGame3 = (state, cb) => {
     <ul class="stats">
     </ul>`;
 
-  renderHeader(state);
-  resetTimer(state);
-  gameRender(game3);
-  const gameSection = document.querySelector(`.game`);
-  statsRender(gameSection, state.answers);
-
-  const backButton = document.querySelector(`.back`);
-  backButton.addEventListener(`click`, () => {
-    renderGreeting();
-  });
+  gameRender(game3, state);
 
   const gameOptionsList = document.querySelectorAll(`.game__option`);
   gameOptionsList.forEach((option, number) => {

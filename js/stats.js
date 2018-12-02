@@ -4,7 +4,7 @@ import {countPoints} from './state.js';
 
 const getWinStatus = (state) => {
   let winStatus = ``;
-  if (state.correctAnswers === 10) {
+  if (state.answers === 10) {
     winStatus = `Победа!`;
   } else {
     winStatus = `Не в этот раз, попробуй еще!`;
@@ -14,9 +14,8 @@ const getWinStatus = (state) => {
 
 const results = [];
 
-const renderStats = (stateFromGame3) => {
+const renderTotalStats = (stateFromGame3) => {
   results.push(stateFromGame3);
-  console.log(results);
 
   const createResultTable = (number, resultElement) => {
     const resultTable = document.createElement(`table`);
@@ -96,4 +95,4 @@ const renderStats = (stateFromGame3) => {
   });
 };
 
-export default renderStats;
+export default renderTotalStats;

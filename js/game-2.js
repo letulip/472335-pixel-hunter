@@ -1,7 +1,5 @@
-import {gameRender, statsRender} from './renderModule.js';
-import renderHeader from './header.js';
-import renderGreeting from './greeting.js';
-import {addAnswer, resetTimer, setNextLevel} from './state.js';
+import {gameRender} from './renderModule.js';
+import {addAnswer, setNextLevel} from './state.js';
 
 const renderGame2 = (state, cb) => {
 
@@ -23,16 +21,7 @@ const renderGame2 = (state, cb) => {
     <ul class="stats">
     </ul>`;
 
-  renderHeader(state);
-  resetTimer(state);
-  gameRender(game2);
-  const gameSection = document.querySelector(`.game`);
-  statsRender(gameSection, state.answers);
-
-  const backButton = document.querySelector(`.back`);
-  backButton.addEventListener(`click`, () => {
-    renderGreeting();
-  });
+  gameRender(game2, state);
 
   const inputsList = document.querySelectorAll(`input`);
   inputsList.forEach((input) => {
@@ -42,10 +31,7 @@ const renderGame2 = (state, cb) => {
         time: timer.textContent,
         isCorrect: (input.value === state.questions[state.level].options[0].type)
       };
-      const tempState = addAnswer(state, answer);
-      statsRender(gameSection, tempState.answers);
-      // debugger;
-      cb(setNextLevel(tempState));
+      cb(setNextLevel(addAnswer(state, answer)));
     });
   });
 };

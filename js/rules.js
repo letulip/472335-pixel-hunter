@@ -1,6 +1,5 @@
 import {contentRender} from './renderModule.js';
 import renderGreeting from './greeting.js';
-// import renderGame2 from './game-2.js';
 import renderGame from './game.js';
 import {INITIAL_STATE_WITH_QUESTIONS} from './state.js';
 
