@@ -1,5 +1,5 @@
 import {gameRender} from './renderModule.js';
-import {addAnswer, setNextLevel} from './state.js';
+import {addAnswer, setNextLevel, decreaseLives} from './state.js';
 
 const renderGame3 = (state, cb) => {
 
@@ -31,13 +31,14 @@ const renderGame3 = (state, cb) => {
           time: timer.textContent,
           isCorrect: true
         };
+        cb(setNextLevel(addAnswer(state, answer)));
       } else {
         answer = {
           time: timer.textContent,
           isCorrect: false
         };
+        cb(setNextLevel(decreaseLives(addAnswer(state, answer))));
       }
-      cb(setNextLevel(addAnswer(state, answer)));
     });
   });
 };

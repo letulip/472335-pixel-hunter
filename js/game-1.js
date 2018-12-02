@@ -1,5 +1,5 @@
 import {gameRender} from './renderModule.js';
-import {addAnswer, setNextLevel} from './state.js';
+import {addAnswer, setNextLevel, decreaseLives} from './state.js';
 
 const checkedCounter = (list, state, answers, cb) => {
   let count = 0;
@@ -22,7 +22,7 @@ const checkedCounter = (list, state, answers, cb) => {
             time: totalTime,
             isCorrect: false
           };
-          tempState = addAnswer(state, totalAnswer);
+          tempState = decreaseLives(addAnswer(state, totalAnswer));
         }
         cb(setNextLevel(tempState));
       }
