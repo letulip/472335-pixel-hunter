@@ -3,12 +3,29 @@ import renderHeader from './header.js';
 import renderGreeting from './greeting.js';
 import {addAnswer, resetTimer, setNextLevel} from './state.js';
 
-const checkedCounter = (list, tempState, cb) => {
+const checkedCounter = (list, state, answers, cb) => {
   let count = 0;
+  let tempState = {};
   for (let i = 0; i < list.length; i++) {
     if (list[i].checked) {
       ++count;
       if (count === 2) {
+        const lastAnswer = answers.pop();
+        const prelastAnswer = answers.pop();
+        const totalTime = lastAnswer.time + prelastAnswer.time;
+        if (lastAnswer.isCorrect === true && prelastAnswer.isCorrect === true) {
+          const totalAnswer = {
+            time: totalTime,
+            isCorrect: true
+          };
+          tempState = addAnswer(state, totalAnswer);
+        } else {
+          const totalAnswer = {
+            time: totalTime,
+            isCorrect: false
+          };
+          tempState = addAnswer(state, totalAnswer);
+        }
         cb(setNextLevel(tempState));
       }
     }
@@ -57,18 +74,20 @@ const renderGame1 = (state, cb) => {
     renderGreeting();
   });
 
+  const answers = [];
+
   const inputsList = document.querySelectorAll(`input`);
   inputsList.forEach((input) => {
     input.addEventListener(`change`, () => {
       if (input.checked) {
         const timer = document.querySelector(`.game__timer`);
+        const inputNumber = Array.from(input.name).pop() - 1;
         const answer = {
           time: timer.textContent,
-          isCorrect: true
+          isCorrect: (input.value === state.questions[state.level].options[inputNumber].type)
         };
-        const tempState = addAnswer(state, answer);
-        statsRender(gameSection, tempState.answers);
-        checkedCounter(inputsList, tempState, cb);
+        answers.push(answer);
+        checkedCounter(inputsList, state, answers, cb);
       }
     });
   });

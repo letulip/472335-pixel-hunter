@@ -38,10 +38,9 @@ const renderGame2 = (state, cb) => {
   inputsList.forEach((input) => {
     input.addEventListener(`change`, () => {
       const timer = document.querySelector(`.game__timer`);
-      const answerValue = (input.value === state.questions[0].options[0].type);
       const answer = {
         time: timer.textContent,
-        isCorrect: answerValue
+        isCorrect: (input.value === state.questions[state.level].options[0].type)
       };
       const tempState = addAnswer(state, answer);
       statsRender(gameSection, tempState.answers);
