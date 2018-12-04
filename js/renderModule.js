@@ -9,6 +9,13 @@ const gameRender = (elementToRender) => {
   mainElement.replaceChild(elementToRender, game);
 };
 
+const createLayoutElement = (tag, content, classList) => {
+  const gameLayoutElement = document.createElement(tag);
+  gameLayoutElement.classList.add(classList);
+  gameLayoutElement.innerHTML = content;
+  return gameLayoutElement;
+};
+
 const statsRender = (answers, element) => {
   let statsLayout = ``;
   const DEFAULT_ANSWERS_COUNT = 10;
@@ -38,4 +45,4 @@ const statsRender = (answers, element) => {
   stats.innerHTML = statsLayout;
 };
 
-export {contentRender, gameRender, statsRender};
+export {contentRender, gameRender, statsRender, createLayoutElement};
