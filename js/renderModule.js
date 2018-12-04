@@ -4,13 +4,12 @@ const contentRender = (strToRender) => {
   mainElement.innerHTML = strToRender;
 };
 
-const gameRender = (strToRender, state) => {
-  const game = document.querySelector(`.game`);
-  game.innerHTML = strToRender;
-  statsRender(game, state.answers);
+const gameRender = (elementToRender) => {
+  const game = mainElement.querySelector(`.game`);
+  mainElement.replaceChild(elementToRender, game);
 };
 
-const statsRender = (section, answers) => {
+const statsRender = (answers, element) => {
   let statsLayout = ``;
   const DEFAULT_ANSWERS_COUNT = 10;
   const FAST_TIME = 20;
@@ -32,7 +31,10 @@ const statsRender = (section, answers) => {
       statsLayout += `<li class="stats__result stats__result--correct"></li>`;
     }
   }
-  const stats = section.querySelector(`.stats`);
+  let stats = mainElement.querySelector(`.stats`);
+  if (element) {
+    stats = element.querySelector(`.stats`);
+  }
   stats.innerHTML = statsLayout;
 };
 

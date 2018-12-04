@@ -11,7 +11,7 @@ const checkedCounter = (list, state, answers, cb) => {
         const lastAnswer = answers.pop();
         const prelastAnswer = answers.pop();
         const totalTime = lastAnswer.time + prelastAnswer.time;
-        if (lastAnswer.isCorrect === true && prelastAnswer.isCorrect === true) {
+        if (lastAnswer.isCorrect && prelastAnswer.isCorrect) {
           const totalAnswer = {
             time: totalTime,
             isCorrect: true
@@ -30,47 +30,28 @@ const checkedCounter = (list, state, answers, cb) => {
   }
 };
 
-const renderGame1 = (state, cb) => {
+const renderGame1 = (state, gameOptions, cb) => {
+  const gameLayoutElement = document.createElement(`section`);
+  gameLayoutElement.classList.add(`game`);
 
   const game1 = `
     <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
     <form class="game__content">
-      <div class="game__option">
-        <img src="${state.questions[state.level].options[0].src}" alt="Option 1" width="468" height="458">
-        <label class="game__answer game__answer--photo">
-          <input class="visually-hidden" name="question1" type="radio" value="photo">
-          <span>Фото</span>
-        </label>
-        <label class="game__answer game__answer--paint">
-          <input class="visually-hidden" name="question1" type="radio" value="paint">
-          <span>Рисунок</span>
-        </label>
-      </div>
-      <div class="game__option">
-        <img src="${state.questions[state.level].options[1].src}" alt="Option 2" width="468" height="458">
-        <label class="game__answer  game__answer--photo">
-          <input class="visually-hidden" name="question2" type="radio" value="photo">
-          <span>Фото</span>
-        </label>
-        <label class="game__answer  game__answer--paint">
-          <input class="visually-hidden" name="question2" type="radio" value="paint">
-          <span>Рисунок</span>
-        </label>
-      </div>
+      ${gameOptions}
     </form>
     <ul class="stats">
     </ul>`;
 
-  gameRender(game1, state);
+  gameLayoutElement.innerHTML = game1;
 
   const answers = [];
 
-  const inputsList = document.querySelectorAll(`input`);
+  const inputsList = gameLayoutElement.querySelectorAll(`input`);
   inputsList.forEach((input) => {
     input.addEventListener(`change`, () => {
       if (input.checked) {
         const timer = document.querySelector(`.game__timer`);
-        const inputNumber = Array.from(input.name).pop() - 1;
+        const inputNumber = Array.from(input.name).pop();
         const answer = {
           time: timer.textContent,
           isCorrect: (input.value === state.questions[state.level].options[inputNumber].type)
@@ -80,6 +61,8 @@ const renderGame1 = (state, cb) => {
       }
     });
   });
+
+  gameRender(gameLayoutElement, state);
 };
 
 export default renderGame1;

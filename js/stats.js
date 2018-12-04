@@ -62,7 +62,7 @@ const renderTotalStats = (state) => {
       </tr>
     </table>`;
     resultTable.innerHTML = statsContent;
-    statsRender(resultTable, resultElement.answers);
+    statsRender(resultElement.answers, resultTable);
     return resultTable;
   };
 

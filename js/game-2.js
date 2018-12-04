@@ -1,29 +1,21 @@
 import {gameRender} from './renderModule.js';
 import {addAnswer, setNextLevel, decreaseLives} from './state.js';
 
-const renderGame2 = (state, cb) => {
+const renderGame2 = (state, gameOptions, cb) => {
+  const gameLayoutElement = document.createElement(`section`);
+  gameLayoutElement.classList.add(`game`);
 
   const game2 = `
     <p class="game__task">Угадай, фото или рисунок?</p>
     <form class="game__content  game__content--wide">
-      <div class="game__option">
-        <img src="${state.questions[state.level].options[0].src}" alt="Option 1" width="705" height="455">
-        <label class="game__answer  game__answer--photo">
-          <input class="visually-hidden" name="question1" type="radio" value="photo">
-          <span>Фото</span>
-        </label>
-        <label class="game__answer  game__answer--paint">
-          <input class="visually-hidden" name="question1" type="radio" value="paint">
-          <span>Рисунок</span>
-        </label>
-      </div>
+      ${gameOptions}
     </form>
     <ul class="stats">
     </ul>`;
 
-  gameRender(game2, state);
+  gameLayoutElement.innerHTML = game2;
 
-  const inputsList = document.querySelectorAll(`input`);
+  const inputsList = gameLayoutElement.querySelectorAll(`input`);
   inputsList.forEach((input) => {
     input.addEventListener(`change`, () => {
       const timer = document.querySelector(`.game__timer`);
@@ -38,6 +30,8 @@ const renderGame2 = (state, cb) => {
       }
     });
   });
+
+  gameRender(gameLayoutElement, state);
 };
 
 export default renderGame2;
