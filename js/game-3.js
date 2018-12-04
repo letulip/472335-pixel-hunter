@@ -1,42 +1,47 @@
-import {gameRender} from './renderModule.js';
-import {addAnswer, setNextLevel, decreaseLives} from './state.js';
+import {gameRender, createLayoutElement} from './renderModule.js';
 
-const renderGame3 = (state, gameOptions, cb) => {
-  const gameLayoutElement = document.createElement(`section`);
-  gameLayoutElement.classList.add(`game`);
-
+const renderGame3 = (options, cb) => {
   const game3 = `
     <p class="game__task">Найдите рисунок среди изображений</p>
     <form class="game__content  game__content--triple">
-      ${gameOptions}
     </form>
     <ul class="stats">
     </ul>`;
 
-  gameLayoutElement.innerHTML = game3;
+  const gameLayoutElement = createLayoutElement(`section`, game3, [`game`]);
+  const gameContent = gameLayoutElement.querySelector(`.game__content`);
 
-  const gameOptionsList = gameLayoutElement.querySelectorAll(`.game__option`);
-  gameOptionsList.forEach((option, number) => {
+  options.forEach((option, index) => {
+    const gameOptionLayout = `
+      <img src="${option.src}" alt="Option ${index}" width="304" height="455">`;
+    const gameOption = createLayoutElement(`div`, gameOptionLayout, [`game__option`]);
+
+    gameContent.append(gameOption);
+  });
+
+  // event listener:
+  const gameOptionsList = gameContent.querySelectorAll(`.game__option`);
+  gameOptionsList.forEach((option, index) => {
     option.addEventListener(`click`, () => {
       const timer = document.querySelector(`.game__timer`);
       let answer = {};
-      if (number === 1) {
+      if (index === 1) {
         answer = {
           time: timer.textContent,
           isCorrect: true
         };
-        cb(setNextLevel(addAnswer(state, answer)));
+        cb(answer);
       } else {
         answer = {
           time: timer.textContent,
           isCorrect: false
         };
-        cb(setNextLevel(decreaseLives(addAnswer(state, answer))));
+        cb(answer);
       }
     });
   });
 
-  gameRender(gameLayoutElement, state);
+  gameRender(gameLayoutElement);
 };
 
 export default renderGame3;

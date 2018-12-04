@@ -1,5 +1,4 @@
 import {gameRender, createLayoutElement} from './renderModule.js';
-// import {addAnswer, setNextLevel, decreaseLives} from './state.js';
 
 const renderGame2 = (options, cb) => {
   const game2 = `

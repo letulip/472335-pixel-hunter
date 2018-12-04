@@ -1,5 +1,4 @@
 import {gameRender, createLayoutElement} from './renderModule.js';
-// import {addAnswer, setNextLevel, decreaseLives} from './state.js';
 
 const renderGame1 = (options, cb) => {
   const game1 = `
@@ -28,9 +27,10 @@ const renderGame1 = (options, cb) => {
     const gameOption = createLayoutElement(`div`, gameOptionLayout, [`game__option`]);
 
     // event listener:
-    gameOption.addEventListener(`click`, () => {
+    gameOption.addEventListener(`change`, () => {
       const inputsList = gameContent.querySelectorAll(`input:checked`);
       if (inputsList.length === 2) {
+        debugger;
         const timer = document.querySelector(`.game__timer`);
         const isCorrect = Array.prototype.every.call(inputsList, (inputElement) => {
           return inputElement.value === option.type;
