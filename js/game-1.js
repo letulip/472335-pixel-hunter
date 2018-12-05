@@ -28,9 +28,10 @@ const renderGame1 = (question, cb) => {
     gameOption.addEventListener(`click`, () => {
       const inputList = gameContent.querySelectorAll(`input:checked`);
       if (inputList.length === 2) {
-        cb(Array.prototype.every.call(inputList, (inputElement, inputIndex) => {
+        const isCorrect = Array.prototype.every.call(inputList, (inputElement, inputIndex) => {
           return inputElement.value === question.options[inputIndex].type;
-        }));
+        });
+        cb(isCorrect);
       }
     });
 
