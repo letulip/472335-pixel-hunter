@@ -1,66 +1,49 @@
-import pageRender from './renderModule.js';
-import renderGreeting from './greeting.js';
-import renderStats from './stats.js';
+import {gameRender, createLayoutElement} from './renderModule.js';
 
-const game3 = `
-<header class="header">
-  <button class="back">
-    <span class="visually-hidden">Вернуться к началу</span>
-    <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
-      <use xlink:href="img/sprite.svg#arrow-left"></use>
-    </svg>
-    <svg class="icon" width="101" height="44" viewBox="0 0 101 44" fill="#000000">
-      <use xlink:href="img/sprite.svg#logo-small"></use>
-    </svg>
-  </button>
-  <div class="game__timer">NN</div>
-  <div class="game__lives">
-    <img src="img/heart__empty.svg" class="game__heart" alt="Life" width="31" height="27">
-    <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
-    <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
-  </div>
-</header>
-<section class="game">
-  <p class="game__task">Найдите рисунок среди изображений</p>
-  <form class="game__content  game__content--triple">
-    <div class="game__option">
-      <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
-    </div>
-    <div class="game__option  game__option--selected">
-      <img src="http://placehold.it/304x455" alt="Option 2" width="304" height="455">
-    </div>
-    <div class="game__option">
-      <img src="http://placehold.it/304x455" alt="Option 3" width="304" height="455">
-    </div>
-  </form>
-  <ul class="stats">
-    <li class="stats__result stats__result--wrong"></li>
-    <li class="stats__result stats__result--slow"></li>
-    <li class="stats__result stats__result--fast"></li>
-    <li class="stats__result stats__result--correct"></li>
-    <li class="stats__result stats__result--wrong"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--slow"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--fast"></li>
-    <li class="stats__result stats__result--unknown"></li>
-  </ul>
-</section>`;
+const renderGame3 = (question, cb) => {
+  const game3 = `
+    <p class="game__task">${question.title}</p>
+    <form class="game__content  game__content--triple">
+    </form>
+    <ul class="stats">
+    </ul>`;
 
-const renderGame3 = () => {
-  pageRender(game3);
+  const gameLayoutElement = createLayoutElement(`section`, game3, [`game`]);
+  const gameContent = gameLayoutElement.querySelector(`.game__content`);
 
-  const backButton = document.querySelector(`.back`);
-  backButton.addEventListener(`click`, () => {
-    renderGreeting();
+  let paintCount = 0;
+  let photoCount = 0;
+  let questionType = ``;
+
+  question.options.forEach((option, index) => {
+    const gameOptionLayout = `
+      <img src="${option.src}" alt="Option ${index}" width="304" height="455">`;
+    const gameOption = createLayoutElement(`div`, gameOptionLayout, [`game__option`]);
+
+    if (option.type === `paint`) {
+      ++paintCount;
+    } else {
+      ++photoCount;
+    }
+
+    gameContent.append(gameOption);
   });
 
-  const gameOptionsList = document.querySelectorAll(`.game__option`);
-  gameOptionsList.forEach((option) => {
-    option.addEventListener(`click`, () => {
-      renderStats();
+  if (paintCount > photoCount) {
+    questionType = `photo`;
+  } else {
+    questionType = `paint`;
+  }
+
+  // event listener:
+  const gameOptionsList = gameContent.querySelectorAll(`.game__option`);
+  gameOptionsList.forEach((optionElement, index) => {
+    optionElement.addEventListener(`click`, () => {
+      cb(question.options[index].type === questionType);
     });
   });
+
+  gameRender(gameLayoutElement);
 };
 
 export default renderGame3;

@@ -8,12 +8,93 @@ const INITIAL_STATE = Object.freeze({
   userName: ``
 });
 
+const QUESTIONS = [
+  {
+    title: `Угадай, фото или рисунок?`,
+    type: `single`,
+    options: [
+      {src: `https://k42.kn3.net/D2F0370D6.jpg`, type: `paint`}
+    ]
+  },
+  {
+    title: `Угадайте для каждого изображения фото или рисунок?`,
+    type: `double`,
+    options: [
+      {src: `https://k42.kn3.net/CF42609C8.jpg`, type: `paint`},
+      {src: `http://i.imgur.com/1KegWPz.jpg`, type: `photo`}
+    ]
+  },
+  {
+    title: ``,
+    type: `triple`,
+    options: [
+      {src: `https://i.imgur.com/DiHM5Zb.jpg`, type: `photo`},
+      {src: `https://k32.kn3.net/5C7060EC5.jpg`, type: `paint`},
+      {src: `http://i.imgur.com/DKR1HtB.jpg`, type: `photo`}
+    ]
+  },
+  {
+    title: `Угадай, фото или рисунок?`,
+    type: `single`,
+    options: [
+      {src: `https://k42.kn3.net/D2F0370D6.jpg`, type: `paint`}
+    ]
+  },
+  {
+    title: `Угадайте для каждого изображения фото или рисунок?`,
+    type: `double`,
+    options: [
+      {src: `https://k42.kn3.net/CF42609C8.jpg`, type: `paint`},
+      {src: `http://i.imgur.com/1KegWPz.jpg`, type: `photo`}
+    ]
+  },
+  {
+    title: ``,
+    type: `triple`,
+    options: [
+      {src: `https://i.imgur.com/DiHM5Zb.jpg`, type: `photo`},
+      {src: `https://k32.kn3.net/5C7060EC5.jpg`, type: `paint`},
+      {src: `http://i.imgur.com/DKR1HtB.jpg`, type: `photo`}
+    ]
+  },
+  {
+    title: `Угадай, фото или рисунок?`,
+    type: `single`,
+    options: [
+      {src: `https://k42.kn3.net/D2F0370D6.jpg`, type: `paint`}
+    ]
+  },
+  {
+    title: `Угадайте для каждого изображения фото или рисунок?`,
+    type: `double`,
+    options: [
+      {src: `https://k42.kn3.net/CF42609C8.jpg`, type: `paint`},
+      {src: `http://i.imgur.com/1KegWPz.jpg`, type: `photo`}
+    ]
+  },
+  {
+    title: ``,
+    type: `triple`,
+    options: [
+      {src: `https://i.imgur.com/DiHM5Zb.jpg`, type: `photo`},
+      {src: `https://k32.kn3.net/5C7060EC5.jpg`, type: `paint`},
+      {src: `http://i.imgur.com/DKR1HtB.jpg`, type: `photo`}
+    ]
+  },
+  {
+    title: `Угадай, фото или рисунок?`,
+    type: `single`,
+    options: [
+      {src: `https://k42.kn3.net/D2F0370D6.jpg`, type: `paint`}
+    ]
+  },
+];
+
 const DEFAULT_TIMER_VALUE = 30;
-const FAST_TIME = 10;
-const SLOW_TIME = 20;
-const FAST_POINTS = 150;
+const FAST_TIME = 20;
+const SLOW_TIME = 10;
+const BONUS_POINTS = 50;
 const COMMON_POINTS = 100;
-const SLOW_POINTS = 50;
 const LIVE_POINTS = 50;
 
 const addQuestions = (state, questions) => {
@@ -46,7 +127,7 @@ const hasNextLevel = (level, questions) => {
 };
 
 const isDead = (lives) => {
-  return !(lives >= 0);
+  return (lives < 0);
 };
 
 const decreaseLives = (state) => {
@@ -63,30 +144,40 @@ const resetTimer = (state) => {
   }));
 };
 
-const countPoints = (state) => {
-  if (state.lives >= 0 && state.answers.length >= 10) {
-    let points = 0;
-    state.answers.forEach((answer) => {
+const countPoints = (answers, lives) => {
+  const totalPoints = {
+    points: 0,
+    correctAnswers: 0,
+    fastAnswers: 0,
+    slowAnswers: 0
+  };
+  if (lives >= 0 && answers.length >= 10) {
+    answers.forEach((answer) => {
       if (answer.isCorrect) {
-        if (answer.time <= FAST_TIME) {
-          points += FAST_POINTS;
+        totalPoints.correctAnswers += 1;
+        totalPoints.points += COMMON_POINTS;
+        if (answer.time >= FAST_TIME) {
+          totalPoints.points += BONUS_POINTS;
+          totalPoints.fastAnswers += 1;
         }
-        if (answer.time > SLOW_TIME) {
-          points += SLOW_POINTS;
-        }
-        if (answer.time <= SLOW_TIME && answer.time > FAST_TIME) {
-          points += COMMON_POINTS;
+        if (answer.time < SLOW_TIME) {
+          totalPoints.points -= BONUS_POINTS;
+          totalPoints.slowAnswers += 1;
         }
       }
     });
+    totalPoints.points += lives * LIVE_POINTS;
 
-    return points + (state.lives * LIVE_POINTS);
+    return totalPoints;
+  } else {
+    return -1;
   }
-  return -1;
 };
 
 const addAnswer = (state, answer) => {
   return Object.freeze(Object.assign({}, state, {answers: Object.freeze([...state.answers, answer])}));
 };
 
-export {INITIAL_STATE, addQuestions, changeLevel, setNextLevel, hasNextLevel, isDead, decreaseLives, tickTimer, resetTimer, countPoints, addAnswer};
+const INITIAL_STATE_WITH_QUESTIONS = addQuestions(INITIAL_STATE, QUESTIONS);
+
+export {INITIAL_STATE, INITIAL_STATE_WITH_QUESTIONS, addQuestions, changeLevel, setNextLevel, hasNextLevel, isDead, decreaseLives, tickTimer, resetTimer, countPoints, addAnswer};

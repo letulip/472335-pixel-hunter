@@ -1,6 +1,7 @@
-import pageRender from './renderModule.js';
+import {contentRender} from './renderModule.js';
 import renderGreeting from './greeting.js';
-import renderGame1 from './game-1.js';
+import renderGame from './game.js';
+import {INITIAL_STATE_WITH_QUESTIONS} from './state.js';
 
 const rules = `
 <header class="header">
@@ -32,7 +33,7 @@ const rules = `
 </section>`;
 
 const renderRules = () => {
-  pageRender(rules);
+  contentRender(rules);
 
   const backButton = document.querySelector(`.back`);
   backButton.addEventListener(`input`, () => {
@@ -46,7 +47,7 @@ const renderRules = () => {
     if (rulesInput.value) {
       goButton.removeAttribute(`disabled`);
       goButton.addEventListener(`click`, () => {
-        renderGame1();
+        renderGame(INITIAL_STATE_WITH_QUESTIONS);
       });
     } else {
       goButton.setAttribute(`disabled`, `true`);

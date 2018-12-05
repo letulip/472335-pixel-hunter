@@ -155,11 +155,11 @@ describe(`Check answer change`, () => {
 
 describe(`Check count points`, () => {
   it(`should count points properly`, () => {
-    assert.equal(countPoints(FINAL_STATE_TRUE), 1150);
-    assert.equal(countPoints(FINAL_STATE_TRUE_2), 1050);
+    assert.equal(countPoints(FINAL_STATE_TRUE.answers, FINAL_STATE_TRUE.lives).points, 1250);
+    assert.equal(countPoints(FINAL_STATE_TRUE_2.answers, FINAL_STATE_TRUE_2.lives).points, 1050);
   });
-  it(`should return -1 if got less then 10 answers or less then 0 lives`, () => {
-    assert.equal(countPoints(FINAL_STATE_FALSE), -1);
-    assert.equal(countPoints(FINAL_STATE_LOOSE), -1);
+  it(`should return 0 if got less then 10 answers or less then 0 lives`, () => {
+    assert.equal(countPoints(FINAL_STATE_FALSE.answers, FINAL_STATE_FALSE.lives), -1);
+    assert.equal(countPoints(FINAL_STATE_LOOSE.answers, FINAL_STATE_LOOSE.lives), -1);
   });
 });
