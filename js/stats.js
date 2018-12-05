@@ -23,6 +23,42 @@ const renderTotalStats = (state) => {
     const COMMON_POINTS = 100;
     const TOTAL_LIVES = resultElement.lives < 0 ? 0 : resultElement.lives;
 
+    let resultWin = `
+      <td class="result__points">× 100</td>
+      <td class="result__total">${TOTAL_POINTS.correctAnswers * COMMON_POINTS}</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td class="result__extra">Бонус за скорость:</td>
+      <td class="result__extra">${TOTAL_POINTS.fastAnswers} <span class="stats__result stats__result--fast"></span></td>
+      <td class="result__points">× 50</td>
+      <td class="result__total">${TOTAL_POINTS.fastAnswers * BONUS_POINTS}</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td class="result__extra">Бонус за жизни:</td>
+      <td class="result__extra">${TOTAL_LIVES} <span class="stats__result stats__result--alive"></span></td>
+      <td class="result__points">× 50</td>
+      <td class="result__total">${TOTAL_LIVES * BONUS_POINTS}</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td class="result__extra">Штраф за медлительность:</td>
+      <td class="result__extra">${TOTAL_POINTS.slowAnswers} <span class="stats__result stats__result--slow"></span></td>
+      <td class="result__points">× 50</td>
+      <td class="result__total">-${TOTAL_POINTS.slowAnswers * BONUS_POINTS}</td>
+    </tr>
+    <tr>
+      <td colspan="5" class="result__total  result__total--final">${TOTAL_POINTS.points}</td>
+    </tr>
+  </table>`;
+
+    const resultFalse = `
+      <td class="result__total"></td>
+      <td class="result__total  result__total--final">fail</td>
+    </tr>
+  </table>`;
+
     const resultTable = document.createElement(`table`);
     resultTable.classList.add(`result__table`);
     let statsContent = `
@@ -33,34 +69,8 @@ const renderTotalStats = (state) => {
           <ul class="stats">
           </ul>
         </td>
-        <td class="result__points">× 100</td>
-        <td class="result__total">${TOTAL_POINTS.correctAnswers * COMMON_POINTS}</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td class="result__extra">Бонус за скорость:</td>
-        <td class="result__extra">${TOTAL_POINTS.fastAnswers} <span class="stats__result stats__result--fast"></span></td>
-        <td class="result__points">× 50</td>
-        <td class="result__total">${TOTAL_POINTS.fastAnswers * BONUS_POINTS}</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td class="result__extra">Бонус за жизни:</td>
-        <td class="result__extra">${TOTAL_LIVES} <span class="stats__result stats__result--alive"></span></td>
-        <td class="result__points">× 50</td>
-        <td class="result__total">${TOTAL_LIVES * BONUS_POINTS}</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td class="result__extra">Штраф за медлительность:</td>
-        <td class="result__extra">${TOTAL_POINTS.slowAnswers} <span class="stats__result stats__result--slow"></span></td>
-        <td class="result__points">× 50</td>
-        <td class="result__total">-${TOTAL_POINTS.slowAnswers * BONUS_POINTS}</td>
-      </tr>
-      <tr>
-        <td colspan="5" class="result__total  result__total--final">${TOTAL_POINTS.points}</td>
-      </tr>
-    </table>`;
+        ${(TOTAL_POINTS !== -1) ? resultWin : resultFalse}
+      `;
     resultTable.innerHTML = statsContent;
     statsRender(resultElement.answers, resultTable);
     return resultTable;

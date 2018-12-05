@@ -135,7 +135,7 @@ const resetTimer = (state) => {
 };
 
 const countPoints = (answers, lives) => {
-  const TOTAL_POINTS = {
+  const totalPoints = {
     points: 0,
     correctAnswers: 0,
     fastAnswers: 0,
@@ -144,23 +144,23 @@ const countPoints = (answers, lives) => {
   if (lives >= 0 && answers.length >= 10) {
     answers.forEach((answer) => {
       if (answer.isCorrect) {
-        TOTAL_POINTS.correctAnswers += 1;
-        TOTAL_POINTS.points += COMMON_POINTS;
+        totalPoints.correctAnswers += 1;
+        totalPoints.points += COMMON_POINTS;
         if (answer.time >= FAST_TIME) {
-          TOTAL_POINTS.points += BONUS_POINTS;
-          TOTAL_POINTS.fastAnswers += 1;
+          totalPoints.points += BONUS_POINTS;
+          totalPoints.fastAnswers += 1;
         }
         if (answer.time < SLOW_TIME) {
-          TOTAL_POINTS.points -= BONUS_POINTS;
-          TOTAL_POINTS.slowAnswers += 1;
+          totalPoints.points -= BONUS_POINTS;
+          totalPoints.slowAnswers += 1;
         }
       }
     });
-    TOTAL_POINTS.points += lives * LIVE_POINTS;
+    totalPoints.points += lives * LIVE_POINTS;
 
-    return TOTAL_POINTS;
+    return totalPoints;
   } else {
-    return TOTAL_POINTS;
+    return totalPoints;
   }
 };
 
