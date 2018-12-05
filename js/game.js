@@ -24,15 +24,15 @@ const renderGame = (state) => {
     const question = state.questions[state.level];
     switch (question.type) {
       case `single`:
-        renderGame2(question.options, checkIsCorrect);
+        renderGame2(question, checkIsCorrect);
         statsRender(state.answers);
         break;
       case `double`:
-        renderGame1(question.options, checkIsCorrect);
+        renderGame1(question, checkIsCorrect);
         statsRender(state.answers);
         break;
       default:
-        renderGame3(question.options, checkIsCorrect);
+        renderGame3(question, checkIsCorrect);
         statsRender(state.answers);
     }
   } else {

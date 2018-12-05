@@ -1,8 +1,8 @@
 import {gameRender, createLayoutElement} from './renderModule.js';
 
-const renderGame1 = (options, cb) => {
+const renderGame1 = (question, cb) => {
   const game1 = `
-    <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
+    <p class="game__task">${question.title}</p>
     <form class="game__content">
     </form>
     <ul class="stats">
@@ -11,7 +11,7 @@ const renderGame1 = (options, cb) => {
   const gameLayoutElement = createLayoutElement(`section`, game1, [`game`]);
   const gameContent = gameLayoutElement.querySelector(`.game__content`);
 
-  options.forEach((option, index) => {
+  question.options.forEach((option, index) => {
     const gameOptionLayout = `
       <img src="${option.src}" alt="Option ${index}" width="468" height="458">
       <label class="game__answer game__answer--photo">
@@ -29,7 +29,7 @@ const renderGame1 = (options, cb) => {
       const inputList = gameContent.querySelectorAll(`input:checked`);
       if (inputList.length === 2) {
         cb(Array.prototype.every.call(inputList, (inputElement, inputIndex) => {
-          return inputElement.value === options[inputIndex].type;
+          return inputElement.value === question.options[inputIndex].type;
         }));
       }
     });

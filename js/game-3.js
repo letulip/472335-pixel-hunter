@@ -1,8 +1,8 @@
 import {gameRender, createLayoutElement} from './renderModule.js';
 
-const renderGame3 = (options, cb) => {
+const renderGame3 = (question, cb) => {
   const game3 = `
-    <p class="game__task">Найдите рисунок среди изображений</p>
+    <p class="game__task">${question.title}</p>
     <form class="game__content  game__content--triple">
     </form>
     <ul class="stats">
@@ -11,7 +11,7 @@ const renderGame3 = (options, cb) => {
   const gameLayoutElement = createLayoutElement(`section`, game3, [`game`]);
   const gameContent = gameLayoutElement.querySelector(`.game__content`);
 
-  options.forEach((option, index) => {
+  question.options.forEach((option, index) => {
     const gameOptionLayout = `
       <img src="${option.src}" alt="Option ${index}" width="304" height="455">`;
     const gameOption = createLayoutElement(`div`, gameOptionLayout, [`game__option`]);

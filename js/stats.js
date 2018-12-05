@@ -20,6 +20,7 @@ const renderTotalStats = (state) => {
   const createResultTable = (number, resultElement) => {
     const TOTAL_POINTS = countPoints(resultElement.answers, resultElement.lives);
     const BONUS_POINTS = 50;
+    const SLOW_POINTS = -50;
     const COMMON_POINTS = 100;
     const TOTAL_LIVES = resultElement.lives < 0 ? 0 : resultElement.lives;
 
@@ -46,7 +47,7 @@ const renderTotalStats = (state) => {
       <td class="result__extra">Штраф за медлительность:</td>
       <td class="result__extra">${TOTAL_POINTS.slowAnswers} <span class="stats__result stats__result--slow"></span></td>
       <td class="result__points">× 50</td>
-      <td class="result__total">-${TOTAL_POINTS.slowAnswers * BONUS_POINTS}</td>
+      <td class="result__total">-${TOTAL_POINTS.slowAnswers * SLOW_POINTS}</td>
     </tr>
     <tr>
       <td colspan="5" class="result__total  result__total--final">${TOTAL_POINTS.points}</td>
