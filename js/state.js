@@ -160,7 +160,7 @@ const countPoints = (answers, lives) => {
 
     return totalPoints;
   } else {
-    return totalPoints;
+    return -1;
   }
 };
 
