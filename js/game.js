@@ -10,11 +10,11 @@ import {statsRender} from './renderModule.js';
 const renderGame = (state) => {
   if (hasNextLevel(state.level, state.questions) && !isDead(state.lives)) {
     renderHeader(resetTimer(state));
-    const checkAnswer = (answer) => {
-      if (!answer.isCorrect) {
-        renderGame(setNextLevel(decreaseLives(addAnswer(state, answer))));
+    const checkIsCorrect = (isCorrect) => {
+      if (!isCorrect) {
+        renderGame(setNextLevel(decreaseLives(addAnswer(state, {time: 15, isCorrect}))));
       } else {
-        renderGame(setNextLevel(addAnswer(state, answer)));
+        renderGame(setNextLevel(addAnswer(state, {time: 15, isCorrect})));
       }
     };
     const backButton = document.querySelector(`.back`);
@@ -24,15 +24,15 @@ const renderGame = (state) => {
     const question = state.questions[state.level];
     switch (question.type) {
       case `single`:
-        renderGame2(question.options, checkAnswer);
+        renderGame2(question.options, checkIsCorrect);
         statsRender(state.answers);
         break;
       case `double`:
-        renderGame1(question.options, checkAnswer);
+        renderGame1(question.options, checkIsCorrect);
         statsRender(state.answers);
         break;
       default:
-        renderGame3(question.options, checkAnswer);
+        renderGame3(question.options, checkIsCorrect);
         statsRender(state.answers);
     }
   } else {

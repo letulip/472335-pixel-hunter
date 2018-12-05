@@ -1,26 +1,5 @@
 import {gameRender, createLayoutElement} from './renderModule.js';
 
-const answers = [];
-
-const checkedCounter = (answersFromGame, cb) => {
-  const lastAnswer = answersFromGame.pop();
-  const prelastAnswer = answersFromGame.pop();
-  const totalTime = lastAnswer.time + prelastAnswer.time;
-  if (lastAnswer.isCorrect && prelastAnswer.isCorrect) {
-    const totalAnswer = {
-      time: totalTime,
-      isCorrect: true
-    };
-    cb(totalAnswer);
-  } else {
-    const totalAnswer = {
-      time: totalTime,
-      isCorrect: false
-    };
-    cb(totalAnswer);
-  }
-};
-
 const renderGame1 = (options, cb) => {
   const game1 = `
     <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
@@ -46,22 +25,13 @@ const renderGame1 = (options, cb) => {
     const gameOption = createLayoutElement(`div`, gameOptionLayout, [`game__option`]);
 
     // event listener:
-    const inputsList = gameOption.querySelectorAll(`input`);
-    inputsList.forEach((inputElement) => {
-      inputElement.addEventListener(`change`, () => {
-        if (inputElement.checked) {
-          const timer = document.querySelector(`.game__timer`);
-
-          const answer = {
-            time: timer.textContent,
-            isCorrect: (inputElement.value === option.type)
-          };
-          answers.push(answer);
-          if (answers.length >= 2) {
-            checkedCounter(answers, cb);
-          }
-        }
-      });
+    gameOption.addEventListener(`click`, () => {
+      const inputList = gameContent.querySelectorAll(`input:checked`);
+      if (inputList.length === 2) {
+        cb(Array.prototype.every.call(inputList, (inputElement, inputIndex) => {
+          return inputElement.value === options[inputIndex].type;
+        }));
+      }
     });
 
     gameContent.append(gameOption);

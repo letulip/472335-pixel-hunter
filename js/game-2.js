@@ -28,12 +28,7 @@ const renderGame2 = (options, cb) => {
     const inputsList = gameOption.querySelectorAll(`input`);
     inputsList.forEach((input) => {
       input.addEventListener(`change`, () => {
-        const timer = document.querySelector(`.game__timer`);
-        const answer = {
-          time: timer.textContent,
-          isCorrect: (input.value === option.type)
-        };
-        cb(answer);
+        cb(input.value === option.type);
       });
     });
 

@@ -23,21 +23,7 @@ const renderGame3 = (options, cb) => {
   const gameOptionsList = gameContent.querySelectorAll(`.game__option`);
   gameOptionsList.forEach((option, index) => {
     option.addEventListener(`click`, () => {
-      const timer = document.querySelector(`.game__timer`);
-      let answer = {};
-      if (index === 1) {
-        answer = {
-          time: timer.textContent,
-          isCorrect: true
-        };
-        cb(answer);
-      } else {
-        answer = {
-          time: timer.textContent,
-          isCorrect: false
-        };
-        cb(answer);
-      }
+      cb(index === 1);
     });
   });
 
