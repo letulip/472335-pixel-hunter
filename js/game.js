@@ -1,8 +1,8 @@
 import renderHeader from './header.js';
 import renderGreeting from './greeting.js';
-import renderGame1 from './game-1.js';
+import ViewGame1 from './game-1.js';
 import ViewGame2 from './game-2.js';
-import renderGame3 from './game-3.js';
+import ViewGame3 from './game-3.js';
 import {hasNextLevel, resetTimer, isDead, setNextLevel, decreaseLives, addAnswer} from './state.js';
 import renderTotalStats from './stats.js';
 import {gameRender, statsRender} from './renderModule.js';
@@ -29,11 +29,13 @@ const renderGame = (state) => {
         statsRender(state.answers);
         break;
       case `double`:
-        renderGame1(question, checkIsCorrect);
+        const level1 = new ViewGame1(question, checkIsCorrect);
+        gameRender(level1.element);
         statsRender(state.answers);
         break;
       default:
-        renderGame3(question, checkIsCorrect);
+        const level3 = new ViewGame3(question, checkIsCorrect);
+        gameRender(level3.element);
         statsRender(state.answers);
     }
   } else {

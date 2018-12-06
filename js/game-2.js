@@ -64,7 +64,7 @@ class ViewGame2 extends AbstractView {
               <input class="visually-hidden" name="question${index}" type="radio" value="paint">
               <span>Рисунок</span>
             </label>
-            </div>`).join(``)}
+          </div>`).join(``)}
       </form>
       <ul class="stats">
       </ul>`;
@@ -76,6 +76,7 @@ class ViewGame2 extends AbstractView {
     const inputsList = this.element.querySelectorAll(`input`);
     inputsList.forEach((input) => {
       input.addEventListener(`change`, () => {
+        // как правильно навесить обработчик??
         this.cb(input.value === this.question.options[0].type);
       });
     });
