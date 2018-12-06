@@ -25,7 +25,7 @@ const QUESTIONS = [
     ]
   },
   {
-    title: ``,
+    title: `Найдите рисунок среди изображений`,
     type: `triple`,
     options: [
       {src: `https://i.imgur.com/DiHM5Zb.jpg`, type: `photo`},
@@ -49,7 +49,7 @@ const QUESTIONS = [
     ]
   },
   {
-    title: ``,
+    title: `Найдите рисунок среди изображений`,
     type: `triple`,
     options: [
       {src: `https://i.imgur.com/DiHM5Zb.jpg`, type: `photo`},
@@ -73,7 +73,7 @@ const QUESTIONS = [
     ]
   },
   {
-    title: ``,
+    title: `Найдите рисунок среди изображений`,
     type: `triple`,
     options: [
       {src: `https://i.imgur.com/DiHM5Zb.jpg`, type: `photo`},

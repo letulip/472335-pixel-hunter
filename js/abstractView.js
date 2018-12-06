@@ -1,26 +1,31 @@
 import {createLayoutElement} from './renderModule.js';
 
 class AbstractView {
-  constructor(level) {
-    this.level = level;
+  constructor() {
+    if (new.target === AbstractView) {
+      throw new Error(`Can't instantiate AbstractView, only concrete one`);
+    }
   }
 
-  template() {
-    return ``;
+  get template() {
+    throw new Error(`Template is required`);
   }
 
-  render(tag, classList) {
-    createLayoutElement(tag, this.template(), classList);
+  render() {
+    return createLayoutElement(this.tag, this.template, this.classList);
   }
 
   bind() {
 
   }
 
-  element(element) {
-    element.render();
-    element.bind();
-    return element;
+  get element() {
+    if (this._element) {
+      return this._element;
+    }
+    this._element = this.render();
+    this.bind(this._element);
+    return this._element;
   }
 }
 

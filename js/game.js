@@ -1,11 +1,11 @@
 import renderHeader from './header.js';
 import renderGreeting from './greeting.js';
 import renderGame1 from './game-1.js';
-import renderGame2 from './game-2.js';
+import ViewGame2 from './game-2.js';
 import renderGame3 from './game-3.js';
 import {hasNextLevel, resetTimer, isDead, setNextLevel, decreaseLives, addAnswer} from './state.js';
 import renderTotalStats from './stats.js';
-import {statsRender} from './renderModule.js';
+import {gameRender, statsRender} from './renderModule.js';
 
 const renderGame = (state) => {
   if (hasNextLevel(state.level, state.questions) && !isDead(state.lives)) {
@@ -24,7 +24,8 @@ const renderGame = (state) => {
     const question = state.questions[state.level];
     switch (question.type) {
       case `single`:
-        renderGame2(question, checkIsCorrect);
+        const level2 = new ViewGame2(question, checkIsCorrect);
+        gameRender(level2.element);
         statsRender(state.answers);
         break;
       case `double`:
