@@ -4,7 +4,7 @@ import ViewGame1 from './game-1.js';
 import ViewGame2 from './game-2.js';
 import ViewGame3 from './game-3.js';
 import {hasNextLevel, resetTimer, isDead, setNextLevel, decreaseLives, addAnswer} from './state.js';
-import renderTotalStats from './stats.js';
+import ViewStats from './stats.js';
 import {gameRender, statsRender, contentRender} from './renderModule.js';
 
 const renderGame = (state) => {
@@ -40,7 +40,8 @@ const renderGame = (state) => {
         statsRender(state.answers);
     }
   } else {
-    renderTotalStats(state);
+    const stats = new ViewStats(state);
+    contentRender(stats.element);
   }
 
 };
