@@ -1,3 +1,4 @@
-import renderIntro from './intro.js';
+import ViewIntro from './intro.js';
 
-renderIntro();
+const level2 = new ViewIntro();
+level2.render();
