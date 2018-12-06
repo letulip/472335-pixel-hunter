@@ -1,17 +1,23 @@
 const mainElement = document.querySelector(`#main`);
 
-const contentRender = (strToRender) => {
-  mainElement.innerHTML = strToRender;
+const contentRender = (element) => {
+  mainElement.innerHTML = ``;
+  mainElement.append(element);
 };
 
 const gameRender = (elementToRender) => {
-  const game = mainElement.querySelector(`.game`);
-  mainElement.replaceChild(elementToRender, game);
+  const gameWrapper = mainElement.querySelector(`.game__wrapper`);
+  const game = gameWrapper.querySelector(`.game`);
+  gameWrapper.replaceChild(elementToRender, game);
 };
 
-const createLayoutElement = (tag, content, classList) => {
+const createLayoutElement = (tag, content, elementClassList) => {
   const gameLayoutElement = document.createElement(tag);
-  gameLayoutElement.classList.add(classList);
+  if (elementClassList) {
+    elementClassList.forEach((elementClass) => {
+      gameLayoutElement.classList.add(elementClass);
+    });
+  }
   gameLayoutElement.innerHTML = content;
   return gameLayoutElement;
 };

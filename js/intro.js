@@ -1,51 +1,30 @@
 import {contentRender} from './renderModule.js';
-import renderGreeting from './greeting.js';
+import GREETING from './greeting.js';
 import AbstractView from './AbstractView.js';
 
-// const intro = `
-// <section class="intro">
-//   <button class="intro__asterisk asterisk" type="button"><span class="visually-hidden">Продолжить</span>*</button>
-//   <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
-// </section>`;
-
-const renderIntro = () => {
-  contentRender(intro);
-
-  const asterisk = document.querySelector(`.asterisk`);
-  asterisk.addEventListener(`click`, () => {
-    renderGreeting();
-  });
-};
-
 class ViewIntro extends AbstractView {
-  constructor(question, cb) {
+  constructor() {
     super();
-    this.question = question;
-    this.cb = cb;
     this.tag = `section`;
-    this.classList = [`game`];
+    this.classList = [`intro`];
   }
 
   get template() {
     const intro = `
-    <section class="intro">
       <button class="intro__asterisk asterisk" type="button"><span class="visually-hidden">Продолжить</span>*</button>
-      <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
-    </section>`;
+      <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>`;
 
     return intro;
-  }
-
-  render() {
-    return contentRender(this.template);
   }
 
   bind() {
     const asterisk = this.element.querySelector(`.asterisk`);
     asterisk.addEventListener(`click`, () => {
-      renderGreeting();
+      contentRender(GREETING.element);
     });
   }
 }
 
-export default ViewIntro;
+const INTRO = new ViewIntro();
+
+export default INTRO;

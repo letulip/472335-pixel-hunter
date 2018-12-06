@@ -1,15 +1,16 @@
-import renderHeader from './header.js';
-import renderGreeting from './greeting.js';
+import ViewHeader from './header.js';
+import GREETING from './greeting.js';
 import ViewGame1 from './game-1.js';
 import ViewGame2 from './game-2.js';
 import ViewGame3 from './game-3.js';
 import {hasNextLevel, resetTimer, isDead, setNextLevel, decreaseLives, addAnswer} from './state.js';
 import renderTotalStats from './stats.js';
-import {gameRender, statsRender} from './renderModule.js';
+import {gameRender, statsRender, contentRender} from './renderModule.js';
 
 const renderGame = (state) => {
   if (hasNextLevel(state.level, state.questions) && !isDead(state.lives)) {
-    renderHeader(resetTimer(state));
+    const header = new ViewHeader(resetTimer(state));
+    contentRender(header.element);
     const checkIsCorrect = (isCorrect) => {
       if (!isCorrect) {
         renderGame(setNextLevel(decreaseLives(addAnswer(state, {time: 15, isCorrect}))));
@@ -19,7 +20,7 @@ const renderGame = (state) => {
     };
     const backButton = document.querySelector(`.back`);
     backButton.addEventListener(`click`, () => {
-      renderGreeting();
+      contentRender(GREETING.element);
     });
     const question = state.questions[state.level];
     switch (question.type) {

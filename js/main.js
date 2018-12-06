@@ -1,4 +1,4 @@
-import ViewIntro from './intro.js';
+import INTRO from './intro.js';
+import {contentRender} from './renderModule.js';
 
-const level2 = new ViewIntro();
-level2.render();
+contentRender(INTRO.element);
