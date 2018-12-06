@@ -36,8 +36,7 @@ class ViewGame2 extends AbstractView {
     const inputsList = this.element.querySelectorAll(`input`);
     inputsList.forEach((input) => {
       input.addEventListener(`change`, () => {
-        // как правильно навесить обработчик??
-        this.cb(input.value === this.question.options[0].type);
+        this.cb(this.question.options.some((option) => option.type === input.value));
       });
     });
   }
