@@ -1,6 +1,6 @@
 import AbstractView from './AbstractView.js';
 
-class ViewGame1 extends AbstractView {
+class ViewGame3 extends AbstractView {
   constructor(question, cb) {
     super();
     this.question = question;
@@ -47,4 +47,4 @@ class ViewGame1 extends AbstractView {
   }
 }
 
-export default ViewGame1;
+export default ViewGame3;
