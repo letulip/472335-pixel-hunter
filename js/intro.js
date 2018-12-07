@@ -1,12 +1,11 @@
-import {contentRender} from './renderModule.js';
-import GREETING from './greeting.js';
 import AbstractView from './AbstractView.js';
 
 class ViewIntro extends AbstractView {
-  constructor() {
+  constructor(cb) {
     super();
     this.tag = `section`;
     this.classList = [`intro`];
+    this.cb = cb;
   }
 
   get template() {
@@ -19,12 +18,8 @@ class ViewIntro extends AbstractView {
 
   bind() {
     const asterisk = this.element.querySelector(`.asterisk`);
-    asterisk.addEventListener(`click`, () => {
-      contentRender(GREETING.element);
-    });
+    asterisk.addEventListener(`click`, this.cb);
   }
 }
 
-const INTRO = new ViewIntro();
-
-export default INTRO;
+export default ViewIntro;

@@ -1,12 +1,11 @@
-import {contentRender} from './renderModule.js';
-import RULES from './rules.js';
 import AbstractView from './AbstractView.js';
 
 class ViewGreeting extends AbstractView {
-  constructor() {
+  constructor(cb) {
     super();
     this.tag = `section`;
     this.classList = [`greeting`, `central--blur`];
+    this.cb = cb;
   }
 
   get template() {
@@ -35,12 +34,10 @@ class ViewGreeting extends AbstractView {
 
   bind() {
     const greetingContinue = this.element.querySelector(`.greeting__continue`);
-    greetingContinue.addEventListener(`click`, () => {
-      contentRender(RULES.element);
-    });
+    greetingContinue.addEventListener(`click`, this.cb);
   }
 }
 
-const GREETING = new ViewGreeting();
+// const GREETING = new ViewGreeting();
 
-export default GREETING;
+export default ViewGreeting;
