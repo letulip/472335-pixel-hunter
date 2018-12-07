@@ -1,9 +1,7 @@
-import {contentRender} from './renderModule.js';
-import GREETING from './greeting.js';
 import AbstractView from './AbstractView.js';
 
 class ViewHeader extends AbstractView {
-  constructor(state, isShort) {
+  constructor(state, isShort, cb) {
     super();
     this.tag = `div`;
     this.classList = [`game__wrapper`];
@@ -11,6 +9,7 @@ class ViewHeader extends AbstractView {
       this.state = state;
     }
     this.isShort = isShort;
+    this.cb = cb;
   }
 
   get template() {
@@ -58,11 +57,7 @@ class ViewHeader extends AbstractView {
 
   bind() {
     const backButton = this.element.querySelector(`.back`);
-    backButton.addEventListener(`input`, () => {
-      contentRender(GREETING.element);
-    });
-
-
+    backButton.addEventListener(`click`, this.cb);
   }
 }
 
