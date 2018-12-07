@@ -1,5 +1,4 @@
-import {contentRender, statsRender, createLayoutElement} from './renderModule.js';
-import GREETING from './greeting.js';
+import {statsRender, createLayoutElement} from './renderModule.js';
 import {countPoints} from './state.js';
 import AbstractView from './AbstractView.js';
 
@@ -73,28 +72,6 @@ const createResultTable = (number, resultElement) => {
   return resultTable;
 };
 
-const renderTotalStats = (state) => {
-  results.push(state);
-
-  const statsLayout = `
-  <header class="header">
-    <button class="back">
-      <span class="visually-hidden">Вернуться к началу</span>
-      <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
-        <use xlink:href="img/sprite.svg#arrow-left"></use>
-      </svg>
-      <svg class="icon" width="101" height="44" viewBox="0 0 101 44" fill="#000000">
-        <use xlink:href="img/sprite.svg#logo-small"></use>
-      </svg>
-    </button>
-  </header>
-  <section class="result">
-    <h2 class="result__title">${getWinStatus(state)}</h2>
-  </section>`;
-
-  contentRender(statsLayout);
-};
-
 class ViewStats extends AbstractView {
   constructor(state) {
     super();
@@ -104,30 +81,15 @@ class ViewStats extends AbstractView {
 
   get template() {
     const stats = `
-    <header class="header">
-      <button class="back">
-        <span class="visually-hidden">Вернуться к началу</span>
-        <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
-          <use xlink:href="img/sprite.svg#arrow-left"></use>
-        </svg>
-        <svg class="icon" width="101" height="44" viewBox="0 0 101 44" fill="#000000">
-          <use xlink:href="img/sprite.svg#logo-small"></use>
-        </svg>
-      </button>
-    </header>
     <section class="result">
       <h2 class="result__title">${getWinStatus(this.state)}</h2>
     </section>`;
-    renderTotalStats(this.state);
+    results.push(this.state);
 
     return stats;
   }
 
   bind() {
-    const backButton = this.element.querySelector(`.back`);
-    backButton.addEventListener(`input`, () => {
-      contentRender(GREETING.element);
-    });
 
     const resultSection = this.element.querySelector(`.result`);
     const previousResults = resultSection.querySelectorAll(`.result__table`);

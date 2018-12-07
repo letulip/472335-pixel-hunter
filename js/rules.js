@@ -1,28 +1,17 @@
-import {contentRender} from './renderModule.js';
-import GREETING from './greeting.js';
+// import {contentRender} from './renderModule.js';
+// import GREETING from './greeting.js';
 import renderGame from './game.js';
-import {INITIAL_STATE_WITH_QUESTIONS} from './state.js';
 import AbstractView from './AbstractView.js';
 
 class ViewRules extends AbstractView {
-  constructor() {
+  constructor(state) {
     super();
     this.tag = `div`;
+    this.state = state;
   }
 
   get template() {
     const rules = `
-    <header class="header">
-      <button class="back">
-        <span class="visually-hidden">Вернуться к началу</span>
-        <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
-          <use xlink:href="img/sprite.svg#arrow-left"></use>
-        </svg>
-        <svg class="icon" width="101" height="44" viewBox="0 0 101 44" fill="#000000">
-          <use xlink:href="img/sprite.svg#logo-small"></use>
-        </svg>
-      </button>
-    </header>
     <section class="rules">
       <h2 class="rules__title">Правила</h2>
       <ul class="rules__description">
@@ -44,10 +33,6 @@ class ViewRules extends AbstractView {
   }
 
   bind() {
-    const backButton = this.element.querySelector(`.back`);
-    backButton.addEventListener(`input`, () => {
-      contentRender(GREETING.element);
-    });
 
     const rulesInput = this.element.querySelector(`.rules__input`);
     rulesInput.addEventListener(`keyup`, () => {
@@ -56,7 +41,7 @@ class ViewRules extends AbstractView {
       if (rulesInput.value) {
         goButton.removeAttribute(`disabled`);
         goButton.addEventListener(`click`, () => {
-          renderGame(INITIAL_STATE_WITH_QUESTIONS);
+          renderGame(this.state);
         });
       } else {
         goButton.setAttribute(`disabled`, `true`);
@@ -65,6 +50,6 @@ class ViewRules extends AbstractView {
   }
 }
 
-const RULES = new ViewRules();
+// const RULES = new ViewRules();
 
-export default RULES;
+export default ViewRules;

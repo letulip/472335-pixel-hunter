@@ -1,8 +1,11 @@
 const mainElement = document.querySelector(`#main`);
 
 const contentRender = (element) => {
-  mainElement.innerHTML = ``;
   mainElement.append(element);
+};
+
+const clearMainElement = () => {
+  mainElement.innerHTML = ``;
 };
 
 const gameRender = (elementToRender) => {
@@ -53,4 +56,4 @@ const statsRender = (answers, element) => {
   stats.innerHTML = statsLayout;
 };
 
-export {contentRender, gameRender, statsRender, createLayoutElement};
+export {contentRender, clearMainElement, gameRender, statsRender, createLayoutElement};

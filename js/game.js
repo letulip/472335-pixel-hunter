@@ -5,12 +5,16 @@ import ViewGame2 from './game-2.js';
 import ViewGame3 from './game-3.js';
 import {hasNextLevel, resetTimer, isDead, setNextLevel, decreaseLives, addAnswer} from './state.js';
 import ViewStats from './stats.js';
-import {gameRender, statsRender, contentRender} from './renderModule.js';
+import {gameRender, statsRender, contentRender, clearMainElement} from './renderModule.js';
 
 const renderGame = (state) => {
+  const header = new ViewHeader(resetTimer(state), false);
+  clearMainElement();
+  contentRender(header.element);
+
   if (hasNextLevel(state.level, state.questions) && !isDead(state.lives)) {
-    const header = new ViewHeader(resetTimer(state));
-    contentRender(header.element);
+    // clearMainElement();
+    // contentRender(header.element);
     const checkIsCorrect = (isCorrect) => {
       if (!isCorrect) {
         renderGame(setNextLevel(decreaseLives(addAnswer(state, {time: 15, isCorrect}))));
@@ -41,6 +45,7 @@ const renderGame = (state) => {
     }
   } else {
     const stats = new ViewStats(state);
+    // clearMainElement();
     contentRender(stats.element);
   }
 
