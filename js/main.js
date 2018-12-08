@@ -5,12 +5,9 @@ import ViewRules from './rules.js';
 import ViewHeader from './header.js';
 import {INITIAL_STATE_WITH_QUESTIONS} from './state.js';
 
-
-const rules = new ViewRules(INITIAL_STATE_WITH_QUESTIONS);
-
 const renderRules = () => {
   renderHeader();
-  contentRender(rules.element, renderHeader);
+  contentRender(rules.element);
 };
 
 const greeting = new ViewGreeting(renderRules);
@@ -26,6 +23,8 @@ const renderHeader = () => {
   clearMainElement();
   contentRender(header.element);
 };
+
+const rules = new ViewRules(INITIAL_STATE_WITH_QUESTIONS, renderGreeting);
 
 const intro = new ViewIntro(renderGreeting);
 contentRender(intro.element);
