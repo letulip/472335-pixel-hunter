@@ -1,12 +1,11 @@
-import renderGame from './game.js';
 import AbstractView from './AbstractView.js';
 
 class ViewRules extends AbstractView {
-  constructor(state, greetingCB) {
+  constructor(state, renderGameCB) {
     super();
     this.tag = `div`;
     this.state = state;
-    this.greetingCB = greetingCB;
+    this.renderGameCB = renderGameCB;
   }
 
   get template() {
@@ -40,7 +39,7 @@ class ViewRules extends AbstractView {
       if (rulesInput.value) {
         goButton.removeAttribute(`disabled`);
         goButton.addEventListener(`click`, () => {
-          renderGame(this.state, this.greetingCB);
+          this.renderGameCB(this.state);
         });
       } else {
         goButton.setAttribute(`disabled`, `true`);

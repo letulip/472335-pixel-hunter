@@ -4,10 +4,15 @@ import ViewGreeting from './greeting.js';
 import ViewRules from './rules.js';
 import ViewHeader from './header.js';
 import {INITIAL_STATE_WITH_QUESTIONS} from './state.js';
+import renderGameContent from './game.js';
 
 const renderRules = () => {
   renderHeader();
   contentRender(rules.element);
+};
+
+const renderGameCB = (state) => {
+  renderGameContent(state, renderGreeting);
 };
 
 const greeting = new ViewGreeting(renderRules);
@@ -24,7 +29,7 @@ const renderHeader = () => {
   contentRender(header.element);
 };
 
-const rules = new ViewRules(INITIAL_STATE_WITH_QUESTIONS, renderGreeting);
+const rules = new ViewRules(INITIAL_STATE_WITH_QUESTIONS, renderGameCB);
 
 const intro = new ViewIntro(renderGreeting);
 contentRender(intro.element);
