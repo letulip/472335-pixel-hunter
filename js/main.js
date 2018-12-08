@@ -3,7 +3,7 @@ import {contentRender, clearMainElement} from './renderModule.js';
 import ViewGreeting from './greeting.js';
 import ViewRules from './rules.js';
 import ViewHeader from './header.js';
-import {INITIAL_STATE_WITH_QUESTIONS} from './state.js';
+import {INITIAL_STATE_WITH_QUESTIONS, addPlayerName} from './state.js';
 import renderGameState from './game.js';
 import ViewStats from './stats.js';
 
@@ -12,8 +12,8 @@ const renderRules = () => {
   contentRender(rules.element);
 };
 
-const renderGameCB = (state) => {
-  renderGameState(state, renderGreeting, renderStatsCB);
+const renderGameCB = (state, name) => {
+  renderGameState(addPlayerName(state, name), renderGreeting, renderStatsCB);
 };
 
 const greeting = new ViewGreeting(renderRules);

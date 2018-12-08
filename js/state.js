@@ -103,6 +103,12 @@ const addQuestions = (state, questions) => {
   }));
 };
 
+const addPlayerName = (state, name) => {
+  return Object.freeze(Object.assign({}, state, {
+    userName: name
+  }));
+};
+
 const changeLevel = (state, level) => {
   if (typeof level !== `number`) {
     throw new Error(`Level should be of type number`);
@@ -180,4 +186,4 @@ const addAnswer = (state, answer) => {
 
 const INITIAL_STATE_WITH_QUESTIONS = addQuestions(INITIAL_STATE, QUESTIONS);
 
-export {INITIAL_STATE, INITIAL_STATE_WITH_QUESTIONS, addQuestions, changeLevel, setNextLevel, hasNextLevel, isDead, decreaseLives, tickTimer, resetTimer, countPoints, addAnswer};
+export {INITIAL_STATE, INITIAL_STATE_WITH_QUESTIONS, addQuestions, addPlayerName, changeLevel, setNextLevel, hasNextLevel, isDead, decreaseLives, tickTimer, resetTimer, countPoints, addAnswer};

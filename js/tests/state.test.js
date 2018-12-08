@@ -1,6 +1,6 @@
 import {assert} from 'chai';
 
-import {INITIAL_STATE, addQuestions, changeLevel, setNextLevel, hasNextLevel, isDead, decreaseLives, tickTimer, resetTimer, countPoints, addAnswer} from '../state.js';
+import {INITIAL_STATE, addQuestions, addPlayerName, changeLevel, setNextLevel, hasNextLevel, isDead, decreaseLives, tickTimer, resetTimer, countPoints, addAnswer} from '../state.js';
 
 const QUESTIONS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -39,6 +39,12 @@ describe(`Check add questions`, () => {
   });
 });
 
+describe(`Check addPlayerName`, () => {
+  it(`should should add name of player to game state`, () => {
+    assert.equal(addPlayerName(INITIAL_STATE, `John`).userName, `John`);
+    assert.equal(addPlayerName(INITIAL_STATE, `123`).userName, `123`);
+  });
+});
 
 describe(`Check lives change`, () => {
   it(`should return decreased lives value`, () => {

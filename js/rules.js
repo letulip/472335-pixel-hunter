@@ -39,7 +39,7 @@ class ViewRules extends AbstractView {
       if (rulesInput.value) {
         goButton.removeAttribute(`disabled`);
         goButton.addEventListener(`click`, () => {
-          this.renderGameCB(this.state);
+          this.renderGameCB(this.state, rulesInput.value);
         });
       } else {
         goButton.setAttribute(`disabled`, `true`);
