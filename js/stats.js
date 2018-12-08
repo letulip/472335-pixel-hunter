@@ -12,7 +12,6 @@ const getWinStatus = (state) => {
   return winStatus;
 };
 
-const results = [];
 
 const createResultTable = (number, resultElement) => {
   const TOTAL_POINTS = countPoints(resultElement.answers, resultElement.lives);
@@ -77,6 +76,7 @@ class ViewStats extends AbstractView {
     super();
     this.tag = `div`;
     this.state = state;
+    this.results = [this.state];
   }
 
   get template() {
@@ -84,7 +84,6 @@ class ViewStats extends AbstractView {
     <section class="result">
       <h2 class="result__title">${getWinStatus(this.state)}</h2>
     </section>`;
-    results.push(this.state);
 
     return stats;
   }
@@ -97,8 +96,8 @@ class ViewStats extends AbstractView {
       resultSection.deleteElement(result);
     });
 
-    for (let i = 0; i < results.length; i++) {
-      resultSection.appendChild(createResultTable(i, results[i]));
+    for (let i = 0; i < this.results.length; i++) {
+      resultSection.appendChild(createResultTable(i, this.results[i]));
     }
   }
 }
