@@ -26,17 +26,17 @@ const renderGameState = (state, greetingCB, statsCB) => {
     switch (question.type) {
       case `single`:
         const level2 = new ViewGame2(question, checkIsCorrect);
-        gameRender(level2.element, greetingCB, statsCB);
+        gameRender(level2.element);
         statsRender(state.answers);
         break;
       case `double`:
         const level1 = new ViewGame1(question, checkIsCorrect);
-        gameRender(level1.element, greetingCB, statsCB);
+        gameRender(level1.element);
         statsRender(state.answers);
         break;
       default:
         const level3 = new ViewGame3(question, checkIsCorrect);
-        gameRender(level3.element, greetingCB, statsCB);
+        gameRender(level3.element);
         statsRender(state.answers);
     }
   } else {
