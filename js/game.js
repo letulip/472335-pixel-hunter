@@ -6,36 +6,36 @@ import {hasNextLevel, isDead, setNextLevel, decreaseLives, addAnswer} from './st
 import ViewStats from './stats.js';
 import {gameRender, statsRender, contentRender, clearMainElement} from './renderModule.js';
 
-const renderGame = (state, greetingCB) => {
-  const header = new ViewHeader(state, false, greetingCB);
+const renderGameState = (state, greetingCB) => {
+  const header = new ViewHeader(state, greetingCB);
   clearMainElement();
   contentRender(header.element);
 
   if (hasNextLevel(state.level, state.questions) && !isDead(state.lives)) {
+    let tempState = state;
     const checkIsCorrect = (isCorrect) => {
       if (!isCorrect) {
-        renderGame(setNextLevel(decreaseLives(addAnswer(state, {time: 15, isCorrect}))), greetingCB);
-      } else {
-        renderGame(setNextLevel(addAnswer(state, {time: 15, isCorrect})), greetingCB);
+        tempState = decreaseLives(state);
       }
+      renderGameState(setNextLevel(addAnswer(tempState, {time: 15, isCorrect})), greetingCB);
     };
 
-    const question = state.questions[state.level];
+    const question = tempState.questions[tempState.level];
     switch (question.type) {
       case `single`:
         const level2 = new ViewGame2(question, checkIsCorrect);
         gameRender(level2.element, greetingCB);
-        statsRender(state.answers);
+        statsRender(tempState.answers);
         break;
       case `double`:
         const level1 = new ViewGame1(question, checkIsCorrect);
         gameRender(level1.element, greetingCB);
-        statsRender(state.answers);
+        statsRender(tempState.answers);
         break;
       default:
         const level3 = new ViewGame3(question, checkIsCorrect);
         gameRender(level3.element, greetingCB);
-        statsRender(state.answers);
+        statsRender(tempState.answers);
     }
   } else {
     const stats = new ViewStats(state);
@@ -44,4 +44,4 @@ const renderGame = (state, greetingCB) => {
 
 };
 
-export default renderGame;
+export default renderGameState;

@@ -4,7 +4,7 @@ import ViewGreeting from './greeting.js';
 import ViewRules from './rules.js';
 import ViewHeader from './header.js';
 import {INITIAL_STATE_WITH_QUESTIONS} from './state.js';
-import renderGameContent from './game.js';
+import renderGameState from './game.js';
 
 const renderRules = () => {
   renderHeader();
@@ -12,7 +12,7 @@ const renderRules = () => {
 };
 
 const renderGameCB = (state) => {
-  renderGameContent(state, renderGreeting);
+  renderGameState(state, renderGreeting);
 };
 
 const greeting = new ViewGreeting(renderRules);
@@ -22,7 +22,7 @@ const renderGreeting = () => {
   contentRender(greeting.element);
 };
 
-const header = new ViewHeader(false, true, renderGreeting);
+const header = new ViewHeader(false, renderGreeting);
 
 const renderHeader = () => {
   clearMainElement();

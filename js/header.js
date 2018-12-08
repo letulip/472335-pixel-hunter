@@ -1,14 +1,13 @@
 import AbstractView from './AbstractView.js';
 
+const DEFAULT_LIVES = 3;
+
 class ViewHeader extends AbstractView {
-  constructor(state, isShort, cb) {
+  constructor(state, cb) {
     super();
     this.tag = `div`;
     this.classList = [`game__wrapper`];
-    if (state) {
-      this.state = state;
-    }
-    this.isShort = isShort;
+    this.state = (state) ? state : false;
     this.cb = cb;
   }
 
@@ -25,11 +24,11 @@ class ViewHeader extends AbstractView {
         </svg>
       </button>`;
 
-    if (!this.isShort) {
+    if (this.state && this.state.lives > -1) {
       header += `
         <div class="game__timer">${this.state.time}</div>
         <div class="game__lives">
-          ${new Array(3 - this.state.lives)
+          ${new Array(DEFAULT_LIVES - this.state.lives)
             .fill(`<img src="img/heart__empty.svg" class="game__heart" alt=" Missed Life" width="31" height="27">`)
             .join(``)}
           ${new Array(this.state.lives)
