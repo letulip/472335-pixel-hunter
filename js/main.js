@@ -1,5 +1,5 @@
 import ViewIntro from './intro.js';
-import {contentRender, clearMainElement} from './renderModule.js';
+import {contentRender, clearMainElement} from './render-module.js';
 import ViewGreeting from './greeting.js';
 import ViewRules from './rules.js';
 import ViewHeader from './header.js';

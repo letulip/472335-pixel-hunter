@@ -1,6 +1,6 @@
-import {statsRender, createLayoutElement} from './renderModule.js';
+import {statsRender, createLayoutElement} from './render-module.js';
 import {countPoints} from './state.js';
-import AbstractView from './AbstractView.js';
+import AbstractView from './abstract-view.js';
 
 const getWinStatus = (state) => {
   let winStatus = ``;

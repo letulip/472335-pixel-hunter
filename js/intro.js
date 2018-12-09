@@ -1,4 +1,4 @@
-import AbstractView from './AbstractView.js';
+import AbstractView from './abstract-view.js';
 
 class ViewIntro extends AbstractView {
   constructor(cb) {

@@ -3,7 +3,7 @@ import ViewGame1 from './game-1.js';
 import ViewGame2 from './game-2.js';
 import ViewGame3 from './game-3.js';
 import {hasNextLevel, isDead, setNextLevel, decreaseLives, addAnswer} from './state.js';
-import {gameRender, statsRender, contentRender, clearMainElement} from './renderModule.js';
+import {gameRender, statsRender, contentRender, clearMainElement} from './render-module.js';
 
 const decreaseStateLives = (state, answer) => {
   if (!answer) {

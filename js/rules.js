@@ -1,4 +1,4 @@
-import AbstractView from './AbstractView.js';
+import AbstractView from './abstract-view.js';
 
 class ViewRules extends AbstractView {
   constructor(state, renderGameCB) {

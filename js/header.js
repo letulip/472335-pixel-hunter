@@ -1,4 +1,4 @@
-import AbstractView from './AbstractView.js';
+import AbstractView from './abstract-view.js';
 
 const DEFAULT_LIVES = 3;
 
