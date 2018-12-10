@@ -25,7 +25,7 @@ const QUESTIONS = [
     ]
   },
   {
-    title: ``,
+    title: `Найдите рисунок среди изображений`,
     type: `triple`,
     options: [
       {src: `https://i.imgur.com/DiHM5Zb.jpg`, type: `photo`},
@@ -49,7 +49,7 @@ const QUESTIONS = [
     ]
   },
   {
-    title: ``,
+    title: `Найдите рисунок среди изображений`,
     type: `triple`,
     options: [
       {src: `https://i.imgur.com/DiHM5Zb.jpg`, type: `photo`},
@@ -73,7 +73,7 @@ const QUESTIONS = [
     ]
   },
   {
-    title: ``,
+    title: `Найдите рисунок среди изображений`,
     type: `triple`,
     options: [
       {src: `https://i.imgur.com/DiHM5Zb.jpg`, type: `photo`},
@@ -100,6 +100,12 @@ const LIVE_POINTS = 50;
 const addQuestions = (state, questions) => {
   return Object.freeze(Object.assign({}, state, {
     questions: Object.freeze([...questions])
+  }));
+};
+
+const addPlayerName = (state, name) => {
+  return Object.freeze(Object.assign({}, state, {
+    userName: name
   }));
 };
 
@@ -180,4 +186,4 @@ const addAnswer = (state, answer) => {
 
 const INITIAL_STATE_WITH_QUESTIONS = addQuestions(INITIAL_STATE, QUESTIONS);
 
-export {INITIAL_STATE, INITIAL_STATE_WITH_QUESTIONS, addQuestions, changeLevel, setNextLevel, hasNextLevel, isDead, decreaseLives, tickTimer, resetTimer, countPoints, addAnswer};
+export {INITIAL_STATE, INITIAL_STATE_WITH_QUESTIONS, addQuestions, addPlayerName, changeLevel, setNextLevel, hasNextLevel, isDead, decreaseLives, tickTimer, resetTimer, countPoints, addAnswer};

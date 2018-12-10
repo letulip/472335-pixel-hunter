@@ -1,19 +1,25 @@
-import {contentRender} from './renderModule.js';
-import renderGreeting from './greeting.js';
+import AbstractView from './abstract-view.js';
 
-const intro = `
-<section class="intro">
-  <button class="intro__asterisk asterisk" type="button"><span class="visually-hidden">Продолжить</span>*</button>
-  <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
-</section>`;
+class ViewIntro extends AbstractView {
+  constructor(cb) {
+    super();
+    this.tag = `section`;
+    this.classList = [`intro`];
+    this.cb = cb;
+  }
 
-const renderIntro = () => {
-  contentRender(intro);
+  get template() {
+    const intro = `
+      <button class="intro__asterisk asterisk" type="button"><span class="visually-hidden">Продолжить</span>*</button>
+      <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>`;
 
-  const asterisk = document.querySelector(`.asterisk`);
-  asterisk.addEventListener(`click`, () => {
-    renderGreeting();
-  });
-};
+    return intro;
+  }
 
-export default renderIntro;
+  bind() {
+    const asterisk = this.element.querySelector(`.asterisk`);
+    asterisk.addEventListener(`click`, this.cb);
+  }
+}
+
+export default ViewIntro;

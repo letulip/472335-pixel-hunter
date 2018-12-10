@@ -1,17 +1,26 @@
 const mainElement = document.querySelector(`#main`);
 
-const contentRender = (strToRender) => {
-  mainElement.innerHTML = strToRender;
+const contentRender = (element) => {
+  mainElement.append(element);
+};
+
+const clearMainElement = () => {
+  mainElement.innerHTML = ``;
 };
 
 const gameRender = (elementToRender) => {
-  const game = mainElement.querySelector(`.game`);
-  mainElement.replaceChild(elementToRender, game);
+  const gameWrapper = mainElement.querySelector(`.game__wrapper`);
+  const game = gameWrapper.querySelector(`.game`);
+  gameWrapper.replaceChild(elementToRender, game);
 };
 
-const createLayoutElement = (tag, content, classList) => {
+const createLayoutElement = (tag, content, elementClassList) => {
   const gameLayoutElement = document.createElement(tag);
-  gameLayoutElement.classList.add(classList);
+  if (elementClassList) {
+    elementClassList.forEach((elementClass) => {
+      gameLayoutElement.classList.add(elementClass);
+    });
+  }
   gameLayoutElement.innerHTML = content;
   return gameLayoutElement;
 };
@@ -47,4 +56,4 @@ const statsRender = (answers, element) => {
   stats.innerHTML = statsLayout;
 };
 
-export {contentRender, gameRender, statsRender, createLayoutElement};
+export {contentRender, clearMainElement, gameRender, statsRender, createLayoutElement};

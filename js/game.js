@@ -1,44 +1,48 @@
-import renderHeader from './header.js';
-import renderGreeting from './greeting.js';
-import renderGame1 from './game-1.js';
-import renderGame2 from './game-2.js';
-import renderGame3 from './game-3.js';
-import {hasNextLevel, resetTimer, isDead, setNextLevel, decreaseLives, addAnswer} from './state.js';
-import renderTotalStats from './stats.js';
-import {statsRender} from './renderModule.js';
+import ViewHeader from './header.js';
+import ViewGame1 from './game-1.js';
+import ViewGame2 from './game-2.js';
+import ViewGame3 from './game-3.js';
+import {hasNextLevel, isDead, setNextLevel, decreaseLives, addAnswer} from './state.js';
+import {gameRender, statsRender, contentRender, clearMainElement} from './render-module.js';
 
-const renderGame = (state) => {
+const decreaseStateLives = (state, answer) => {
+  if (!answer) {
+    return decreaseLives(state);
+  }
+  return state;
+};
+
+const renderGameState = (state, greetingCB, statsCB) => {
+  const header = new ViewHeader(state, greetingCB);
+  clearMainElement();
+  contentRender(header.element);
+
   if (hasNextLevel(state.level, state.questions) && !isDead(state.lives)) {
-    renderHeader(resetTimer(state));
     const checkIsCorrect = (isCorrect) => {
-      if (!isCorrect) {
-        renderGame(setNextLevel(decreaseLives(addAnswer(state, {time: 15, isCorrect}))));
-      } else {
-        renderGame(setNextLevel(addAnswer(state, {time: 15, isCorrect})));
-      }
+      renderGameState(setNextLevel(addAnswer(decreaseStateLives(state, isCorrect), {time: 15, isCorrect})), greetingCB, statsCB);
     };
-    const backButton = document.querySelector(`.back`);
-    backButton.addEventListener(`click`, () => {
-      renderGreeting();
-    });
+
     const question = state.questions[state.level];
     switch (question.type) {
       case `single`:
-        renderGame2(question, checkIsCorrect);
+        const level2 = new ViewGame2(question, checkIsCorrect);
+        gameRender(level2.element);
         statsRender(state.answers);
         break;
       case `double`:
-        renderGame1(question, checkIsCorrect);
+        const level1 = new ViewGame1(question, checkIsCorrect);
+        gameRender(level1.element);
         statsRender(state.answers);
         break;
       default:
-        renderGame3(question, checkIsCorrect);
+        const level3 = new ViewGame3(question, checkIsCorrect);
+        gameRender(level3.element);
         statsRender(state.answers);
     }
   } else {
-    renderTotalStats(state);
+    statsCB(state);
   }
 
 };
 
-export default renderGame;
+export default renderGameState;

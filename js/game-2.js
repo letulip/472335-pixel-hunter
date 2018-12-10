@@ -1,42 +1,45 @@
-import {gameRender, createLayoutElement} from './renderModule.js';
+import AbstractView from './abstract-view.js';
 
-const renderGame2 = (question, cb) => {
-  const game2 = `
-    <p class="game__task">${question.title}</p>
-    <form class="game__content  game__content--wide">
-    </form>
-    <ul class="stats">
-    </ul>`;
+class ViewGame2 extends AbstractView {
+  constructor(question, cb) {
+    super();
+    this.question = question;
+    this.cb = cb;
+    this.tag = `section`;
+    this.classList = [`game`];
+  }
 
-  const gameLayoutElement = createLayoutElement(`section`, game2, [`game`]);
-  const gameContent = gameLayoutElement.querySelector(`.game__content`);
+  get template() {
+    const game2 = `
+      <p class="game__task">${this.question.title}</p>
+      <form class="game__content  game__content--wide">
+        ${this.question.options.map((option, index) => `
+          <div class="game__option">
+            <img src="${option.src}" alt="Option ${index}" width="705" height="455">
+            <label class="game__answer  game__answer--photo">
+              <input class="visually-hidden" name="question${index}" type="radio" value="photo">
+              <span>Фото</span>
+            </label>
+            <label class="game__answer  game__answer--paint">
+              <input class="visually-hidden" name="question${index}" type="radio" value="paint">
+              <span>Рисунок</span>
+            </label>
+          </div>`).join(``)}
+      </form>
+      <ul class="stats">
+      </ul>`;
 
-  question.options.forEach((option, index) => {
-    const gameOptionLayout = `
-      <img src="${option.src}" alt="Option ${index}" width="705" height="455">
-      <label class="game__answer  game__answer--photo">
-        <input class="visually-hidden" name="question${index}" type="radio" value="photo">
-        <span>Фото</span>
-      </label>
-      <label class="game__answer  game__answer--paint">
-        <input class="visually-hidden" name="question${index}" type="radio" value="paint">
-        <span>Рисунок</span>
-      </label>`;
-    const gameOption = createLayoutElement(`div`, gameOptionLayout, [`game__option`]);
+    return game2;
+  }
 
-    // event listener:
-    const inputsList = gameOption.querySelectorAll(`input`);
+  bind() {
+    const inputsList = this.element.querySelectorAll(`input`);
     inputsList.forEach((input) => {
       input.addEventListener(`change`, () => {
-        cb(input.value === option.type);
+        this.cb(this.question.options.some((option) => option.type === input.value));
       });
     });
+  }
+}
 
-    gameContent.append(gameOption);
-  });
-
-
-  gameRender(gameLayoutElement);
-};
-
-export default renderGame2;
+export default ViewGame2;
