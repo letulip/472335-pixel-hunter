@@ -24,7 +24,7 @@ class ViewHeader extends AbstractView {
         </svg>
       </button>`;
 
-    if (this.state && this.state.lives > -1) {
+    if (this.state && this.state.lives > -1 && this.state.level < this.state.questions.length) {
       header += `
         <div class="game__timer">${this.state.time}</div>
         <div class="game__lives">

@@ -3,7 +3,7 @@ import {contentRender, clearMainElement} from './render-module.js';
 import ViewGreeting from './greeting.js';
 import ViewRules from './rules.js';
 import ViewHeader from './header.js';
-import {INITIAL_STATE_WITH_QUESTIONS, addPlayerName} from './state.js';
+import {INITIAL_STATE_WITH_QUESTIONS, addPlayerName, stopTimer} from './state.js';
 import renderGameState from './game.js';
 import ViewStats from './stats.js';
 
@@ -21,6 +21,7 @@ const greeting = new ViewGreeting(renderRules);
 const renderGreeting = () => {
   clearMainElement();
   contentRender(greeting.element);
+  stopTimer();
 };
 
 const header = new ViewHeader(false, renderGreeting);

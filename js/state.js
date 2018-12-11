@@ -96,6 +96,7 @@ const SLOW_TIME = 10;
 const BONUS_POINTS = 50;
 const COMMON_POINTS = 100;
 const LIVE_POINTS = 50;
+const ONE_SECOND = 1000;
 
 const addQuestions = (state, questions) => {
   return Object.freeze(Object.assign({}, state, {
@@ -144,6 +145,19 @@ const tickTimer = (state) => {
   return Object.freeze(Object.assign({}, state, {time: state.time - 1}));
 };
 
+let timer;
+
+const startTimer = (state, cb) => {
+  timer = setTimeout(() => {
+    startTimer(cb(tickTimer(state)), cb);
+  }, ONE_SECOND);
+};
+
+const stopTimer = (state) => {
+  clearTimeout(timer);
+  return state;
+};
+
 const resetTimer = (state) => {
   return Object.freeze(Object.assign({}, state, {
     'time': DEFAULT_TIMER_VALUE
@@ -186,4 +200,4 @@ const addAnswer = (state, answer) => {
 
 const INITIAL_STATE_WITH_QUESTIONS = addQuestions(INITIAL_STATE, QUESTIONS);
 
-export {INITIAL_STATE, INITIAL_STATE_WITH_QUESTIONS, addQuestions, addPlayerName, changeLevel, setNextLevel, hasNextLevel, isDead, decreaseLives, tickTimer, resetTimer, countPoints, addAnswer};
+export {INITIAL_STATE, INITIAL_STATE_WITH_QUESTIONS, addQuestions, addPlayerName, changeLevel, setNextLevel, hasNextLevel, isDead, decreaseLives, tickTimer, startTimer, stopTimer, resetTimer, countPoints, addAnswer};
