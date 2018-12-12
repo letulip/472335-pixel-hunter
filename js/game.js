@@ -1,4 +1,4 @@
-import ViewHeader from './header.js';
+import ViewHeader from './header-view.js';
 import ViewGame1 from './game-1.js';
 import ViewGame2 from './game-2.js';
 import ViewGame3 from './game-3.js';
@@ -40,7 +40,7 @@ const changeLevel = (question, answers, cb) => {
 };
 
 const renderGameState = (state, greetingCB, statsCB) => {
-  const header = new ViewHeader(state, greetingCB);
+  const header = new ViewHeader(greetingCB, state);
   clearMainElement();
   contentRender(header.element);
 

@@ -3,7 +3,7 @@ import AbstractView from './abstract-view.js';
 const DEFAULT_LIVES = 3;
 
 class ViewHeader extends AbstractView {
-  constructor(state, cb) {
+  constructor(cb, state) {
     super();
     this.tag = `div`;
     this.classList = [`game__wrapper`];
