@@ -1,4 +1,4 @@
-import ViewIntro from './intro.js';
+import IntroController from './intro-controller.js';
 import {contentRender, clearMainElement} from './render-module.js';
 import ViewGreeting from './greeting.js';
 import ViewRules from './rules.js';
@@ -9,8 +9,7 @@ import ViewStats from './stats.js';
 
 class Application {
   static showWelcome() {
-    const intro = new ViewIntro(Application.renderGreeting);
-    contentRender(intro.element);
+    IntroController.showIntro(Application.renderGreeting);
   }
 
   static renderGameCB(state, name) {
