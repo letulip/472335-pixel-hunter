@@ -1,7 +1,7 @@
 import IntroController from './intro-controller.js';
 import {contentRender, clearMainElement} from './render-module.js';
 import ViewGreeting from './greeting.js';
-import ViewRules from './rules.js';
+import RulesController from './rules-controller.js';
 import ViewHeader from './header.js';
 import {INITIAL_STATE_WITH_QUESTIONS, addPlayerName, stopTimer} from './state.js';
 import renderGameState from './game.js';
@@ -22,9 +22,8 @@ class Application {
   }
 
   static renderRules() {
-    const rules = new ViewRules(INITIAL_STATE_WITH_QUESTIONS, Application.renderGameCB);
     Application.renderHeader();
-    contentRender(rules.element);
+    RulesController.showRules(INITIAL_STATE_WITH_QUESTIONS, Application.renderGameCB);
   }
 
   static renderHeader() {
