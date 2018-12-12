@@ -1,9 +1,9 @@
 import IntroController from './intro-controller.js';
 import {contentRender, clearMainElement} from './render-module.js';
-import ViewGreeting from './greeting.js';
+import GreetingController from './greeting-controller.js';
 import RulesController from './rules-controller.js';
 import ViewHeader from './header.js';
-import {INITIAL_STATE_WITH_QUESTIONS, addPlayerName, stopTimer} from './state.js';
+import {INITIAL_STATE_WITH_QUESTIONS, addPlayerName} from './state.js';
 import renderGameState from './game.js';
 import ViewStats from './stats.js';
 
@@ -33,10 +33,8 @@ class Application {
   }
 
   static renderGreeting() {
-    const greeting = new ViewGreeting(Application.renderRules);
     clearMainElement();
-    contentRender(greeting.element);
-    stopTimer();
+    GreetingController.showGreeting(Application.renderRules);
   }
 }
 
