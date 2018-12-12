@@ -43,7 +43,7 @@ const createResultTable = (number, resultElement) => {
     <td class="result__extra">Штраф за медлительность:</td>
     <td class="result__extra">${TOTAL_POINTS.slowAnswers} <span class="stats__result stats__result--slow"></span></td>
     <td class="result__points">× 50</td>
-    <td class="result__total">-${TOTAL_POINTS.slowAnswers * SLOW_POINTS}</td>
+    <td class="result__total">${TOTAL_POINTS.slowAnswers * SLOW_POINTS}</td>
   </tr>
   <tr>
     <td colspan="5" class="result__total  result__total--final">${TOTAL_POINTS.points}</td>
