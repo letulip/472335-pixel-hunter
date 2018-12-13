@@ -13,7 +13,9 @@ class Application {
   }
 
   static renderGameCB(state, name) {
-    GameController.renderGameState(addPlayerName(state, name), Application.renderGreeting, Application.renderStatsCB);
+    const newGame = new GameController(new GameModel(name));
+    newGame.renderGameState(addPlayerName(state, name), Application.renderGreeting, Application.renderStatsCB);
+    // GameController.renderGameState(addPlayerName(state, name), Application.renderGreeting, Application.renderStatsCB);
   }
 
   static renderStatsCB(state) {

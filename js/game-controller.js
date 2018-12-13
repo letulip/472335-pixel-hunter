@@ -12,36 +12,36 @@ class GameController {
     this.model = gameModel;
   }
 
-  static changeLevel(question, answers, cb) {
+  changeLevel(question, answers, cb) {
     let level;
     switch (question.type) {
       case `single`:
         level = new ViewGame2(question, cb);
-        GameController.renderGame(level, answers);
+        this.renderGame(level, answers);
         break;
       case `double`:
         level = new ViewGame1(question, cb);
-        GameController.renderGame(level, answers);
+        this.renderGame(level, answers);
         break;
       default:
         level = new ViewGame3(question, cb);
-        GameController.renderGame(level, answers);
+        this.renderGame(level, answers);
     }
   }
 
-  static renderGame(level, answers) {
+  renderGame(level, answers) {
     gameRender(level.element);
     statsRender(answers);
   }
 
-  static decreaseStateLives(state, answer) {
+  decreaseStateLives(state, answer) {
     if (!answer) {
       return decreaseLives(state);
     }
     return state;
   }
 
-  static updateTimer(state) {
+  updateTimer(state) {
     const gameTimer = document.querySelector(`.game__timer`);
     if (gameTimer) {
       gameTimer.innerText = state.time;
@@ -50,7 +50,7 @@ class GameController {
     return state;
   }
 
-  static renderGameState(state, greetingCB, statsCB) {
+  renderGameState(state, greetingCB, statsCB) {
     Application.renderHeader(state);
 
     if (hasNextLevel(state.level, state.questions) && !isDead(state.lives)) {
@@ -58,7 +58,7 @@ class GameController {
       const checkIsCorrect = (isCorrect) => {
         this.renderGameState(setNextLevel(addAnswer(this.decreaseStateLives(state, isCorrect), {time: timerValue, isCorrect})), greetingCB, statsCB);
       };
-      GameController.changeLevel(state.questions[state.level], state.answers, checkIsCorrect);
+      this.changeLevel(state.questions[state.level], state.answers, checkIsCorrect);
     } else {
       stopTimer(state);
       statsCB(state);
