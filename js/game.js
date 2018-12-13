@@ -1,9 +1,9 @@
-import ViewHeader from './header-view.js';
+import Application from './application.js';
 import ViewGame1 from './game-1.js';
 import ViewGame2 from './game-2.js';
 import ViewGame3 from './game-3.js';
 import {hasNextLevel, isDead, setNextLevel, decreaseLives, addAnswer, startTimer, stopTimer, resetTimer} from './state.js';
-import {gameRender, statsRender, contentRender, clearMainElement} from './render-module.js';
+import {gameRender, statsRender} from './render-module.js';
 
 const decreaseStateLives = (state, answer) => {
   if (!answer) {
@@ -12,10 +12,13 @@ const decreaseStateLives = (state, answer) => {
   return state;
 };
 
+let timerValue;
+
 const updateTimer = (state) => {
   const gameTimer = document.querySelector(`.game__timer`);
   if (gameTimer) {
     gameTimer.innerText = state.time;
+    timerValue = state.time;
   }
   return state;
 };
@@ -40,14 +43,12 @@ const changeLevel = (question, answers, cb) => {
 };
 
 const renderGameState = (state, greetingCB, statsCB) => {
-  const header = new ViewHeader(greetingCB, state);
-  clearMainElement();
-  contentRender(header.element);
+  Application.renderHeader(state);
 
   if (hasNextLevel(state.level, state.questions) && !isDead(state.lives)) {
     startTimer(resetTimer(stopTimer(state)), updateTimer);
     const checkIsCorrect = (isCorrect) => {
-      renderGameState(setNextLevel(addAnswer(decreaseStateLives(state, isCorrect), {time: 15, isCorrect})), greetingCB, statsCB);
+      renderGameState(setNextLevel(addAnswer(decreaseStateLives(state, isCorrect), {time: timerValue, isCorrect})), greetingCB, statsCB);
     };
     changeLevel(state.questions[state.level], state.answers, checkIsCorrect);
 

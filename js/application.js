@@ -22,13 +22,13 @@ class Application {
   }
 
   static renderRules() {
-    Application.renderHeader();
+    Application.renderHeader(false);
     RulesController.showRules(INITIAL_STATE_WITH_QUESTIONS, Application.renderGameCB);
   }
 
-  static renderHeader() {
+  static renderHeader(state) {
     clearMainElement();
-    HeaderController.showHeader(Application.renderGreeting, false);
+    HeaderController.showHeader(Application.renderGreeting, state);
   }
 
   static renderGreeting() {
