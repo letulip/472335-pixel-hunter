@@ -1,5 +1,4 @@
 import StateModel from './state-model.js';
-// import StateController from './state-controller.js';
 import {changeLevel, setNextLevel, hasNextLevel, isDead, tickTimer} from './state.js';
 
 class GameModel {

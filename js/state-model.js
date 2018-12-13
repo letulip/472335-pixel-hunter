@@ -1,4 +1,4 @@
-import StateController from './state-controller.js';
+import {addQuestions} from './state.js';
 
 class StateModel {
   constructor() {
@@ -15,18 +15,9 @@ class StateModel {
   }
 
   static initialStateWithQuestions() {
-    return StateController.addQuestions(StateModel.initialState(), QUESTIONS);
+    return addQuestions(this.initialState(), QUESTIONS);
   }
 }
-
-// const INITIAL_STATE = Object.freeze({
-//   lives: 3,
-//   level: 0,
-//   time: 30,
-//   questions: Object.freeze([]),
-//   answers: Object.freeze([]),
-//   userName: ``
-// });
 
 const QUESTIONS = [
   {
