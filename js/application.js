@@ -5,10 +5,10 @@ import RulesController from './rules-controller.js';
 import HeaderController from './header-controller.js';
 import {INITIAL_STATE_WITH_QUESTIONS, addPlayerName} from './state.js';
 import GameModel from './game-model.js';
-import ViewStats from './stats.js';
+import StatsController from './stats-controller.js';
 
 class Application {
-  static showWelcome() {
+  static renderIntro() {
     IntroController.showIntro(Application.renderGreeting);
   }
 
@@ -17,8 +17,7 @@ class Application {
   }
 
   static renderStatsCB(state) {
-    const stats = new ViewStats(state);
-    contentRender(stats.element);
+    StatsController.showStats(state);
   }
 
   static renderRules() {
