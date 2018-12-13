@@ -9,7 +9,7 @@ const decreaseStateLives = (state, answer) => {
   return state;
 };
 
-let timerValue;
+let timerValue = 30;
 
 const updateTimer = (state) => {
   const gameTimer = document.querySelector(`.game__timer`);
@@ -20,19 +20,6 @@ const updateTimer = (state) => {
   return state;
 };
 
-const changeLevel = (question, answers, cb) => {
-  switch (question.type) {
-    case `single`:
-      GameController.renderGame2(question, answers, cb);
-      break;
-    case `double`:
-      GameController.renderGame1(question, answers, cb);
-      break;
-    default:
-      GameController.renderGame3(question, answers, cb);
-  }
-};
-
 const renderGameState = (state, greetingCB, statsCB) => {
   Application.renderHeader(state);
 
@@ -41,7 +28,7 @@ const renderGameState = (state, greetingCB, statsCB) => {
     const checkIsCorrect = (isCorrect) => {
       renderGameState(setNextLevel(addAnswer(decreaseStateLives(state, isCorrect), {time: timerValue, isCorrect})), greetingCB, statsCB);
     };
-    changeLevel(state.questions[state.level], state.answers, checkIsCorrect);
+    GameController.changeLevel(state.questions[state.level], state.answers, checkIsCorrect);
 
   } else {
     stopTimer(state);
