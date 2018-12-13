@@ -1,5 +1,6 @@
 import StateModel from './state-model.js';
-import StateController from './state-controller.js';
+// import StateController from './state-controller.js';
+import {changeLevel, setNextLevel, hasNextLevel, isDead, tickTimer} from './state.js';
 
 class GameModel {
   constructor(playerName) {
@@ -12,11 +13,11 @@ class GameModel {
   }
 
   hasNextLevel() {
-    StateController.hasNextLevel(this._state);
+    hasNextLevel(this._state);
   }
 
   setNextLevel(state) {
-    this._state = StateController.setNextLevel(state);
+    this._state = setNextLevel(state);
   }
 
   restart() {
@@ -24,15 +25,15 @@ class GameModel {
   }
 
   isDead() {
-    StateController.isDead(this._state.lives);
+    isDead(this._state.lives);
   }
 
   changeLevel() {
-    StateController.changeLevel(this._state, this._state.level);
+    changeLevel(this._state, this._state.level);
   }
 
   tick(state) {
-    this._state = StateController.tickTimer(state);
+    this._state = tickTimer(state);
   }
 }
 
