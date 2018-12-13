@@ -1,9 +1,6 @@
 import Application from './application.js';
-import ViewGame1 from './game-1.js';
-import ViewGame2 from './game-2.js';
-import ViewGame3 from './game-3.js';
+import GameController from './game-controller.js';
 import {hasNextLevel, isDead, setNextLevel, decreaseLives, addAnswer, startTimer, stopTimer, resetTimer} from './state.js';
-import {gameRender, statsRender} from './render-module.js';
 
 const decreaseStateLives = (state, answer) => {
   if (!answer) {
@@ -26,19 +23,13 @@ const updateTimer = (state) => {
 const changeLevel = (question, answers, cb) => {
   switch (question.type) {
     case `single`:
-      const level2 = new ViewGame2(question, cb);
-      gameRender(level2.element);
-      statsRender(answers);
+      GameController.renderGame2(question, answers, cb);
       break;
     case `double`:
-      const level1 = new ViewGame1(question, cb);
-      gameRender(level1.element);
-      statsRender(answers);
+      GameController.renderGame1(question, answers, cb);
       break;
     default:
-      const level3 = new ViewGame3(question, cb);
-      gameRender(level3.element);
-      statsRender(answers);
+      GameController.renderGame3(question, answers, cb);
   }
 };
 
