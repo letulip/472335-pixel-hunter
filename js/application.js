@@ -4,7 +4,7 @@ import GreetingController from './greeting-controller.js';
 import RulesController from './rules-controller.js';
 import HeaderController from './header-controller.js';
 import {INITIAL_STATE_WITH_QUESTIONS, addPlayerName} from './state.js';
-import renderGameState from './game.js';
+import GameModel from './game-model.js';
 import ViewStats from './stats.js';
 
 class Application {
@@ -13,7 +13,7 @@ class Application {
   }
 
   static renderGameCB(state, name) {
-    renderGameState(addPlayerName(state, name), Application.renderGreeting, Application.renderStatsCB);
+    GameModel.renderGameState(addPlayerName(state, name), Application.renderGreeting, Application.renderStatsCB);
   }
 
   static renderStatsCB(state) {
