@@ -200,4 +200,4 @@ const addAnswer = (state, answer) => {
 
 const INITIAL_STATE_WITH_QUESTIONS = addQuestions(INITIAL_STATE, QUESTIONS);
 
-export {INITIAL_STATE, INITIAL_STATE_WITH_QUESTIONS, addQuestions, addPlayerName, changeLevel, setNextLevel, hasNextLevel, isDead, decreaseLives, tickTimer, startTimer, stopTimer, resetTimer, countPoints, addAnswer};
+export {INITIAL_STATE, INITIAL_STATE_WITH_QUESTIONS, addQuestions, addPlayerName, changeLevel, setNextLevel, hasNextLevel, isDead, decreaseLives, tickTimer, resetTimer, countPoints, addAnswer};
