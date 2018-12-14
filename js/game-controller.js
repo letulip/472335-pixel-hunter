@@ -3,18 +3,18 @@ import ViewGame2 from './game-2-view.js';
 import ViewGame3 from './game-3-view.js';
 import {gameRender, statsRender} from './render-module.js';
 import Application from './application.js';
-import {hasNextLevel, isDead, setNextLevel, decreaseLives, addAnswer, resetTimer} from './state.js';
+import {resetTimer} from './state.js';
 
 let timerValue = 30;
 
 let timer;
 const ONE_SECOND = 1000;
 
-const startTimer = (state, cb) => {
-  timer = setTimeout(() => {
-    startTimer(cb(tickTimer(state)), cb);
-  }, ONE_SECOND);
-};
+// const startTimer = (state, cb) => {
+//   timer = setTimeout(() => {
+//     startTimer(cb(tickTimer(state)), cb);
+//   }, ONE_SECOND);
+// };
 
 const stopTimer = (state) => {
   clearTimeout(timer);
@@ -48,13 +48,6 @@ class GameController {
     statsRender(answers);
   }
 
-  decreaseStateLives(state, answer) {
-    if (!answer) {
-      return decreaseLives(state);
-    }
-    return state;
-  }
-
   updateTimer(state) {
     const gameTimer = document.querySelector(`.game__timer`);
     if (gameTimer) {
@@ -64,18 +57,19 @@ class GameController {
     return state;
   }
 
-  renderGameState(state, greetingCB, statsCB) {
-    Application.renderHeader(state);
+  renderGameState(greetingCB, statsCB) {
+    Application.renderHeader(this.model.state);
 
-    if (hasNextLevel(state.level, state.questions) && !isDead(state.lives)) {
-      startTimer(resetTimer(stopTimer(state)), this.updateTimer);
+    if (this.model.hasNextLevel() && !this.model.isDead()) {
+      // startTimer(resetTimer(stopTimer(this.model.state)), this.updateTimer);
       const checkIsCorrect = (isCorrect) => {
-        this.renderGameState(setNextLevel(addAnswer(this.decreaseStateLives(state, isCorrect), {time: timerValue, isCorrect})), greetingCB, statsCB);
+        this.model.setNextLevel(timerValue, isCorrect);
+        this.renderGameState(greetingCB, statsCB);
       };
-      this.changeLevel(state.questions[state.level], state.answers, checkIsCorrect);
+      this.changeLevel(this.model.state.questions[this.model.state.level], this.model.state.answers, checkIsCorrect);
     } else {
-      stopTimer(state);
-      statsCB(state);
+      stopTimer(this.model.state);
+      statsCB(this.model.state);
     }
   }
 }

@@ -2,8 +2,8 @@ import {contentRender} from './render-module.js';
 import ViewRules from './rules-view.js';
 
 class RulesController {
-  static showRules(state, cb) {
-    const rules = new ViewRules(state, cb);
+  static showRules(cb) {
+    const rules = new ViewRules(cb);
     contentRender(rules.element);
   }
 }

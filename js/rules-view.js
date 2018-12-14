@@ -1,10 +1,9 @@
 import AbstractView from './abstract-view.js';
 
 class ViewRules extends AbstractView {
-  constructor(state, renderGameCB) {
+  constructor(renderGameCB) {
     super();
     this.tag = `div`;
-    this.state = state;
     this.renderGameCB = renderGameCB;
   }
 
@@ -39,7 +38,7 @@ class ViewRules extends AbstractView {
       if (rulesInput.value) {
         goButton.removeAttribute(`disabled`);
         goButton.addEventListener(`click`, () => {
-          this.renderGameCB(this.state, rulesInput.value);
+          this.renderGameCB(rulesInput.value);
         });
       } else {
         goButton.setAttribute(`disabled`, `true`);

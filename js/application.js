@@ -2,7 +2,6 @@ import IntroController from './intro-controller.js';
 import GreetingController from './greeting-controller.js';
 import RulesController from './rules-controller.js';
 import HeaderController from './header-controller.js';
-import {INITIAL_STATE_WITH_QUESTIONS, addPlayerName} from './state.js';
 import GameModel from './game-model.js';
 import GameController from './game-controller.js';
 import StatsController from './stats-controller.js';
@@ -12,10 +11,9 @@ class Application {
     IntroController.showIntro(Application.renderGreeting);
   }
 
-  static renderGameCB(state, name) {
+  static renderGameCB(name) {
     const newGame = new GameController(new GameModel(name));
-    newGame.renderGameState(addPlayerName(state, name), Application.renderGreeting, Application.renderStatsCB);
-    // GameController.renderGameState(addPlayerName(state, name), Application.renderGreeting, Application.renderStatsCB);
+    newGame.renderGameState(Application.renderGreeting, Application.renderStatsCB);
   }
 
   static renderStatsCB(state) {
@@ -24,7 +22,7 @@ class Application {
 
   static renderRules() {
     Application.renderHeader(false);
-    RulesController.showRules(INITIAL_STATE_WITH_QUESTIONS, Application.renderGameCB);
+    RulesController.showRules(Application.renderGameCB);
   }
 
   static renderHeader(state) {
