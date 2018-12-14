@@ -96,7 +96,6 @@ const SLOW_TIME = 10;
 const BONUS_POINTS = 50;
 const COMMON_POINTS = 100;
 const LIVE_POINTS = 50;
-const ONE_SECOND = 1000;
 
 const addQuestions = (state, questions) => {
   return Object.freeze(Object.assign({}, state, {
@@ -143,19 +142,6 @@ const decreaseLives = (state) => {
 
 const tickTimer = (state) => {
   return Object.freeze(Object.assign({}, state, {time: state.time - 1}));
-};
-
-let timer;
-
-const startTimer = (state, cb) => {
-  timer = setTimeout(() => {
-    startTimer(cb(tickTimer(state)), cb);
-  }, ONE_SECOND);
-};
-
-const stopTimer = (state) => {
-  clearTimeout(timer);
-  return state;
 };
 
 const resetTimer = (state) => {

@@ -3,9 +3,23 @@ import ViewGame2 from './game-2-view.js';
 import ViewGame3 from './game-3-view.js';
 import {gameRender, statsRender} from './render-module.js';
 import Application from './application.js';
-import {hasNextLevel, isDead, setNextLevel, decreaseLives, addAnswer, startTimer, stopTimer, resetTimer} from './state.js';
+import {hasNextLevel, isDead, setNextLevel, decreaseLives, addAnswer, resetTimer} from './state.js';
 
 let timerValue = 30;
+
+let timer;
+const ONE_SECOND = 1000;
+
+const startTimer = (state, cb) => {
+  timer = setTimeout(() => {
+    startTimer(cb(tickTimer(state)), cb);
+  }, ONE_SECOND);
+};
+
+const stopTimer = (state) => {
+  clearTimeout(timer);
+  return state;
+};
 
 class GameController {
   constructor(gameModel) {

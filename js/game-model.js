@@ -1,10 +1,9 @@
-import StateModel from './state-model.js';
-import {changeLevel, setNextLevel, hasNextLevel, isDead, tickTimer} from './state.js';
+import {INITIAL_STATE_WITH_QUESTIONS, changeLevel, setNextLevel, hasNextLevel, isDead, tickTimer} from './state.js';
 
 class GameModel {
   constructor(playerName) {
     this.playerName = playerName;
-    this.restart();
+    this._state = INITIAL_STATE_WITH_QUESTIONS;
   }
 
   get state() {
@@ -20,7 +19,7 @@ class GameModel {
   }
 
   restart() {
-    this._state = StateModel.initialStateWithQuestions();
+    this._state = INITIAL_STATE_WITH_QUESTIONS;
   }
 
   isDead() {
