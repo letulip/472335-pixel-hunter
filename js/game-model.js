@@ -44,6 +44,7 @@ class GameModel {
 
   tick() {
     this._state = tickTimer(this._state);
+    return this._state;
   }
 }
 
