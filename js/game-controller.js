@@ -3,7 +3,7 @@ import ViewGame2 from './game-2-view.js';
 import ViewGame3 from './game-3-view.js';
 import {gameRender, statsRender} from './render-module.js';
 import Application from './application.js';
-import {resetTimer, tickTimer} from './state.js';
+import {resetTimer} from './state.js';
 
 let timerValue = 30;
 
@@ -32,9 +32,10 @@ class GameController {
     }
   }
 
-  startTimer(state, cb) {
+  startTimer(cb) {
     timer = setTimeout(() => {
-      this.startTimer(cb(tickTimer(state)), cb);
+      cb(this.model.tick());
+      this.startTimer(cb);
     }, ONE_SECOND);
   }
 
@@ -61,7 +62,8 @@ class GameController {
     Application.renderHeader(this.model.state);
 
     if (this.model.hasNextLevel() && !this.model.isDead()) {
-      this.startTimer(resetTimer(this.stopTimer(this.model.state)), this.updateTimer);
+      resetTimer(this.stopTimer(this.model.state));
+      this.startTimer(this.updateTimer);
       const checkIsCorrect = (isCorrect) => {
         this.model.setNextLevel(timerValue, isCorrect);
         this.renderGameState(greetingCB, statsCB);
