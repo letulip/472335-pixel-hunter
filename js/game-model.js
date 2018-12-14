@@ -24,7 +24,6 @@ class GameModel {
   }
 
   isDead() {
-    // debugger;
     return isDead(this._state.lives);
   }
 

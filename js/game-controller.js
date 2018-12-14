@@ -3,18 +3,18 @@ import ViewGame2 from './game-2-view.js';
 import ViewGame3 from './game-3-view.js';
 import {gameRender, statsRender} from './render-module.js';
 import Application from './application.js';
-import {resetTimer} from './state.js';
+import {resetTimer, tickTimer} from './state.js';
 
 let timerValue = 30;
 
 let timer;
 const ONE_SECOND = 1000;
 
-// const startTimer = (state, cb) => {
-//   timer = setTimeout(() => {
-//     startTimer(cb(tickTimer(state)), cb);
-//   }, ONE_SECOND);
-// };
+const startTimer = (state, cb) => {
+  timer = setTimeout(() => {
+    startTimer(cb(tickTimer(state)), cb);
+  }, ONE_SECOND);
+};
 
 const stopTimer = (state) => {
   clearTimeout(timer);
@@ -61,7 +61,7 @@ class GameController {
     Application.renderHeader(this.model.state);
 
     if (this.model.hasNextLevel() && !this.model.isDead()) {
-      // startTimer(resetTimer(stopTimer(this.model.state)), this.updateTimer);
+      startTimer(resetTimer(stopTimer(this.model.state)), this.updateTimer);
       const checkIsCorrect = (isCorrect) => {
         this.model.setNextLevel(timerValue, isCorrect);
         this.renderGameState(greetingCB, statsCB);
