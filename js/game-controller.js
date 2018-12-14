@@ -39,9 +39,8 @@ class GameController {
     }, ONE_SECOND);
   }
 
-  stopTimer(state) {
+  stopTimer() {
     clearTimeout(timer);
-    return state;
   }
 
   renderGame(level, answers) {
@@ -60,9 +59,11 @@ class GameController {
 
   renderGameState(greetingCB, statsCB) {
     Application.renderHeader(this.model.state);
+    this.stopTimer();
+    this.model.resetTimer();
 
     if (this.model.hasNextLevel() && !this.model.isDead()) {
-      resetTimer(this.stopTimer(this.model.state));
+
       this.startTimer(this.updateTimer);
       const checkIsCorrect = (isCorrect) => {
         this.model.setNextLevel(timerValue, isCorrect);
@@ -70,7 +71,7 @@ class GameController {
       };
       this.changeLevel(this.model.state.questions[this.model.state.level], this.model.state.answers, checkIsCorrect);
     } else {
-      this.stopTimer(this.model.state);
+      this.stopTimer();
       statsCB(this.model.state);
     }
   }

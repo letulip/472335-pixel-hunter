@@ -1,4 +1,4 @@
-import {INITIAL_STATE_WITH_QUESTIONS, changeLevel, addPlayerName, addAnswer, decreaseLives, setNextLevel, hasNextLevel, isDead, tickTimer} from './state.js';
+import {INITIAL_STATE_WITH_QUESTIONS, changeLevel, addPlayerName, addAnswer, decreaseLives, setNextLevel, hasNextLevel, isDead, tickTimer, resetTimer} from './state.js';
 
 class GameModel {
   constructor(playerName) {
@@ -40,6 +40,11 @@ class GameModel {
 
   changeLevel() {
     changeLevel(this._state, this._state.level);
+  }
+
+  resetTimer() {
+    this._state = resetTimer(this._state);
+    return this._state;
   }
 
   tick() {
