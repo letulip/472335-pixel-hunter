@@ -3,7 +3,6 @@ import ViewGame2 from './game-2-view.js';
 import ViewGame3 from './game-3-view.js';
 import {gameRender, statsRender} from './render-module.js';
 import Application from './application.js';
-import HeaderController from './header-controller.js';
 
 const ONE_SECOND = 1000;
 
