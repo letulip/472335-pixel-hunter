@@ -77,7 +77,7 @@ class GameController {
       this.changeLevel(this.model.getQuestion(), this.model.getAnswers(), checkIsCorrect);
     } else {
       this.stopTimer();
-      statsCB(this.model.state);
+      statsCB(this.model);
     }
   }
 }

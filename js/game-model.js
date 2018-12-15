@@ -20,6 +20,10 @@ class GameModel {
     return this.state.answers;
   }
 
+  getCorrectAnsers() {
+    return this.state.correctAnswers;
+  }
+
   getLives() {
     return this.state.lives;
   }

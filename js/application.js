@@ -16,8 +16,8 @@ class Application {
     newGame.renderGameState(Application.renderGreeting, Application.renderStatsCB);
   }
 
-  static renderStatsCB(state) {
-    StatsController.showStats(state);
+  static renderStatsCB(model) {
+    StatsController.showStats(model);
   }
 
   static renderRules() {
@@ -25,8 +25,8 @@ class Application {
     RulesController.showRules(Application.renderGameCB);
   }
 
-  static renderHeader(state) {
-    HeaderController.showHeader(Application.renderGreeting, state);
+  static renderHeader(model) {
+    HeaderController.showHeader(Application.renderGreeting, model);
   }
 
   static renderGreeting() {

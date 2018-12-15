@@ -2,9 +2,9 @@ import {statsRender, createLayoutElement} from './render-module.js';
 import {countPoints} from './state.js';
 import AbstractView from './abstract-view.js';
 
-const getWinStatus = (state) => {
+const getWinStatus = (answers) => {
   let winStatus = ``;
-  if (state.answers.length === 10) {
+  if (answers.length === 10) {
     winStatus = `Победа!`;
   } else {
     winStatus = `Не в этот раз, попробуй еще!`;
@@ -14,11 +14,11 @@ const getWinStatus = (state) => {
 
 
 const createResultTable = (number, resultElement) => {
-  const TOTAL_POINTS = countPoints(resultElement.answers, resultElement.lives);
+  const TOTAL_POINTS = countPoints(resultElement.getAnswers(), resultElement.getLives());
   const BONUS_POINTS = 50;
   const SLOW_POINTS = -50;
   const COMMON_POINTS = 100;
-  const TOTAL_LIVES = resultElement.lives < 0 ? 0 : resultElement.lives;
+  const TOTAL_LIVES = resultElement.getLives() < 0 ? 0 : resultElement.getLives();
 
   let resultWin = `
     <td class="result__points">× 100</td>
@@ -67,22 +67,22 @@ const createResultTable = (number, resultElement) => {
       ${(TOTAL_POINTS !== -1) ? resultWin : resultFalse}
     `;
   const resultTable = createLayoutElement(`table`, statsContent, [`result__table`]);
-  statsRender(resultElement.answers, resultTable);
+  statsRender(resultElement.getAnswers(), resultTable);
   return resultTable;
 };
 
 class ViewStats extends AbstractView {
-  constructor(state) {
+  constructor(model) {
     super();
     this.tag = `div`;
-    this.state = state;
-    this.results = [this.state];
+    this.model = model;
+    this.results = [this.model];
   }
 
   get template() {
     const stats = `
     <section class="result">
-      <h2 class="result__title">${getWinStatus(this.state)}</h2>
+      <h2 class="result__title">${getWinStatus(this.model.getAnswers())}</h2>
     </section>`;
 
     return stats;
