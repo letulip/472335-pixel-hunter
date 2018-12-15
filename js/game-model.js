@@ -12,6 +12,14 @@ class GameModel {
     return Object.freeze(this._state);
   }
 
+  getQuestion() {
+    return this.state.questions[this.state.level];
+  }
+
+  getAnswers() {
+    return this.state.answers;
+  }
+
   hasNextLevel() {
     return hasNextLevel(this._state.level, this._state.questions);
   }
@@ -55,7 +63,7 @@ class GameModel {
 
   tick() {
     this._state = tickTimer(this._state);
-    return this._state;
+    return this._state.time;
   }
 }
 

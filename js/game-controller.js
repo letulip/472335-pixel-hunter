@@ -54,13 +54,12 @@ class GameController {
     statsRender(answers);
   }
 
-  updateTimer(state) {
+  updateTime(time) {
     const gameTimer = document.querySelector(`.game__timer`);
     if (gameTimer) {
-      gameTimer.innerText = state.time;
-      timerValue = state.time;
+      gameTimer.innerText = time;
+      timerValue = time;
     }
-    return state;
   }
 
   renderGameState(greetingCB, statsCB) {
@@ -70,12 +69,12 @@ class GameController {
 
     if (this.model.hasNextLevel() && !this.model.isDead()) {
 
-      this.startTimer(this.updateTimer, greetingCB, statsCB);
+      this.startTimer(this.updateTime, greetingCB, statsCB);
       const checkIsCorrect = (isCorrect) => {
         this.model.setNextLevel(timerValue, isCorrect);
         this.renderGameState(greetingCB, statsCB);
       };
-      this.changeLevel(this.model.state.questions[this.model.state.level], this.model.state.answers, checkIsCorrect);
+      this.changeLevel(this.model.getQuestion(), this.model.getAnswers(), checkIsCorrect);
     } else {
       this.stopTimer();
       statsCB(this.model.state);
