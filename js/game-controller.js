@@ -3,10 +3,8 @@ import ViewGame2 from './game-2-view.js';
 import ViewGame3 from './game-3-view.js';
 import {gameRender, statsRender} from './render-module.js';
 import Application from './application.js';
-import {resetTimer} from './state.js';
 
 let timerValue = 30;
-
 let timer;
 const ONE_SECOND = 1000;
 
@@ -32,10 +30,18 @@ class GameController {
     }
   }
 
-  startTimer(cb) {
+  startTimer(cb, greetingCB, statsCB) {
     timer = setTimeout(() => {
       cb(this.model.tick());
-      this.startTimer(cb);
+      if (this.model.isTimeOver()) {
+        this.stopTimer();
+        if (this.model.hasNextLevel() && !this.model.isDead()) {
+          this.model.setNextLevel(timerValue, false);
+          this.renderGameState(greetingCB, statsCB);
+        }
+      } else {
+        this.startTimer(cb, greetingCB, statsCB);
+      }
     }, ONE_SECOND);
   }
 
@@ -64,7 +70,7 @@ class GameController {
 
     if (this.model.hasNextLevel() && !this.model.isDead()) {
 
-      this.startTimer(this.updateTimer);
+      this.startTimer(this.updateTimer, greetingCB, statsCB);
       const checkIsCorrect = (isCorrect) => {
         this.model.setNextLevel(timerValue, isCorrect);
         this.renderGameState(greetingCB, statsCB);

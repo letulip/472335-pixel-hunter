@@ -1,5 +1,7 @@
 import {INITIAL_STATE_WITH_QUESTIONS, changeLevel, addPlayerName, addAnswer, decreaseLives, setNextLevel, hasNextLevel, isDead, tickTimer, resetTimer} from './state.js';
 
+const TIME_OVER = 0;
+
 class GameModel {
   constructor(playerName) {
     this.playerName = playerName;
@@ -28,7 +30,7 @@ class GameModel {
   }
 
   addAnswer(timerValue, isCorrect) {
-    return addAnswer(this.decreaseStateLives(this._state, isCorrect), {time: timerValue, isCorrect});
+    return addAnswer(this.decreaseStateLives(isCorrect), {time: timerValue, isCorrect});
   }
 
   decreaseStateLives(answer) {
@@ -45,6 +47,10 @@ class GameModel {
   resetTimer() {
     this._state = resetTimer(this._state);
     return this._state;
+  }
+
+  isTimeOver() {
+    return this._state.time === TIME_OVER;
   }
 
   tick() {
