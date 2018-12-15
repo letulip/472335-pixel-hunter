@@ -21,12 +21,12 @@ class Application {
   }
 
   static renderRules() {
-    Application.renderHeader(false);
+    Application.renderHeader();
     RulesController.showRules(Application.renderGameCB);
   }
 
-  static renderHeader(model) {
-    HeaderController.showHeader(Application.renderGreeting, model);
+  static renderHeader(lives) {
+    HeaderController.showHeader(Application.renderGreeting, lives);
   }
 
   static renderGreeting() {

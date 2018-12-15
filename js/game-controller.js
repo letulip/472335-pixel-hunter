@@ -3,14 +3,14 @@ import ViewGame2 from './game-2-view.js';
 import ViewGame3 from './game-3-view.js';
 import {gameRender, statsRender} from './render-module.js';
 import Application from './application.js';
+import HeaderController from './header-controller.js';
 
-let timerValue = 30;
-let timer;
 const ONE_SECOND = 1000;
 
 class GameController {
   constructor(gameModel) {
     this.model = gameModel;
+    this.timer = null;
   }
 
   changeLevel(question, answers, cb) {
@@ -31,12 +31,13 @@ class GameController {
   }
 
   startTimer(cb, greetingCB, statsCB) {
-    timer = setTimeout(() => {
-      cb(this.model.tick());
+    this.timer = setTimeout(() => {
+      this.model.tick();
+      cb(this.model.time);
       if (this.model.isTimeOver()) {
         this.stopTimer();
         if (this.model.hasNextLevel() && !this.model.isDead()) {
-          this.model.setNextLevel(timerValue, false);
+          this.model.setNextLevel(this.model.time, false);
           this.renderGameState(greetingCB, statsCB);
         }
       } else {
@@ -46,7 +47,7 @@ class GameController {
   }
 
   stopTimer() {
-    clearTimeout(timer);
+    clearTimeout(this.timer);
   }
 
   renderGame(level, answers) {
@@ -58,25 +59,27 @@ class GameController {
     const gameTimer = document.querySelector(`.game__timer`);
     if (gameTimer) {
       gameTimer.innerText = time;
-      timerValue = time;
     }
   }
 
   renderGameState(greetingCB, statsCB) {
-    Application.renderHeader(this.model);
     this.stopTimer();
     this.model.resetTimer();
 
     if (this.model.hasNextLevel() && !this.model.isDead()) {
+      Application.renderHeader(this.model.getLives());
+      // создать Header
+      // создать функцию обертку над updateTime
+      // рендеришь хедер
 
       this.startTimer(this.updateTime, greetingCB, statsCB);
       const checkIsCorrect = (isCorrect) => {
-        this.model.setNextLevel(timerValue, isCorrect);
+        this.model.setNextLevel(this.model.time, isCorrect);
         this.renderGameState(greetingCB, statsCB);
       };
       this.changeLevel(this.model.getQuestion(), this.model.getAnswers(), checkIsCorrect);
     } else {
-      this.stopTimer();
+      Application.renderHeader();
       statsCB(this.model);
     }
   }

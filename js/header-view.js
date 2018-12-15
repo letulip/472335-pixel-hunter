@@ -4,11 +4,11 @@ const DEFAULT_LIVES = 3;
 const DEFAULT_TIME = 30;
 
 class ViewHeader extends AbstractView {
-  constructor(cb, model) {
+  constructor(cb, lives = undefined) {
     super();
     this.tag = `div`;
     this.classList = [`game__wrapper`];
-    this.model = (model) ? model : false;
+    this.lives = lives;
     this.cb = cb;
   }
 
@@ -25,14 +25,14 @@ class ViewHeader extends AbstractView {
         </svg>
       </button>`;
 
-    if (this.model && this.model.getLives() > -1 && this.model.hasNextLevel()) {
+    if (this.lives !== undefined) {
       header += `
         <div class="game__timer">${DEFAULT_TIME}</div>
         <div class="game__lives">
-          ${new Array(DEFAULT_LIVES - this.model.getLives())
+          ${new Array(DEFAULT_LIVES - this.lives)
             .fill(`<img src="img/heart__empty.svg" class="game__heart" alt=" Missed Life" width="31" height="27">`)
             .join(``)}
-          ${new Array(this.model.getLives())
+          ${new Array(this.lives)
             .fill(`<img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">`)
             .join(``)}
         </div>

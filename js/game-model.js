@@ -12,6 +12,10 @@ class GameModel {
     return Object.freeze(this._state);
   }
 
+  get time() {
+    return this._state.time;
+  }
+
   getQuestion() {
     return this.state.questions[this.state.level];
   }
@@ -66,7 +70,6 @@ class GameModel {
 
   resetTimer() {
     this._state = resetTimer(this._state);
-    return this._state;
   }
 
   isTimeOver() {
@@ -75,7 +78,6 @@ class GameModel {
 
   tick() {
     this._state = tickTimer(this._state);
-    return this._state.time;
   }
 }
 
