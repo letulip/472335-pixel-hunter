@@ -20,6 +20,14 @@ class GameModel {
     return this.state.answers;
   }
 
+  getLives() {
+    return this.state.lives;
+  }
+
+  getLevel() {
+    return this.state.level;
+  }
+
   hasNextLevel() {
     return hasNextLevel(this._state.level, this._state.questions);
   }

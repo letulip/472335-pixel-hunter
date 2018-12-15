@@ -63,7 +63,7 @@ class GameController {
   }
 
   renderGameState(greetingCB, statsCB) {
-    Application.renderHeader(this.model.state);
+    Application.renderHeader(this.model);
     this.stopTimer();
     this.model.resetTimer();
 
