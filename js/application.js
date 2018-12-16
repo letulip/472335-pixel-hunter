@@ -5,8 +5,21 @@ import HeaderController from './header-controller.js';
 import GameModel from './game-model.js';
 import GameController from './game-controller.js';
 import StatsController from './stats-controller.js';
+import SplashController from './splash-controller.js';
+
+const checkStatus = (response) => {
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  } else {
+    throw new Error(`${response.status}: ${response.statusText}`);
+  }
+};
 
 class Application {
+  static start() {
+    SplashController.showSplash(checkStatus);
+  }
+
   static renderIntro() {
     IntroController.showIntro(Application.renderGreeting);
   }
