@@ -25,7 +25,7 @@ class Application {
   }
 
   static renderGameCB(name) {
-    const newGame = new GameController(new GameModel(name));
+    const newGame = new GameController(new GameModel(name, SplashController.getQuestions()));
     newGame.renderGameState(Application.renderGreeting, Application.renderStatsCB);
   }
 

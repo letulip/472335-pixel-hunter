@@ -11,11 +11,11 @@ class ViewGame1 extends AbstractView {
 
   get template() {
     const game1 = `
-      <p class="game__task">${this.question.title}</p>
+      <p class="game__task">${this.question.question}</p>
       <form class="game__content">
-        ${this.question.options.map((option, index) => `
+        ${this.question.answers.map((answer, index) => `
           <div class="game__option">
-            <img src="${option.src}" alt="Option ${index}" width="468" height="458">
+            <img src="${answer.image.url}" alt="Option ${index}" width="468" height="458">
             <label class="game__answer game__answer--photo">
               <input class="visually-hidden" name="question${index}" type="radio" value="photo">
               <span>Фото</span>
@@ -39,7 +39,7 @@ class ViewGame1 extends AbstractView {
         const inputList = this.element.querySelectorAll(`input:checked`);
         if (inputList.length === 2) {
           const isCorrect = Array.prototype.every.call(inputList, (inputElement, inputIndex) => {
-            return inputElement.value === this.question.options[inputIndex].type;
+            return inputElement.value === this.question.answers[inputIndex].type;
           });
           this.cb(isCorrect);
         }

@@ -11,11 +11,11 @@ class ViewGame2 extends AbstractView {
 
   get template() {
     const game2 = `
-      <p class="game__task">${this.question.title}</p>
+      <p class="game__task">${this.question.question}</p>
       <form class="game__content  game__content--wide">
-        ${this.question.options.map((option, index) => `
+        ${this.question.answers.map((answer, index) => `
           <div class="game__option">
-            <img src="${option.src}" alt="Option ${index}" width="705" height="455">
+            <img src="${answer.image.url}" alt="Option ${index}" width="705" height="455">
             <label class="game__answer  game__answer--photo">
               <input class="visually-hidden" name="question${index}" type="radio" value="photo">
               <span>Фото</span>
@@ -36,7 +36,7 @@ class ViewGame2 extends AbstractView {
     const inputsList = this.element.querySelectorAll(`input`);
     inputsList.forEach((input) => {
       input.addEventListener(`change`, () => {
-        this.cb(this.question.options.some((option) => option.type === input.value));
+        this.cb(this.question.answers.some((answer) => answer.type === input.value));
       });
     });
   }

@@ -15,11 +15,11 @@ class GameController {
   changeLevel(question, answers, cb) {
     let level;
     switch (question.type) {
-      case `single`:
+      case `tinder-like`:
         level = new ViewGame2(question, cb);
         this.renderGame(level, answers);
         break;
-      case `double`:
+      case `two-of-two`:
         level = new ViewGame1(question, cb);
         this.renderGame(level, answers);
         break;
