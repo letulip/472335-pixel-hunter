@@ -6,6 +6,7 @@ class HeaderController {
     clearMainElement();
     const header = new ViewHeader(cb, model);
     contentRender(header.element);
+    return header.element;
   }
 }
 
