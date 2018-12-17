@@ -7,6 +7,8 @@ class GameModel {
     this.playerName = playerName;
     this._state = addPlayerName(INITIAL_STATE, this.playerName);
     this._state = addQuestions(this._state, questions);
+    console.log(questions);
+    debugger;
   }
 
   get state() {
