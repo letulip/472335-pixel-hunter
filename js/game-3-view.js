@@ -11,11 +11,11 @@ class ViewGame3 extends AbstractView {
 
   get template() {
     const game3 = `
-      <p class="game__task">${this.question.question}</p>
+      <p class="game__task">${this.question.title}</p>
       <form class="game__content game__content--triple">
-        ${this.question.answers.map((answer, index) => `
+        ${this.question.options.map((option, index) => `
           <div class="game__option">
-            <img src="${answer.image.url}" alt="Option ${index}" width="304" height="455">
+            <img src="${option.src}" alt="Option ${index}" width="304" height="455">
           </div>`).join(``)}
       </form>
       <ul class="stats">
@@ -27,12 +27,12 @@ class ViewGame3 extends AbstractView {
   bind() {
     let paintCount = 0;
     let photoCount = 0;
-    let questionType = `painting`;
+    let questionType = `paint`;
 
     // event listener:
     const gameOptionsList = this.element.querySelectorAll(`.game__option`);
     gameOptionsList.forEach((optionElement, index) => {
-      if (this.question.answers[index].type === `painting`) {
+      if (this.question.options[index].type === `paint`) {
         ++paintCount;
       } else {
         ++photoCount;
@@ -41,7 +41,7 @@ class ViewGame3 extends AbstractView {
         questionType = `photo`;
       }
       optionElement.addEventListener(`click`, () => {
-        this.cb(this.question.answers[index].type === questionType);
+        this.cb(this.question.options[index].type === questionType);
       });
     });
   }
