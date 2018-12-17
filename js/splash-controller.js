@@ -2,6 +2,7 @@ import {contentRender, clearMainElement} from './render-module.js';
 import ViewSplash from './splash-view.js';
 import Application from './application.js';
 import ErrorController from './error-controller.js';
+import adaptServerData from './data-adapter.js';
 
 let gameQuestions;
 
@@ -25,7 +26,7 @@ class SplashController {
   }
 
   static getQuestions() {
-    return gameQuestions;
+    return adaptServerData(gameQuestions);
   }
 }
 
