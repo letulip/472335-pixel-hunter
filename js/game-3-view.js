@@ -27,12 +27,12 @@ class ViewGame3 extends AbstractView {
   bind() {
     let paintCount = 0;
     let photoCount = 0;
-    let questionType = `paint`;
+    let questionType = `painting`;
 
     // event listener:
     const gameOptionsList = this.element.querySelectorAll(`.game__option`);
     gameOptionsList.forEach((optionElement, index) => {
-      if (this.question.answers[index].type === `paint`) {
+      if (this.question.answers[index].type === `painting`) {
         ++paintCount;
       } else {
         ++photoCount;
