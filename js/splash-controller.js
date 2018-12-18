@@ -16,7 +16,7 @@ class SplashController {
     .then(checkStatus)
     .then((response) => response.json())
     .then((data) => {
-      gameQuestions = data;
+      gameQuestions = adaptServerData(data);
     })
     .then(() => {
       Application.renderIntro();
@@ -26,7 +26,7 @@ class SplashController {
   }
 
   static getQuestions() {
-    return adaptServerData(gameQuestions);
+    return gameQuestions;
   }
 }
 
