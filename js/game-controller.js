@@ -3,6 +3,7 @@ import ViewGame2 from './game-2-view.js';
 import ViewGame3 from './game-3-view.js';
 import {gameRender, statsRender} from './render-module.js';
 import Application from './application.js';
+import HeaderController from './header-controller.js';
 
 const ONE_SECOND = 1000;
 
@@ -29,10 +30,10 @@ class GameController {
     }
   }
 
-  startTimer(cb, greetingCB, statsCB) {
+  startTimer(cb, headerElement, greetingCB, statsCB) {
     this.timer = setTimeout(() => {
       this.model.tick();
-      cb(this.model.time);
+      cb(this.model.time, headerElement);
       if (this.model.isTimeOver()) {
         this.stopTimer();
         if (this.model.hasNextLevel() && !this.model.isDead()) {
@@ -40,7 +41,7 @@ class GameController {
           this.renderGameState(greetingCB, statsCB);
         }
       } else {
-        this.startTimer(cb, greetingCB, statsCB);
+        this.startTimer(cb, headerElement, greetingCB, statsCB);
       }
     }, ONE_SECOND);
   }
@@ -54,25 +55,22 @@ class GameController {
     statsRender(answers);
   }
 
-  updateTime(time) {
-    const gameTimer = document.querySelector(`.game__timer`);
+  updateTime(time, headerElement) {
+    const gameTimer = headerElement.querySelector(`.game__timer`);
     if (gameTimer) {
       gameTimer.innerText = time;
     }
   }
 
   renderGameState(greetingCB, statsCB) {
-    this.stopTimer();
     this.model.resetTimer();
 
     if (this.model.hasNextLevel() && !this.model.isDead()) {
-      Application.renderHeader(this.model.getLives());
-      // создать Header
-      // создать функцию обертку над updateTime
-      // рендеришь хедер
+      const headerElement = HeaderController.showHeader(greetingCB, this.model.getLives());
 
-      this.startTimer(this.updateTime, greetingCB, statsCB);
+      this.startTimer(this.updateTime, headerElement, greetingCB, statsCB);
       const checkIsCorrect = (isCorrect) => {
+        this.stopTimer();
         this.model.setNextLevel(this.model.time, isCorrect);
         this.renderGameState(greetingCB, statsCB);
       };

@@ -1,11 +1,12 @@
-import {INITIAL_STATE_WITH_QUESTIONS, changeLevel, addPlayerName, addAnswer, decreaseLives, setNextLevel, hasNextLevel, isDead, tickTimer, resetTimer} from './state.js';
+import {INITIAL_STATE, addQuestions, changeLevel, addPlayerName, addAnswer, decreaseLives, setNextLevel, hasNextLevel, isDead, tickTimer, resetTimer} from './state.js';
 
 const TIME_OVER = 0;
 
 class GameModel {
-  constructor(playerName) {
+  constructor(playerName, questions) {
     this.playerName = playerName;
-    this._state = addPlayerName(INITIAL_STATE_WITH_QUESTIONS, this.playerName);
+    this._state = addPlayerName(INITIAL_STATE, this.playerName);
+    this._state = addQuestions(this._state, questions);
   }
 
   get state() {
@@ -45,7 +46,7 @@ class GameModel {
   }
 
   restart() {
-    this._state = INITIAL_STATE_WITH_QUESTIONS;
+    this._state = INITIAL_STATE;
     return this._state;
   }
 
