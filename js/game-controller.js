@@ -63,18 +63,14 @@ class GameController {
   }
 
   renderGameState(greetingCB, statsCB) {
-    this.stopTimer();
     this.model.resetTimer();
 
     if (this.model.hasNextLevel() && !this.model.isDead()) {
-      // Application.renderHeader(this.model.getLives());
-      // создать Header
-      // создать функцию обертку над updateTime
-      // рендеришь хедер
       const headerElement = HeaderController.showHeader(greetingCB, this.model.getLives());
 
       this.startTimer(this.updateTime, headerElement, greetingCB, statsCB);
       const checkIsCorrect = (isCorrect) => {
+        this.stopTimer();
         this.model.setNextLevel(this.model.time, isCorrect);
         this.renderGameState(greetingCB, statsCB);
       };
