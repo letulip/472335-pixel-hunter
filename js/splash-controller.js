@@ -2,21 +2,19 @@ import {contentRender, clearMainElement} from './render-module.js';
 import ViewSplash from './splash-view.js';
 import Application from './application.js';
 import ErrorController from './error-controller.js';
-import adaptServerData from './data-adapter.js';
+import Loader from './loader.js';
 
 let gameQuestions;
 
 class SplashController {
-  static showSplash(checkStatus) {
+  static showSplash() {
     clearMainElement();
     const splash = new ViewSplash();
     contentRender(splash.element);
     splash.start();
-    window.fetch(`https://es.dump.academy/pixel-hunter/questions`)
-    .then(checkStatus)
-    .then((response) => response.json())
+    Loader.loadData()
     .then((data) => {
-      gameQuestions = adaptServerData(data);
+      gameQuestions = data;
     })
     .then(() => {
       Application.renderIntro();

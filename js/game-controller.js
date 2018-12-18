@@ -4,6 +4,9 @@ import ViewGame3 from './game-3-view.js';
 import {gameRender, statsRender} from './render-module.js';
 import Application from './application.js';
 import HeaderController from './header-controller.js';
+import Loader from './loader.js';
+import ErrorController from './error-controller.js';
+
 
 const ONE_SECOND = 1000;
 
@@ -76,8 +79,12 @@ class GameController {
       };
       this.changeLevel(this.model.getQuestion(), this.model.getAnswers(), checkIsCorrect);
     } else {
+      this.stopTimer();
       Application.renderHeader();
-      statsCB(this.model);
+      Loader.saveResults(this.model, this.model.playerName)
+        .then(() => Loader.loadResults(this.model.playerName))
+        .then((data) => statsCB(data))
+        .catch((err) => ErrorController.showError(err));
     }
   }
 }

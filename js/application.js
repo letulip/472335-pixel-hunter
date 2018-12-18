@@ -7,17 +7,9 @@ import GameController from './game-controller.js';
 import StatsController from './stats-controller.js';
 import SplashController from './splash-controller.js';
 
-const checkStatus = (response) => {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  } else {
-    throw new Error(`${response.status}: ${response.statusText}`);
-  }
-};
-
 class Application {
   static start() {
-    SplashController.showSplash(checkStatus);
+    SplashController.showSplash();
   }
 
   static renderIntro() {
