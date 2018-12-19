@@ -39,7 +39,7 @@ class ViewRules extends AbstractView {
 
     rulesInput.addEventListener(`keyup`, () => {
       if (rulesInput.value) {
-        goButton.removeAttribute(`disabled`);
+        goButton.disabled = false;
       } else {
         goButton.setAttribute(`disabled`, `true`);
       }
