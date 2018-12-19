@@ -8,6 +8,12 @@ import Loader from './loader.js';
 import ErrorController from './error-controller.js';
 
 const ONE_SECOND = 1000;
+const ANIMATION = {
+  TIME: 5,
+  OPACITY: 0,
+  VISIBILITY: 1,
+  TIMEFRAME: 500,
+};
 
 class GameController {
   constructor(gameModel) {
@@ -60,6 +66,16 @@ class GameController {
   updateTime(time, headerElement) {
     const gameTimer = headerElement.querySelector(`.game__timer`);
     if (gameTimer) {
+      if (time <= ANIMATION.TIME) {
+        gameTimer.animate([
+          {
+            opacity: ANIMATION.OPACITY
+          },
+          {
+            opacity: ANIMATION.VISIBILITY
+          }
+        ], ANIMATION.TIMEFRAME);
+      }
       gameTimer.innerText = time;
     }
   }
