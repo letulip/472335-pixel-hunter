@@ -148,7 +148,7 @@ const tickTimer = (state) => {
 
 const resetTimer = (state) => {
   return Object.freeze(Object.assign({}, state, {
-    'time': VALUES.DEFAULT_TIMER_VALUE
+    time: VALUES.DEFAULT_TIMER_VALUE
   }));
 };
 

@@ -33,6 +33,7 @@ class ViewGame1 extends AbstractView {
   }
 
   bind() {
+    console.log(this.question.options);
     const gameOptions = this.element.querySelectorAll(`.game__option`);
     gameOptions.forEach((option) => {
       option.addEventListener(`click`, () => {

@@ -33,6 +33,7 @@ class ViewGame2 extends AbstractView {
   }
 
   bind() {
+    console.log(this.question.options);
     const inputsList = this.element.querySelectorAll(`input`);
     inputsList.forEach((input) => {
       input.addEventListener(`change`, () => {
