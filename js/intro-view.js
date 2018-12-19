@@ -16,14 +16,6 @@ class ViewIntro extends AbstractView {
     return intro;
   }
 
-  start() {
-    this.timeout = setTimeout(() => this.start(), 50);
-  }
-
-  stop() {
-    clearTimeout(this.timeout);
-  }
-
   bind() {
     const asterisk = this.element.querySelector(`.asterisk`);
     asterisk.addEventListener(`click`, this.cb);

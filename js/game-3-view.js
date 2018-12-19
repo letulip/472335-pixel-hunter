@@ -25,7 +25,6 @@ class ViewGame3 extends AbstractView {
   }
 
   bind() {
-    console.log(this.question.options);
     let paintCount = 0;
     let photoCount = 0;
     let questionType = `paint`;

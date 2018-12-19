@@ -49,7 +49,6 @@ class GameController {
   }
 
   stopTimer() {
-    console.log(`timer stopped`, this.timer);
     clearTimeout(this.timer);
   }
 
@@ -69,8 +68,6 @@ class GameController {
 
     if (this.model.hasNextLevel() && !this.model.isDead()) {
       const headerElement = HeaderController.showHeader(greetingCB, this.model.getLives());
-      console.log(this.model._state.time);
-      // this.model.resetTimer();
       this.startTimer(this.updateTime, headerElement, greetingCB, statsCB);
       const checkIsCorrect = (isCorrect) => {
         this.stopTimer();

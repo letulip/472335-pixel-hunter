@@ -10,12 +10,20 @@ describe(`Check level change`, () => {
     assert.equal(changeLevel(INITIAL_STATE, 2).level, 2);
   });
   it(`should not allow set negative values`, () => {
-    assert.throws(() => changeLevel(INITIAL_STATE, -1).level, 0);
+    assert.throws(() => {
+      changeLevel((INITIAL_STATE, -1).level, 0);
+    });
   });
   it(`should now allow set non number value`, () => {
-    assert.throws(() => changeLevel(INITIAL_STATE, []).level, 0);
-    assert.throws(() => changeLevel(INITIAL_STATE, {}).level, 0);
-    assert.throws(() => changeLevel(INITIAL_STATE, undefined).level, 0);
+    assert.throws(() => {
+      changeLevel((INITIAL_STATE, []).level, 0);
+    });
+    assert.throws(() => {
+      changeLevel((INITIAL_STATE, {}).level, 0);
+    });
+    assert.throws(() => {
+      changeLevel((INITIAL_STATE, undefined).level, 0);
+    });
   });
 });
 

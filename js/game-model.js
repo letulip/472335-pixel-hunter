@@ -59,7 +59,6 @@ class GameModel {
   }
 
   decreaseStateLives(answer) {
-    // debugger;
     if (!answer) {
       return decreaseLives(this.resetTimer());
     }

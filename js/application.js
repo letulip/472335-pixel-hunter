@@ -5,15 +5,30 @@ import HeaderController from './header-controller.js';
 import GameModel from './game-model.js';
 import GameController from './game-controller.js';
 import StatsController from './stats-controller.js';
+import ErrorController from './error-controller.js';
+import Loader from './loader.js';
+
+let gameQuestions;
 
 class Application {
 
   static renderIntro() {
     IntroController.showIntro(Application.renderGreeting);
+
+    Loader.loadData()
+    .then((data) => {
+      gameQuestions = data;
+    })
+    .then(() => {
+      Application.renderGreeting();
+    })
+    .catch((err) => {
+      ErrorController.showError(err);
+    });
   }
 
   static renderGameCB(name) {
-    const NEW_GAME = new GameController(new GameModel(name, IntroController.getQuestions()));
+    const NEW_GAME = new GameController(new GameModel(name, gameQuestions));
     NEW_GAME.renderGameState(Application.renderGreeting, Application.renderStatsCB);
   }
 
