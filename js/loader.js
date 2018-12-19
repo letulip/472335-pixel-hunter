@@ -12,7 +12,9 @@ const checkStatus = (response) => {
   }
 };
 
-const toJSON = (res) => res.json();
+const toJSON = (res) => {
+  return res.json();
+};
 
 class Loader {
   static loadData() {

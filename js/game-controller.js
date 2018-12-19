@@ -82,7 +82,7 @@ class GameController {
       Application.renderHeader();
       Loader.saveResults(this.model, this.model.playerName)
         .then(() => {
-          Loader.loadResults(this.model.playerName);
+          return Loader.loadResults(this.model.playerName);
         })
         .then((data) => {
           statsCB(data);
