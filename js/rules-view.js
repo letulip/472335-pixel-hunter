@@ -32,21 +32,19 @@ class ViewRules extends AbstractView {
   bind() {
 
     const rulesInput = this.element.querySelector(`.rules__input`);
-    rulesInput.addEventListener(`keyup`, () => {
-      const goButton = this.element.querySelector(`.continue`);
+    const goButton = this.element.querySelector(`.continue`);
+    goButton.addEventListener(`click`, () => {
+      this.renderGameCB(rulesInput.value);
+    });
 
+    rulesInput.addEventListener(`keyup`, () => {
       if (rulesInput.value) {
         goButton.removeAttribute(`disabled`);
-        goButton.addEventListener(`click`, () => {
-          this.renderGameCB(rulesInput.value);
-        });
       } else {
         goButton.setAttribute(`disabled`, `true`);
       }
     });
   }
 }
-
-// const RULES = new ViewRules();
 
 export default ViewRules;
