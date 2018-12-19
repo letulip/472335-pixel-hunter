@@ -26,7 +26,7 @@ const createLayoutElement = (tag, content, elementClassList) => {
 };
 
 const resultAnswer = (answer) => {
-  const TIME = {
+  const Time = {
     FAST: 20,
     SLOW: 10
   };
@@ -37,10 +37,10 @@ const resultAnswer = (answer) => {
   if (answer && !answer.isCorrect) {
     return `wrong`;
   }
-  if (answer && answer.isCorrect && answer.time >= TIME.FAST) {
+  if (answer && answer.isCorrect && answer.time >= Time.FAST) {
     return `fast`;
   }
-  if (answer && answer.isCorrect && answer.time < TIME.SLOW) {
+  if (answer && answer.isCorrect && answer.time < Time.SLOW) {
     return `slow`;
   }
   return `correct`;

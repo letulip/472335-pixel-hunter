@@ -13,42 +13,42 @@ const getWinStatus = (answers) => {
 };
 
 const createResultTable = (number, resultElement) => {
-  const POINTS = {
-    TOTAL: countPoints(resultElement.answers, resultElement.lives),
+  const Points = {
     BONUS: 50,
     SLOW: -50,
     COMMON: 100,
 
   };
-  const TOTAL_LIVES = resultElement.lives < 0 ? 0 : resultElement.lives;
+  const totalPoints = countPoints(resultElement.answers, resultElement.lives);
+  const totalLives = resultElement.lives < 0 ? 0 : resultElement.lives;
 
   let resultWin = `
     <td class="result__points">× 100</td>
-    <td class="result__total">${POINTS.TOTAL.correctAnswers * POINTS.COMMON}</td>
+    <td class="result__total">${totalPoints.correctAnswers * Points.COMMON}</td>
   </tr>
   <tr>
     <td></td>
     <td class="result__extra">Бонус за скорость:</td>
-    <td class="result__extra">${POINTS.TOTAL.fastAnswers} <span class="stats__result stats__result--fast"></span></td>
+    <td class="result__extra">${totalPoints.fastAnswers} <span class="stats__result stats__result--fast"></span></td>
     <td class="result__points">× 50</td>
-    <td class="result__total">${POINTS.TOTAL.fastAnswers * POINTS.BONUS}</td>
+    <td class="result__total">${totalPoints.fastAnswers * Points.BONUS}</td>
   </tr>
   <tr>
     <td></td>
     <td class="result__extra">Бонус за жизни:</td>
-    <td class="result__extra">${TOTAL_LIVES} <span class="stats__result stats__result--alive"></span></td>
+    <td class="result__extra">${totalLives} <span class="stats__result stats__result--alive"></span></td>
     <td class="result__points">× 50</td>
-    <td class="result__total">${TOTAL_LIVES * POINTS.BONUS}</td>
+    <td class="result__total">${totalLives * Points.BONUS}</td>
   </tr>
   <tr>
     <td></td>
     <td class="result__extra">Штраф за медлительность:</td>
-    <td class="result__extra">${POINTS.TOTAL.slowAnswers} <span class="stats__result stats__result--slow"></span></td>
+    <td class="result__extra">${totalPoints.slowAnswers} <span class="stats__result stats__result--slow"></span></td>
     <td class="result__points">× 50</td>
-    <td class="result__total">${POINTS.TOTAL.slowAnswers * POINTS.SLOW}</td>
+    <td class="result__total">${totalPoints.slowAnswers * Points.SLOW}</td>
   </tr>
   <tr>
-    <td colspan="5" class="result__total  result__total--final">${POINTS.TOTAL.points}</td>
+    <td colspan="5" class="result__total  result__total--final">${totalPoints.points}</td>
   </tr>
 </table>`;
 
@@ -66,7 +66,7 @@ const createResultTable = (number, resultElement) => {
         <ul class="stats">
         </ul>
       </td>
-      ${(POINTS.TOTAL !== -1) ? resultWin : resultFalse}
+      ${(totalPoints !== -1) ? resultWin : resultFalse}
     `;
   const resultTable = createLayoutElement(`table`, statsContent, [`result__table`]);
   statsRender(resultElement.answers, resultTable);
