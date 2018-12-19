@@ -13,39 +13,42 @@ const getWinStatus = (answers) => {
 };
 
 const createResultTable = (number, resultElement) => {
-  const TOTAL_POINTS = countPoints(resultElement.answers, resultElement.lives);
-  const BONUS_POINTS = 50;
-  const SLOW_POINTS = -50;
-  const COMMON_POINTS = 100;
+  const POINTS = {
+    TOTAL: countPoints(resultElement.answers, resultElement.lives),
+    BONUS: 50,
+    SLOW: -50,
+    COMMON: 100,
+
+  };
   const TOTAL_LIVES = resultElement.lives < 0 ? 0 : resultElement.lives;
 
   let resultWin = `
     <td class="result__points">× 100</td>
-    <td class="result__total">${TOTAL_POINTS.correctAnswers * COMMON_POINTS}</td>
+    <td class="result__total">${POINTS.TOTAL.correctAnswers * POINTS.COMMON}</td>
   </tr>
   <tr>
     <td></td>
     <td class="result__extra">Бонус за скорость:</td>
-    <td class="result__extra">${TOTAL_POINTS.fastAnswers} <span class="stats__result stats__result--fast"></span></td>
+    <td class="result__extra">${POINTS.TOTAL.fastAnswers} <span class="stats__result stats__result--fast"></span></td>
     <td class="result__points">× 50</td>
-    <td class="result__total">${TOTAL_POINTS.fastAnswers * BONUS_POINTS}</td>
+    <td class="result__total">${POINTS.TOTAL.fastAnswers * POINTS.BONUS}</td>
   </tr>
   <tr>
     <td></td>
     <td class="result__extra">Бонус за жизни:</td>
     <td class="result__extra">${TOTAL_LIVES} <span class="stats__result stats__result--alive"></span></td>
     <td class="result__points">× 50</td>
-    <td class="result__total">${TOTAL_LIVES * BONUS_POINTS}</td>
+    <td class="result__total">${TOTAL_LIVES * POINTS.BONUS}</td>
   </tr>
   <tr>
     <td></td>
     <td class="result__extra">Штраф за медлительность:</td>
-    <td class="result__extra">${TOTAL_POINTS.slowAnswers} <span class="stats__result stats__result--slow"></span></td>
+    <td class="result__extra">${POINTS.TOTAL.slowAnswers} <span class="stats__result stats__result--slow"></span></td>
     <td class="result__points">× 50</td>
-    <td class="result__total">${TOTAL_POINTS.slowAnswers * SLOW_POINTS}</td>
+    <td class="result__total">${POINTS.TOTAL.slowAnswers * POINTS.SLOW}</td>
   </tr>
   <tr>
-    <td colspan="5" class="result__total  result__total--final">${TOTAL_POINTS.points}</td>
+    <td colspan="5" class="result__total  result__total--final">${POINTS.TOTAL.points}</td>
   </tr>
 </table>`;
 
@@ -63,7 +66,7 @@ const createResultTable = (number, resultElement) => {
         <ul class="stats">
         </ul>
       </td>
-      ${(TOTAL_POINTS !== -1) ? resultWin : resultFalse}
+      ${(POINTS.TOTAL !== -1) ? resultWin : resultFalse}
     `;
   const resultTable = createLayoutElement(`table`, statsContent, [`result__table`]);
   statsRender(resultElement.answers, resultTable);
@@ -75,16 +78,15 @@ class ViewStats extends AbstractView {
     super();
     this.tag = `div`;
     this.results = model;
-
   }
 
   get template() {
-    const stats = `
+    const STATS = `
     <section class="result">
       <h2 class="result__title">${getWinStatus(this.results[this.results.length - 1]._state.answers)}</h2>
     </section>`;
 
-    return stats;
+    return STATS;
   }
 
   bind() {
@@ -95,9 +97,9 @@ class ViewStats extends AbstractView {
       resultSection.deleteElement(result);
     });
 
-    for (let i = 0; i < this.results.length; i++) {
-      resultSection.appendChild(createResultTable(i, this.results[i]._state));
-    }
+    this.results.forEach((result, index) => {
+      resultSection.appendChild(createResultTable(index, result._state));
+    });
   }
 }
 

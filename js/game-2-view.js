@@ -10,7 +10,7 @@ class ViewGame2 extends AbstractView {
   }
 
   get template() {
-    const game2 = `
+    const GAME_2 = `
       <p class="game__task">${this.question.title}</p>
       <form class="game__content  game__content--wide">
         ${this.question.options.map((option, index) => `
@@ -29,14 +29,16 @@ class ViewGame2 extends AbstractView {
       <ul class="stats">
       </ul>`;
 
-    return game2;
+    return GAME_2;
   }
 
   bind() {
     const inputsList = this.element.querySelectorAll(`input`);
     inputsList.forEach((input) => {
       input.addEventListener(`change`, () => {
-        this.cb(this.question.options.some((option) => option.type === input.value));
+        this.cb(this.question.options.some((option) => {
+          return option.type === input.value;
+        }));
       });
     });
   }

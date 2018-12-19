@@ -21,17 +21,17 @@ const adaptType = (type) => {
 };
 
 const adaptServerData = (data) => {
-  let localDataFormat = [];
+  let localFormatQuestions = [];
 
   data.forEach((object) => {
-    localDataFormat.push({
+    localFormatQuestions.push({
       title: object.question,
       type: adaptType(object.type),
       options: adaptOptions(object.answers)
     });
   });
 
-  return localDataFormat;
+  return localFormatQuestions;
 };
 
 export default adaptServerData;

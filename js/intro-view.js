@@ -3,8 +3,6 @@ import AbstractView from './abstract-view.js';
 class ViewIntro extends AbstractView {
   constructor(cb) {
     super();
-    // this.cursor = 0;
-    // this.symbolsSeq = `/—\\|`;
     this.tag = `section`;
     this.classList = [`intro`];
     this.cb = cb;
@@ -19,8 +17,6 @@ class ViewIntro extends AbstractView {
   }
 
   start() {
-    // this.cursor = ++this.cursor >= this.symbolsSeq.length ? 0 : this.cursor;
-    // this.element.textContent = this.symbolsSeq[this.cursor];
     this.timeout = setTimeout(() => this.start(), 50);
   }
 

@@ -13,8 +13,8 @@ class Application {
   }
 
   static renderGameCB(name) {
-    const newGame = new GameController(new GameModel(name, IntroController.getQuestions()));
-    newGame.renderGameState(Application.renderGreeting, Application.renderStatsCB);
+    const NEW_GAME = new GameController(new GameModel(name, IntroController.getQuestions()));
+    NEW_GAME.renderGameState(Application.renderGreeting, Application.renderStatsCB);
   }
 
   static renderStatsCB(model) {

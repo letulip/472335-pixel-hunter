@@ -8,7 +8,7 @@ class ViewRules extends AbstractView {
   }
 
   get template() {
-    const rules = `
+    const RULES = `
     <section class="rules">
       <h2 class="rules__title">Правила</h2>
       <ul class="rules__description">
@@ -26,7 +26,7 @@ class ViewRules extends AbstractView {
       </form>
     </section>`;
 
-    return rules;
+    return RULES;
   }
 
   bind() {

@@ -10,7 +10,7 @@ class ViewGame3 extends AbstractView {
   }
 
   get template() {
-    const game3 = `
+    const GAME_3 = `
       <p class="game__task">${this.question.title}</p>
       <form class="game__content game__content--triple">
         ${this.question.options.map((option, index) => `
@@ -21,7 +21,7 @@ class ViewGame3 extends AbstractView {
       <ul class="stats">
       </ul>`;
 
-    return game3;
+    return GAME_3;
   }
 
   bind() {

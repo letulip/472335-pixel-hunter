@@ -26,30 +26,35 @@ const createLayoutElement = (tag, content, elementClassList) => {
 };
 
 const resultAnswer = (answer) => {
-  const FAST_TIME = 20;
-  const SLOW_TIME = 10;
+  const TIME = {
+    FAST: 20,
+    SLOW: 10
+  };
+
   if (!answer) {
     return `unknown`;
   }
   if (answer && !answer.isCorrect) {
     return `wrong`;
   }
-  if (answer && answer.isCorrect && answer.time >= FAST_TIME) {
+  if (answer && answer.isCorrect && answer.time >= TIME.FAST) {
     return `fast`;
   }
-  if (answer && answer.isCorrect && answer.time < SLOW_TIME) {
+  if (answer && answer.isCorrect && answer.time < TIME.SLOW) {
     return `slow`;
   }
   return `correct`;
 };
 
 const statsRender = (answers, element) => {
-  let statsLayout = ``;
   const DEFAULT_ANSWERS_COUNT = 10;
+  let statsLayout = ``;
+  let stats = mainElement.querySelector(`.stats`);
+
   for (let i = 0; i < DEFAULT_ANSWERS_COUNT; i++) {
     statsLayout += `<li class="stats__result stats__result--${resultAnswer(answers[i])}"></li>`;
   }
-  let stats = mainElement.querySelector(`.stats`);
+
   if (element) {
     stats = element.querySelector(`.stats`);
   }

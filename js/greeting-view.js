@@ -9,7 +9,7 @@ class ViewGreeting extends AbstractView {
   }
 
   get template() {
-    const greeting = `
+    const GREETING = `
       <img class="greeting__logo" src="img/logo_ph-big.svg" width="201" height="89" alt="Pixel Hunter">
       <div class="greeting__asterisk asterisk"><span class="visually-hidden">Я просто красивая звёздочка</span>*</div>
       <div class="greeting__challenge">
@@ -29,7 +29,7 @@ class ViewGreeting extends AbstractView {
         </svg>
       </button>`;
 
-    return greeting;
+    return GREETING;
   }
 
   bind() {
@@ -37,7 +37,5 @@ class ViewGreeting extends AbstractView {
     greetingContinue.addEventListener(`click`, this.cb);
   }
 }
-
-// const GREETING = new ViewGreeting();
 
 export default ViewGreeting;

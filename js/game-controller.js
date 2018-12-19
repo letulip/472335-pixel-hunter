@@ -7,7 +7,6 @@ import HeaderController from './header-controller.js';
 import Loader from './loader.js';
 import ErrorController from './error-controller.js';
 
-
 const ONE_SECOND = 1000;
 
 class GameController {
@@ -82,9 +81,15 @@ class GameController {
       this.stopTimer();
       Application.renderHeader();
       Loader.saveResults(this.model, this.model.playerName)
-        .then(() => Loader.loadResults(this.model.playerName))
-        .then((data) => statsCB(data))
-        .catch((err) => ErrorController.showError(err));
+        .then(() => {
+          Loader.loadResults(this.model.playerName);
+        })
+        .then((data) => {
+          statsCB(data);
+        })
+        .catch((err) => {
+          ErrorController.showError(err);
+        });
     }
   }
 }

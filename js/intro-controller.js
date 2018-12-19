@@ -20,8 +20,12 @@ class IntroController {
     .then(() => {
       Application.renderGreeting();
     })
-    .catch((err) => ErrorController.showError(err))
-    .then(() => intro.stop());
+    .catch((err) => {
+      ErrorController.showError(err);
+    })
+    .then(() => {
+      intro.stop();
+    });
   }
 
   static getQuestions() {
