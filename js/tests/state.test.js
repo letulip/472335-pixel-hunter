@@ -11,18 +11,18 @@ describe(`Check level change`, () => {
   });
   it(`should not allow set negative values`, () => {
     assert.throws(() => {
-      changeLevel((INITIAL_STATE, -1).level, 0);
+      changeLevel((INITIAL_STATE, -1).level, `Level should not be negative`);
     });
   });
   it(`should now allow set non number value`, () => {
     assert.throws(() => {
-      changeLevel((INITIAL_STATE, []).level, 0);
+      changeLevel((INITIAL_STATE, []).level, `Level should be of type number`);
     });
     assert.throws(() => {
-      changeLevel((INITIAL_STATE, {}).level, 0);
+      changeLevel((INITIAL_STATE, {}).level, `Level should be of type number`);
     });
     assert.throws(() => {
-      changeLevel((INITIAL_STATE, undefined).level, 0);
+      changeLevel((INITIAL_STATE, undefined).level, `Level should be of type number`);
     });
   });
 });
