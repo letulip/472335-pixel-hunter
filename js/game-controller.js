@@ -39,39 +39,19 @@ class GameController {
   }
 
   startTimer(cb, headerElement, greetingCB, statsCB) {
-    debugger;
-    try {
-      this.timer = setTimeout(() => {
-        this.model.tick();
-        cb(this.model.time, headerElement);
-        if (this.model.isTimeOver()) {
-          this.stopTimer();
-          if (this.model.hasNextLevel() && !this.model.isDead()) {
-            this.model.setNextLevel(this.model.time, false);
-            this.renderGameState(greetingCB, statsCB);
-          }
-        } else {
-          this.startTimer(cb, headerElement, greetingCB, statsCB);
+    this.timer = setTimeout(() => {
+      this.model.tick();
+      cb(this.model.time, headerElement);
+      if (this.model.isTimeOver()) {
+        this.stopTimer();
+        if (this.model.hasNextLevel() && !this.model.isDead()) {
+          this.model.setNextLevel(this.model.time, false);
+          this.renderGameState(greetingCB, statsCB);
         }
-      }, ONE_SECOND);
-    } catch (e) {
-      console.log(e);
-    } finally {
-      return;
-    }
-    // this.timer = setTimeout(() => {
-    //   this.model.tick();
-    //   cb(this.model.time, headerElement);
-    //   if (this.model.isTimeOver()) {
-    //     this.stopTimer();
-    //     if (this.model.hasNextLevel() && !this.model.isDead()) {
-    //       this.model.setNextLevel(this.model.time, false);
-    //       this.renderGameState(greetingCB, statsCB);
-    //     }
-    //   } else {
-    //     this.startTimer(cb, headerElement, greetingCB, statsCB);
-    //   }
-    // }, ONE_SECOND);
+      } else {
+        this.startTimer(cb, headerElement, greetingCB, statsCB);
+      }
+    }, ONE_SECOND);
   }
 
   stopTimer() {
