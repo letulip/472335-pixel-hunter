@@ -97,7 +97,7 @@ class ViewStats extends AbstractView {
       resultSection.deleteElement(result);
     });
 
-    this.results.forEach((result, index) => {
+    this.results.reverse().forEach((result, index) => {
       resultSection.appendChild(createResultTable(index, result._state));
     });
   }
