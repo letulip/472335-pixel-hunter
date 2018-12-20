@@ -1,7 +1,9 @@
 import AbstractView from './abstract-view.js';
 
-const DEFAULT_LIVES = 3;
-const DEFAULT_TIME = 30;
+const DEFAULT = {
+  LIVES: 3,
+  TIME: 30
+};
 
 class ViewHeader extends AbstractView {
   constructor(cb, lives = undefined) {
@@ -27,9 +29,9 @@ class ViewHeader extends AbstractView {
 
     if (this.lives !== undefined) {
       header += `
-        <div class="game__timer">${DEFAULT_TIME}</div>
+        <div class="game__timer">${DEFAULT.TIME}</div>
         <div class="game__lives">
-          ${new Array(DEFAULT_LIVES - this.lives)
+          ${new Array(DEFAULT.LIVES - this.lives)
             .fill(`<img src="img/heart__empty.svg" class="game__heart" alt=" Missed Life" width="31" height="27">`)
             .join(``)}
           ${new Array(this.lives)

@@ -4,8 +4,16 @@ import ViewGame3 from './game-3-view.js';
 import {gameRender, statsRender} from './render-module.js';
 import Application from './application.js';
 import HeaderController from './header-controller.js';
+import Loader from './loader.js';
+import ErrorController from './error-controller.js';
 
 const ONE_SECOND = 1000;
+const ANIMATION = {
+  TIME: 5,
+  OPACITY: 0,
+  VISIBILITY: 1,
+  TIMEFRAME: 500,
+};
 
 class GameController {
   constructor(gameModel) {
@@ -58,16 +66,24 @@ class GameController {
   updateTime(time, headerElement) {
     const gameTimer = headerElement.querySelector(`.game__timer`);
     if (gameTimer) {
+      if (time <= ANIMATION.TIME) {
+        gameTimer.animate([
+          {
+            opacity: ANIMATION.OPACITY
+          },
+          {
+            opacity: ANIMATION.VISIBILITY
+          }
+        ], ANIMATION.TIMEFRAME);
+      }
       gameTimer.innerText = time;
     }
   }
 
   renderGameState(greetingCB, statsCB) {
-    this.model.resetTimer();
 
     if (this.model.hasNextLevel() && !this.model.isDead()) {
       const headerElement = HeaderController.showHeader(greetingCB, this.model.getLives());
-
       this.startTimer(this.updateTime, headerElement, greetingCB, statsCB);
       const checkIsCorrect = (isCorrect) => {
         this.stopTimer();
@@ -76,8 +92,18 @@ class GameController {
       };
       this.changeLevel(this.model.getQuestion(), this.model.getAnswers(), checkIsCorrect);
     } else {
+      this.stopTimer();
       Application.renderHeader();
-      statsCB(this.model);
+      Loader.saveResults(this.model, this.model.playerName)
+        .then(() => {
+          return Loader.loadResults(this.model.playerName);
+        })
+        .then((data) => {
+          statsCB(data);
+        })
+        .catch((err) => {
+          ErrorController.showError(err);
+        });
     }
   }
 }

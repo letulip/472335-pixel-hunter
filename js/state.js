@@ -90,12 +90,14 @@ const QUESTIONS = [
   },
 ];
 
-const DEFAULT_TIMER_VALUE = 30;
-const FAST_TIME = 20;
-const SLOW_TIME = 10;
-const BONUS_POINTS = 50;
-const COMMON_POINTS = 100;
-const LIVE_POINTS = 50;
+const VALUES = {
+  DEFAULT_TIMER_VALUE: 30,
+  FAST_TIME: 20,
+  SLOW_TIME: 10,
+  BONUS_POINTS: 50,
+  COMMON_POINTS: 100,
+  LIVE_POINTS: 50,
+};
 
 const addQuestions = (state, questions) => {
   return Object.freeze(Object.assign({}, state, {
@@ -146,7 +148,7 @@ const tickTimer = (state) => {
 
 const resetTimer = (state) => {
   return Object.freeze(Object.assign({}, state, {
-    'time': DEFAULT_TIMER_VALUE
+    time: VALUES.DEFAULT_TIMER_VALUE
   }));
 };
 
@@ -161,18 +163,18 @@ const countPoints = (answers, lives) => {
     answers.forEach((answer) => {
       if (answer.isCorrect) {
         totalPoints.correctAnswers += 1;
-        totalPoints.points += COMMON_POINTS;
-        if (answer.time >= FAST_TIME) {
-          totalPoints.points += BONUS_POINTS;
+        totalPoints.points += VALUES.COMMON_POINTS;
+        if (answer.time >= VALUES.FAST_TIME) {
+          totalPoints.points += VALUES.BONUS_POINTS;
           totalPoints.fastAnswers += 1;
         }
-        if (answer.time < SLOW_TIME) {
-          totalPoints.points -= BONUS_POINTS;
+        if (answer.time < VALUES.SLOW_TIME) {
+          totalPoints.points -= VALUES.BONUS_POINTS;
           totalPoints.slowAnswers += 1;
         }
       }
     });
-    totalPoints.points += lives * LIVE_POINTS;
+    totalPoints.points += lives * VALUES.LIVE_POINTS;
 
     return totalPoints;
   } else {

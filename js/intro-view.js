@@ -9,11 +9,9 @@ class ViewIntro extends AbstractView {
   }
 
   get template() {
-    const intro = `
+    return `
       <button class="intro__asterisk asterisk" type="button"><span class="visually-hidden">Продолжить</span>*</button>
       <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>`;
-
-    return intro;
   }
 
   bind() {

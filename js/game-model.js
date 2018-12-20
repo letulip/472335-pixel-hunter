@@ -60,9 +60,9 @@ class GameModel {
 
   decreaseStateLives(answer) {
     if (!answer) {
-      return decreaseLives(this._state);
+      return decreaseLives(this.resetTimer());
     }
-    return this._state;
+    return this.resetTimer();
   }
 
   changeLevel() {
@@ -70,7 +70,7 @@ class GameModel {
   }
 
   resetTimer() {
-    this._state = resetTimer(this._state);
+    return resetTimer(this._state);
   }
 
   isTimeOver() {

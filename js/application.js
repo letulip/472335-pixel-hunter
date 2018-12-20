@@ -5,28 +5,31 @@ import HeaderController from './header-controller.js';
 import GameModel from './game-model.js';
 import GameController from './game-controller.js';
 import StatsController from './stats-controller.js';
-import SplashController from './splash-controller.js';
+import ErrorController from './error-controller.js';
+import Loader from './loader.js';
 
-const checkStatus = (response) => {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  } else {
-    throw new Error(`${response.status}: ${response.statusText}`);
-  }
-};
+let gameQuestions;
 
 class Application {
-  static start() {
-    SplashController.showSplash(checkStatus);
-  }
 
   static renderIntro() {
     IntroController.showIntro(Application.renderGreeting);
+
+    Loader.loadData()
+    .then((data) => {
+      gameQuestions = data;
+    })
+    .then(() => {
+      Application.renderGreeting();
+    })
+    .catch((err) => {
+      ErrorController.showError(err);
+    });
   }
 
   static renderGameCB(name) {
-    const newGame = new GameController(new GameModel(name, SplashController.getQuestions()));
-    newGame.renderGameState(Application.renderGreeting, Application.renderStatsCB);
+    const game = new GameController(new GameModel(name, gameQuestions));
+    game.renderGameState(Application.renderGreeting, Application.renderStatsCB);
   }
 
   static renderStatsCB(model) {
