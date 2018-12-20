@@ -81,12 +81,10 @@ class ViewStats extends AbstractView {
   }
 
   get template() {
-    const STATS = `
+    return `
     <section class="result">
       <h2 class="result__title">${getWinStatus(this.results[this.results.length - 1]._state.answers)}</h2>
     </section>`;
-
-    return STATS;
   }
 
   bind() {
