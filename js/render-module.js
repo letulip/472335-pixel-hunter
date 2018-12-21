@@ -1,7 +1,7 @@
 const mainElement = document.querySelector(`#main`);
 
 const contentRender = (element) => {
-  mainElement.append(element);
+  mainElement.appendChild(element);
 };
 
 const clearMainElement = () => {
