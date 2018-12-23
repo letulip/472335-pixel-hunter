@@ -2,9 +2,12 @@ import {statsRender, createLayoutElement} from './render-module.js';
 import {countPoints} from './state.js';
 import AbstractView from './abstract-view.js';
 
-const getWinStatus = (answers) => {
+const DEFAULT_ANSWERS_COUNT = 10;
+const OUT_OF_LIVES = -1;
+
+const getWinStatus = (answers, lives) => {
   let winStatus = ``;
-  if (answers.length === 10) {
+  if (answers.length === DEFAULT_ANSWERS_COUNT && lives !== OUT_OF_LIVES) {
     winStatus = `Победа!`;
   } else {
     winStatus = `Не в этот раз, попробуй еще!`;
@@ -83,7 +86,7 @@ class ViewStats extends AbstractView {
   get template() {
     return `
     <section class="result">
-      <h2 class="result__title">${getWinStatus(this.results[this.results.length - 1]._state.answers)}</h2>
+      <h2 class="result__title">${getWinStatus(this.results[this.results.length - 1]._state.answers, this.results[this.results.length - 1]._state.lives)}</h2>
     </section>`;
   }
 

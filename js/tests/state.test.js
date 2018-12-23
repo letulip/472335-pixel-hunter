@@ -160,6 +160,25 @@ const FINAL_STATE_LOOSE = Object.freeze({
   ]),
   userName: ``});
 
+const FINAL_STATE_PSEUDO_WIN = Object.freeze({
+  lives: -1,
+  level: 0,
+  time: 30,
+  questions: Object.freeze([]),
+  answers: Object.freeze([
+    {time: 15, isCorrect: true},
+    {time: 10, isCorrect: true},
+    {time: 15, isCorrect: true},
+    {time: 25, isCorrect: true},
+    {time: 30, isCorrect: true},
+    {time: 15, isCorrect: true},
+    {time: 10, isCorrect: false},
+    {time: 15, isCorrect: false},
+    {time: 25, isCorrect: false},
+    {time: 25, isCorrect: false}
+  ]),
+  userName: ``});
+
 describe(`Check answer change`, () => {
   it(`should add new answer object to answers array`, () => {
     assert.equal(JSON.stringify(addAnswer(INITIAL_STATE, {time: 25, isCorrect: true}).answers[0]), JSON.stringify({time: 25, isCorrect: true}));
@@ -172,8 +191,11 @@ describe(`Check count points`, () => {
     assert.equal(countPoints(FINAL_STATE_TRUE.answers, FINAL_STATE_TRUE.lives).points, 1250);
     assert.equal(countPoints(FINAL_STATE_TRUE_2.answers, FINAL_STATE_TRUE_2.lives).points, 1050);
   });
-  it(`should return 0 if got less then 10 answers or less then 0 lives`, () => {
+  it(`should return -1 if got less then 10 answers or less then 0 lives`, () => {
     assert.equal(countPoints(FINAL_STATE_FALSE.answers, FINAL_STATE_FALSE.lives), -1);
     assert.equal(countPoints(FINAL_STATE_LOOSE.answers, FINAL_STATE_LOOSE.lives), -1);
+  });
+  it(`should return -1 if got 4 last false answers`, () => {
+    assert.equal(countPoints(FINAL_STATE_PSEUDO_WIN.answers, FINAL_STATE_FALSE.lives), -1);
   });
 });
