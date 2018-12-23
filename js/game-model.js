@@ -18,23 +18,15 @@ class GameModel {
   }
 
   getQuestion() {
-    return this.state.questions[this.state.level];
+    return this._state.questions[this._state.level];
   }
 
   getAnswers() {
-    return this.state.answers;
-  }
-
-  getCorrectAnsers() {
-    return this.state.correctAnswers;
+    return this._state.answers;
   }
 
   getLives() {
-    return this.state.lives;
-  }
-
-  getLevel() {
-    return this.state.level;
+    return this._state.lives;
   }
 
   hasNextLevel() {
@@ -43,11 +35,6 @@ class GameModel {
 
   setNextLevel(timerValue, isCorrect) {
     this._state = setNextLevel(this.addAnswer(timerValue, isCorrect));
-  }
-
-  restart() {
-    this._state = INITIAL_STATE;
-    return this._state;
   }
 
   isDead() {
