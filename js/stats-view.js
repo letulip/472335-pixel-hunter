@@ -22,7 +22,7 @@ const createResultTable = (number, resultElement) => {
   const totalPoints = countPoints(resultElement.answers, resultElement.lives);
   const totalLives = resultElement.lives < 0 ? 0 : resultElement.lives;
 
-  let resultWin = `
+  const resultWin = `
     <td class="result__points">× 100</td>
     <td class="result__total">${totalPoints.correctAnswers * Points.COMMON}</td>
   </tr>
@@ -58,7 +58,7 @@ const createResultTable = (number, resultElement) => {
   </tr>
 </table>`;
 
-  let statsContent = `
+  const statsContent = `
   <table class="result__table">
     <tr>
       <td class="result__number">${number + 1}.</td>
