@@ -39,7 +39,7 @@ class ViewRules extends AbstractView {
       if (rulesInput.value) {
         goButton.disabled = false;
       } else {
-        goButton.setAttribute(`disabled`, `true`);
+        goButton.disabled = true;
       }
     });
   }
