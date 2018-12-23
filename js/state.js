@@ -177,9 +177,8 @@ const countPoints = (answers, lives) => {
     totalPoints.points += lives * VALUES.LIVE_POINTS;
 
     return totalPoints;
-  } else {
-    return -1;
   }
+  return -1;
 };
 
 const addAnswer = (state, answer) => {
