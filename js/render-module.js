@@ -1,3 +1,4 @@
+const DEFAULT_ANSWERS_COUNT = 10;
 const mainElement = document.querySelector(`#main`);
 
 const contentRender = (element) => {
@@ -47,12 +48,12 @@ const resultAnswer = (answer) => {
 };
 
 const statsRender = (answers, element) => {
-  const DEFAULT_ANSWERS_COUNT = 10;
+  let statsArray = [...answers];
   let statsLayout = ``;
   let stats = mainElement.querySelector(`.stats`);
-
-  for (let i = 0; i < DEFAULT_ANSWERS_COUNT; i++) {
-    statsLayout += `<li class="stats__result stats__result--${resultAnswer(answers[i])}"></li>`;
+  statsArray.length = DEFAULT_ANSWERS_COUNT;
+  for (let answer of statsArray) {
+    statsLayout += `<li class="stats__result stats__result--${resultAnswer(answer)}"></li>`;
   }
 
   if (element) {
