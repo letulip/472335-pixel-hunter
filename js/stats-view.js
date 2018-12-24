@@ -2,17 +2,13 @@ import {statsRender, createLayoutElement} from './render-module.js';
 import {countPoints} from './state.js';
 import AbstractView from './abstract-view.js';
 
-const DEFAULT_ANSWERS_COUNT = 10;
 const OUT_OF_LIVES = -1;
 
 const getWinStatus = (answers, lives) => {
-  let winStatus = ``;
-  if (answers.length === DEFAULT_ANSWERS_COUNT && lives !== OUT_OF_LIVES) {
-    winStatus = `Победа!`;
-  } else {
-    winStatus = `Не в этот раз, попробуй еще!`;
+  if (lives !== OUT_OF_LIVES) {
+    return `Победа!`;
   }
-  return winStatus;
+  return `Не в этот раз, попробуй еще!`;
 };
 
 const createResultTable = (number, resultElement) => {

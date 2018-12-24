@@ -18,7 +18,7 @@ const ANIMATION = {
 class GameController {
   constructor(gameModel) {
     this.model = gameModel;
-    this.timer = null;
+    this._timer = null;
   }
 
   changeLevel(question, answers, cb) {
@@ -39,7 +39,7 @@ class GameController {
   }
 
   startTimer(cb, headerElement, greetingCB, statsCB) {
-    this.timer = setTimeout(() => {
+    this._timer = setTimeout(() => {
       this.model.tick();
       cb(this.model.time, headerElement);
       if (this.model.isTimeOver()) {
@@ -55,7 +55,7 @@ class GameController {
   }
 
   stopTimer() {
-    clearTimeout(this.timer);
+    clearTimeout(this._timer);
   }
 
   renderGame(level, answers) {

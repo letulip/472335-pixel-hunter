@@ -48,7 +48,7 @@ const resultAnswer = (answer) => {
 };
 
 const statsRender = (answers, element) => {
-  let statsArray = [...answers];
+  const statsArray = [...answers];
   let statsLayout = ``;
   let stats = mainElement.querySelector(`.stats`);
   statsArray.length = DEFAULT_ANSWERS_COUNT;

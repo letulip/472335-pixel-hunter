@@ -1,5 +1,5 @@
 const adaptOptions = (answers) => {
-  let outOptions = [];
+  const outOptions = [];
   answers.forEach((answer) => {
     outOptions.push({
       src: answer.image.url,
@@ -21,7 +21,7 @@ const adaptType = (type) => {
 };
 
 const adaptServerData = (data) => {
-  let localFormatQuestions = [];
+  const localFormatQuestions = [];
 
   data.forEach((object) => {
     localFormatQuestions.push({
