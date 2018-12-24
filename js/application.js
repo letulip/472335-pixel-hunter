@@ -27,16 +27,16 @@ class Application {
     });
   }
 
-  static _renderGameCB(name) {
+  static renderGameCB(name) {
     const game = new GameController(new GameModel(name, gameQuestions));
     game._renderGameState(Application._renderGreeting, Application._renderStatsCB);
   }
 
-  static _renderStatsCB(model) {
+  static renderStatsCB(model) {
     StatsController.showStats(model);
   }
 
-  static _renderRules() {
+  static renderRules() {
     Application.renderHeader();
     RulesController.showRules(Application._renderGameCB);
   }
@@ -45,7 +45,7 @@ class Application {
     HeaderController.showHeader(Application._renderGreeting, lives);
   }
 
-  static _renderGreeting() {
+  static renderGreeting() {
     GreetingController.showGreeting(Application._renderRules);
   }
 }

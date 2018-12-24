@@ -17,7 +17,7 @@ const ANIMATION = {
 
 class GameController {
   constructor(gameModel) {
-    this.model = gameModel;
+    this._model = gameModel;
     this._timer = null;
   }
 
@@ -40,12 +40,12 @@ class GameController {
 
   _startTimer(cb, headerElement, greetingCB, statsCB) {
     this._timer = setTimeout(() => {
-      this.model.tick();
-      cb(this.model.time, headerElement);
-      if (this.model.isTimeOver()) {
+      this._model.tick();
+      cb(this._model.time, headerElement);
+      if (this._model.isTimeOver()) {
         this._stopTimer();
-        if (this.model.hasNextLevel() && !this.model.isDead()) {
-          this.model.setNextLevel(this.model.time, false);
+        if (this._model.hasNextLevel() && !this._model.isDead()) {
+          this._model.setNextLevel(this._model.time, false);
           this._renderGameState(greetingCB, statsCB);
         }
       } else {
@@ -82,21 +82,21 @@ class GameController {
 
   _renderGameState(greetingCB, statsCB) {
 
-    if (this.model.hasNextLevel() && !this.model.isDead()) {
-      const headerElement = HeaderController.showHeader(greetingCB, this.model.getLives());
+    if (this._model.hasNextLevel() && !this._model.isDead()) {
+      const headerElement = HeaderController.showHeader(greetingCB, this._model.getLives());
       this._startTimer(this.updateTime, headerElement, greetingCB, statsCB);
       const checkIsCorrect = (isCorrect) => {
         this._stopTimer();
-        this.model.setNextLevel(this.model.time, isCorrect);
+        this._model.setNextLevel(this._model.time, isCorrect);
         this._renderGameState(greetingCB, statsCB);
       };
-      this._changeLevel(this.model.getQuestion(), this.model.getAnswers(), checkIsCorrect);
+      this._changeLevel(this._model.getQuestion(), this._model.getAnswers(), checkIsCorrect);
     } else {
       this._stopTimer();
       Application.renderHeader();
-      Loader.saveResults(this.model, this.model._playerName)
+      Loader.saveResults(this._model, this._model._playerName)
         .then(() => {
-          return Loader.loadResults(this.model._playerName);
+          return Loader.loadResults(this._model._playerName);
         })
         .then((data) => {
           statsCB(data);
