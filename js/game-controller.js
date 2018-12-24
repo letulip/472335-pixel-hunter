@@ -21,44 +21,44 @@ class GameController {
     this._timer = null;
   }
 
-  changeLevel(question, answers, cb) {
+  _changeLevel(question, answers, cb) {
     let level;
     switch (question.type) {
       case `single`:
         level = new ViewGame2(question, cb);
-        this.renderGame(level, answers);
+        this._renderGame(level, answers);
         break;
       case `double`:
         level = new ViewGame1(question, cb);
-        this.renderGame(level, answers);
+        this._renderGame(level, answers);
         break;
       default:
         level = new ViewGame3(question, cb);
-        this.renderGame(level, answers);
+        this._renderGame(level, answers);
     }
   }
 
-  startTimer(cb, headerElement, greetingCB, statsCB) {
+  _startTimer(cb, headerElement, greetingCB, statsCB) {
     this._timer = setTimeout(() => {
       this.model.tick();
       cb(this.model.time, headerElement);
       if (this.model.isTimeOver()) {
-        this.stopTimer();
+        this._stopTimer();
         if (this.model.hasNextLevel() && !this.model.isDead()) {
           this.model.setNextLevel(this.model.time, false);
-          this.renderGameState(greetingCB, statsCB);
+          this._renderGameState(greetingCB, statsCB);
         }
       } else {
-        this.startTimer(cb, headerElement, greetingCB, statsCB);
+        this._startTimer(cb, headerElement, greetingCB, statsCB);
       }
     }, ONE_SECOND);
   }
 
-  stopTimer() {
+  _stopTimer() {
     clearTimeout(this._timer);
   }
 
-  renderGame(level, answers) {
+  _renderGame(level, answers) {
     gameRender(level.element);
     statsRender(answers);
   }
@@ -80,23 +80,23 @@ class GameController {
     }
   }
 
-  renderGameState(greetingCB, statsCB) {
+  _renderGameState(greetingCB, statsCB) {
 
     if (this.model.hasNextLevel() && !this.model.isDead()) {
       const headerElement = HeaderController.showHeader(greetingCB, this.model.getLives());
-      this.startTimer(this.updateTime, headerElement, greetingCB, statsCB);
+      this._startTimer(this.updateTime, headerElement, greetingCB, statsCB);
       const checkIsCorrect = (isCorrect) => {
-        this.stopTimer();
+        this._stopTimer();
         this.model.setNextLevel(this.model.time, isCorrect);
-        this.renderGameState(greetingCB, statsCB);
+        this._renderGameState(greetingCB, statsCB);
       };
-      this.changeLevel(this.model.getQuestion(), this.model.getAnswers(), checkIsCorrect);
+      this._changeLevel(this.model.getQuestion(), this.model.getAnswers(), checkIsCorrect);
     } else {
-      this.stopTimer();
+      this._stopTimer();
       Application.renderHeader();
-      Loader.saveResults(this.model, this.model.playerName)
+      Loader.saveResults(this.model, this.model._playerName)
         .then(() => {
-          return Loader.loadResults(this.model.playerName);
+          return Loader.loadResults(this.model._playerName);
         })
         .then((data) => {
           statsCB(data);

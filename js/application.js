@@ -13,40 +13,40 @@ let gameQuestions;
 class Application {
 
   static renderIntro() {
-    IntroController.showIntro(Application.renderGreeting);
+    IntroController.showIntro(Application._renderGreeting);
 
     Loader.loadData()
     .then((data) => {
       gameQuestions = data;
     })
     .then(() => {
-      Application.renderGreeting();
+      Application._renderGreeting();
     })
     .catch((err) => {
       ErrorController.showError(err);
     });
   }
 
-  static renderGameCB(name) {
+  static _renderGameCB(name) {
     const game = new GameController(new GameModel(name, gameQuestions));
-    game.renderGameState(Application.renderGreeting, Application.renderStatsCB);
+    game._renderGameState(Application._renderGreeting, Application._renderStatsCB);
   }
 
-  static renderStatsCB(model) {
+  static _renderStatsCB(model) {
     StatsController.showStats(model);
   }
 
-  static renderRules() {
+  static _renderRules() {
     Application.renderHeader();
-    RulesController.showRules(Application.renderGameCB);
+    RulesController.showRules(Application._renderGameCB);
   }
 
   static renderHeader(lives) {
-    HeaderController.showHeader(Application.renderGreeting, lives);
+    HeaderController.showHeader(Application._renderGreeting, lives);
   }
 
-  static renderGreeting() {
-    GreetingController.showGreeting(Application.renderRules);
+  static _renderGreeting() {
+    GreetingController.showGreeting(Application._renderRules);
   }
 }
 

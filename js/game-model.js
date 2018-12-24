@@ -4,8 +4,8 @@ const TIME_OVER = 0;
 
 class GameModel {
   constructor(playerName, questions) {
-    this.playerName = playerName;
-    this._state = addPlayerName(INITIAL_STATE, this.playerName);
+    this._playerName = playerName;
+    this._state = addPlayerName(INITIAL_STATE, this._playerName);
     this._state = addQuestions(this._state, questions);
   }
 

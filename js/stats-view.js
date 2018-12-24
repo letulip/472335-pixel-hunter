@@ -4,7 +4,7 @@ import AbstractView from './abstract-view.js';
 
 const OUT_OF_LIVES = -1;
 
-const getWinStatus = (answers, lives) => {
+const _getWinStatus = (answers, lives) => {
   if (lives !== OUT_OF_LIVES) {
     return `Победа!`;
   }
@@ -76,13 +76,13 @@ class ViewStats extends AbstractView {
   constructor(model) {
     super();
     this.tag = `div`;
-    this.results = model;
+    this._results = model;
   }
 
   get template() {
     return `
     <section class="result">
-      <h2 class="result__title">${getWinStatus(this.results[this.results.length - 1]._state.answers, this.results[this.results.length - 1]._state.lives)}</h2>
+      <h2 class="result__title">${_getWinStatus(this._results[this._results.length - 1]._state.answers, this._results[this._results.length - 1]._state.lives)}</h2>
     </section>`;
   }
 
@@ -94,7 +94,7 @@ class ViewStats extends AbstractView {
       resultSection.deleteElement(result);
     });
 
-    this.results.reverse().forEach((result, index) => {
+    this._results.reverse().forEach((result, index) => {
       resultSection.appendChild(createResultTable(index, result._state));
     });
   }
