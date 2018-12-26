@@ -8,16 +8,8 @@ class ViewError extends AbstractView {
   constructor(error) {
     super();
     this.error = error;
-    this.elementTag = SECTION_ELEMENT;
-    this.elementClassList = ERROR_CLASSLIST;
-  }
-
-  get tag() {
-    return this.elementTag;
-  }
-
-  get classList() {
-    return this.elementClassList;
+    this.tag = SECTION_ELEMENT;
+    this.classList = ERROR_CLASSLIST;
   }
 
   get template() {

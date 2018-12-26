@@ -75,20 +75,18 @@ const createResultTable = (number, resultElement) => {
 class ViewStats extends AbstractView {
   constructor(model) {
     super();
-    this.tag = `div`;
+    this.tag = `section`;
+    this.classList = [`result`];
     this._results = model;
   }
 
   get template() {
     return `
-    <section class="result">
-      <h2 class="result__title">${_getWinStatus(this._results[this._results.length - 1]._state.answers, this._results[this._results.length - 1]._state.lives)}</h2>
-    </section>`;
+      <h2 class="result__title">${_getWinStatus(this._results[this._results.length - 1]._state.answers, this._results[this._results.length - 1]._state.lives)}</h2>`;
   }
 
   bind() {
-
-    const resultSection = this.element.querySelector(`.result`);
+    const resultSection = this.element;
     const previousResults = resultSection.querySelectorAll(`.result__table`);
     previousResults.forEach((result) => {
       resultSection.deleteElement(result);
