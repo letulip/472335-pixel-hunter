@@ -23,8 +23,8 @@ class Application {
     .then(() => {
       Application.renderGreeting();
     })
-    .catch((err) => {
-      ErrorController.showError(err);
+    .catch((error) => {
+      ErrorController.showError(error);
     });
   }
 
@@ -33,8 +33,14 @@ class Application {
     game._renderGameState(Application.renderConfirm, Application.renderStatsCB);
   }
 
-  static renderConfirm() {
-    ConfirmController.showConfirm(Application.renderGreeting);
+  static renderConfirm(cb) {
+    ConfirmController.showConfirm(() => {
+      if (typeof cb === `function`) {
+        cb();
+      }
+
+      Application.renderGreeting();
+    });
   }
 
   static renderStatsCB(model) {

@@ -83,7 +83,12 @@ class GameController {
   _renderGameState(confirmCB, statsCB) {
 
     if (this._model.hasNextLevel() && !this._model.isDead()) {
-      const headerElement = HeaderController.showHeader(confirmCB, this._model.getLives());
+      const stopTimerAfterConfirm = () => {
+        this._stopTimer();
+      };
+      const headerElement = HeaderController.showHeader(() => {
+        confirmCB(stopTimerAfterConfirm);
+      }, this._model.getLives());
       this._startTimer(this.updateTime, headerElement, confirmCB, statsCB);
       const checkIsCorrect = (isCorrect) => {
         this._stopTimer();
@@ -101,8 +106,8 @@ class GameController {
         .then((data) => {
           statsCB(data);
         })
-        .catch((err) => {
-          ErrorController.showError(err);
+        .catch((error) => {
+          ErrorController.showError(error);
         });
     }
   }
