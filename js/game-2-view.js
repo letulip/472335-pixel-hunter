@@ -4,7 +4,7 @@ class ViewGame2 extends AbstractView {
   constructor(question, cb) {
     super();
     this.question = question;
-    this.cb = cb;
+    this._cb = cb;
     this.tag = `section`;
     this.classList = [`game`];
   }
@@ -34,7 +34,7 @@ class ViewGame2 extends AbstractView {
     const inputsList = this.element.querySelectorAll(`input`);
     inputsList.forEach((input) => {
       input.addEventListener(`change`, () => {
-        this.cb(this.question.options.some((option) => {
+        this._cb(this.question.options.some((option) => {
           return option.type === input.value;
         }));
       });

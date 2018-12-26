@@ -5,7 +5,7 @@ class ViewGreeting extends AbstractView {
     super();
     this.tag = `section`;
     this.classList = [`greeting`, `central--blur`];
-    this.cb = cb;
+    this._cb = cb;
   }
 
   get template() {
@@ -32,7 +32,7 @@ class ViewGreeting extends AbstractView {
 
   bind() {
     const greetingContinue = this.element.querySelector(`.greeting__continue`);
-    greetingContinue.addEventListener(`click`, this.cb);
+    greetingContinue.addEventListener(`click`, this._cb);
   }
 }
 

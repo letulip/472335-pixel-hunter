@@ -11,7 +11,7 @@ class ViewHeader extends AbstractView {
     this.tag = `div`;
     this.classList = [`game__wrapper`];
     this.lives = lives;
-    this.cb = cb;
+    this._cb = cb;
   }
 
   get template() {
@@ -50,7 +50,7 @@ class ViewHeader extends AbstractView {
 
   bind() {
     const backButton = this.element.querySelector(`.back`);
-    backButton.addEventListener(`click`, this.cb);
+    backButton.addEventListener(`click`, this._cb);
   }
 }
 

@@ -4,7 +4,7 @@ class ViewGame1 extends AbstractView {
   constructor(question, cb) {
     super();
     this.question = question;
-    this.cb = cb;
+    this._cb = cb;
     this.tag = `section`;
     this.classList = [`game`];
   }
@@ -39,7 +39,7 @@ class ViewGame1 extends AbstractView {
           const isCorrect = Array.prototype.every.call(inputList, (inputElement, inputIndex) => {
             return inputElement.value === this.question.options[inputIndex].type;
           });
-          this.cb(isCorrect);
+          this._cb(isCorrect);
         }
       });
     });

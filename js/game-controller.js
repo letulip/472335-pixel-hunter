@@ -38,7 +38,7 @@ class GameController {
     }
   }
 
-  _startTimer(cb, headerElement, greetingCB, statsCB) {
+  _startTimer(cb, headerElement, confirmCB, statsCB) {
     this._timer = setTimeout(() => {
       this._model.tick();
       cb(this._model.time, headerElement);
@@ -46,10 +46,10 @@ class GameController {
         this._stopTimer();
         if (this._model.hasNextLevel() && !this._model.isDead()) {
           this._model.setNextLevel(this._model.time, false);
-          this._renderGameState(greetingCB, statsCB);
+          this._renderGameState(confirmCB, statsCB);
         }
       } else {
-        this._startTimer(cb, headerElement, greetingCB, statsCB);
+        this._startTimer(cb, headerElement, confirmCB, statsCB);
       }
     }, ONE_SECOND);
   }
@@ -80,15 +80,15 @@ class GameController {
     }
   }
 
-  _renderGameState(greetingCB, statsCB) {
+  _renderGameState(confirmCB, statsCB) {
 
     if (this._model.hasNextLevel() && !this._model.isDead()) {
-      const headerElement = HeaderController.showHeader(greetingCB, this._model.getLives());
-      this._startTimer(this.updateTime, headerElement, greetingCB, statsCB);
+      const headerElement = HeaderController.showHeader(confirmCB, this._model.getLives());
+      this._startTimer(this.updateTime, headerElement, confirmCB, statsCB);
       const checkIsCorrect = (isCorrect) => {
         this._stopTimer();
         this._model.setNextLevel(this._model.time, isCorrect);
-        this._renderGameState(greetingCB, statsCB);
+        this._renderGameState(confirmCB, statsCB);
       };
       this._changeLevel(this._model.getQuestion(), this._model.getAnswers(), checkIsCorrect);
     } else {

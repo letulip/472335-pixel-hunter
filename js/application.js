@@ -6,6 +6,7 @@ import GameModel from './game-model.js';
 import GameController from './game-controller.js';
 import StatsController from './stats-controller.js';
 import ErrorController from './error-controller.js';
+import ConfirmController from './confirm-controller.js';
 import Loader from './loader.js';
 
 let gameQuestions;
@@ -29,7 +30,11 @@ class Application {
 
   static renderGameCB(name) {
     const game = new GameController(new GameModel(name, gameQuestions));
-    game._renderGameState(Application.renderGreeting, Application.renderStatsCB);
+    game._renderGameState(Application.renderConfirm, Application.renderStatsCB);
+  }
+
+  static renderConfirm() {
+    ConfirmController.showConfirm(Application.renderGreeting);
   }
 
   static renderStatsCB(model) {
@@ -41,8 +46,8 @@ class Application {
     RulesController.showRules(Application.renderGameCB);
   }
 
-  static renderHeader(lives) {
-    HeaderController.showHeader(Application.renderGreeting, lives);
+  static renderHeader(stopTimerCB, lives) {
+    HeaderController.showHeader(Application.renderConfirm, stopTimerCB, lives);
   }
 
   static renderGreeting() {

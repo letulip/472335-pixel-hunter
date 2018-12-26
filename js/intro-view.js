@@ -5,7 +5,7 @@ class ViewIntro extends AbstractView {
     super();
     this.tag = `section`;
     this.classList = [`intro`];
-    this.cb = cb;
+    this._cb = cb;
   }
 
   get template() {
@@ -16,7 +16,7 @@ class ViewIntro extends AbstractView {
 
   bind() {
     const asterisk = this.element.querySelector(`.asterisk`);
-    asterisk.addEventListener(`click`, this.cb);
+    asterisk.addEventListener(`click`, this._cb);
   }
 }
 

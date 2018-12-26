@@ -4,7 +4,7 @@ class ViewGame3 extends AbstractView {
   constructor(question, cb) {
     super();
     this.question = question;
-    this.cb = cb;
+    this._cb = cb;
     this.tag = `section`;
     this.classList = [`game`];
   }
@@ -39,7 +39,7 @@ class ViewGame3 extends AbstractView {
         questionType = `photo`;
       }
       optionElement.addEventListener(`click`, () => {
-        this.cb(this.question.options[index].type === questionType);
+        this._cb(this.question.options[index].type === questionType);
       });
     });
   }
