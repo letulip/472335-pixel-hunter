@@ -4,7 +4,7 @@ class ViewRules extends AbstractView {
   constructor(renderGameCB) {
     super();
     this.tag = `div`;
-    this.renderGameCB = renderGameCB;
+    this._renderGameCB = renderGameCB;
   }
 
   get template() {
@@ -32,7 +32,7 @@ class ViewRules extends AbstractView {
     const rulesInput = this.element.querySelector(`.rules__input`);
     const goButton = this.element.querySelector(`.continue`);
     goButton.addEventListener(`click`, () => {
-      this.renderGameCB(rulesInput.value);
+      this._renderGameCB(rulesInput.value);
     });
 
     rulesInput.addEventListener(`keyup`, () => {

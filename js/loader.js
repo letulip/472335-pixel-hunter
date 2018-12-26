@@ -11,8 +11,8 @@ const checkStatus = (response) => {
   throw new Error(`${response.status}: ${response.statusText}`);
 };
 
-const toJSON = (res) => {
-  return res.json();
+const toJSON = (response) => {
+  return response.json();
 };
 
 class Loader {

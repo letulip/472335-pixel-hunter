@@ -8,88 +8,6 @@ const INITIAL_STATE = Object.freeze({
   userName: ``
 });
 
-const QUESTIONS = [
-  {
-    title: `Угадай, фото или рисунок?`,
-    type: `single`,
-    options: [
-      {src: `https://k42.kn3.net/D2F0370D6.jpg`, type: `paint`}
-    ]
-  },
-  {
-    title: `Угадайте для каждого изображения фото или рисунок?`,
-    type: `double`,
-    options: [
-      {src: `https://k42.kn3.net/CF42609C8.jpg`, type: `paint`},
-      {src: `http://i.imgur.com/1KegWPz.jpg`, type: `photo`}
-    ]
-  },
-  {
-    title: `Найдите рисунок среди изображений`,
-    type: `triple`,
-    options: [
-      {src: `https://i.imgur.com/DiHM5Zb.jpg`, type: `photo`},
-      {src: `https://k32.kn3.net/5C7060EC5.jpg`, type: `paint`},
-      {src: `http://i.imgur.com/DKR1HtB.jpg`, type: `photo`}
-    ]
-  },
-  {
-    title: `Угадай, фото или рисунок?`,
-    type: `single`,
-    options: [
-      {src: `https://k42.kn3.net/D2F0370D6.jpg`, type: `paint`}
-    ]
-  },
-  {
-    title: `Угадайте для каждого изображения фото или рисунок?`,
-    type: `double`,
-    options: [
-      {src: `https://k42.kn3.net/CF42609C8.jpg`, type: `paint`},
-      {src: `http://i.imgur.com/1KegWPz.jpg`, type: `photo`}
-    ]
-  },
-  {
-    title: `Найдите рисунок среди изображений`,
-    type: `triple`,
-    options: [
-      {src: `https://i.imgur.com/DiHM5Zb.jpg`, type: `photo`},
-      {src: `https://k32.kn3.net/5C7060EC5.jpg`, type: `paint`},
-      {src: `http://i.imgur.com/DKR1HtB.jpg`, type: `photo`}
-    ]
-  },
-  {
-    title: `Угадай, фото или рисунок?`,
-    type: `single`,
-    options: [
-      {src: `https://k42.kn3.net/D2F0370D6.jpg`, type: `paint`}
-    ]
-  },
-  {
-    title: `Угадайте для каждого изображения фото или рисунок?`,
-    type: `double`,
-    options: [
-      {src: `https://k42.kn3.net/CF42609C8.jpg`, type: `paint`},
-      {src: `http://i.imgur.com/1KegWPz.jpg`, type: `photo`}
-    ]
-  },
-  {
-    title: `Найдите рисунок среди изображений`,
-    type: `triple`,
-    options: [
-      {src: `https://i.imgur.com/DiHM5Zb.jpg`, type: `photo`},
-      {src: `https://k32.kn3.net/5C7060EC5.jpg`, type: `paint`},
-      {src: `http://i.imgur.com/DKR1HtB.jpg`, type: `photo`}
-    ]
-  },
-  {
-    title: `Угадай, фото или рисунок?`,
-    type: `single`,
-    options: [
-      {src: `https://k42.kn3.net/D2F0370D6.jpg`, type: `paint`}
-    ]
-  },
-];
-
 const VALUES = {
   DEFAULT_TIMER_VALUE: 30,
   FAST_TIME: 20,
@@ -185,6 +103,4 @@ const addAnswer = (state, answer) => {
   return Object.freeze(Object.assign({}, state, {answers: Object.freeze([...state.answers, answer])}));
 };
 
-const INITIAL_STATE_WITH_QUESTIONS = addQuestions(INITIAL_STATE, QUESTIONS);
-
-export {INITIAL_STATE, INITIAL_STATE_WITH_QUESTIONS, addQuestions, addPlayerName, changeLevel, setNextLevel, hasNextLevel, isDead, decreaseLives, tickTimer, resetTimer, countPoints, addAnswer};
+export {INITIAL_STATE, addQuestions, addPlayerName, changeLevel, setNextLevel, hasNextLevel, isDead, decreaseLives, tickTimer, resetTimer, countPoints, addAnswer};
