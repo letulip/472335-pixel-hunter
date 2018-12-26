@@ -1,5 +1,10 @@
 const DEFAULT_ANSWERS_COUNT = 10;
 const mainElement = document.querySelector(`#main`);
+const bodyElement = document.querySelector(`body`);
+
+const bodyAppendElement = (element) => {
+  bodyElement.appendChild(element);
+};
 
 const contentRender = (element) => {
   mainElement.appendChild(element);
@@ -62,4 +67,4 @@ const statsRender = (answers, element) => {
   stats.innerHTML = statsLayout;
 };
 
-export {contentRender, clearMainElement, gameRender, statsRender, createLayoutElement};
+export {contentRender, bodyAppendElement, clearMainElement, gameRender, statsRender, createLayoutElement};
