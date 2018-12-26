@@ -29,18 +29,18 @@ class ViewConfirm extends AbstractView {
   }
 
   bind() {
-    const closeBtn = this.element.querySelector(`.modal__close`);
-    const cancelBtn = this.element.querySelector(`.modal__btn:last-child`);
-    const okBtn = this.element.querySelector(`.modal__btn`);
+    const closeButton = this.element.querySelector(`.modal__close`);
+    const cancelButton = this.element.querySelector(`.modal__btn:last-child`);
+    const okButton = this.element.querySelector(`.modal__btn`);
 
     const cancelHandler = (evt) => {
       evt.preventDefault();
       deleteElement(this.element);
     };
 
-    closeBtn.addEventListener(`click`, cancelHandler);
-    cancelBtn.addEventListener(`click`, cancelHandler);
-    okBtn.addEventListener(`click`, (evt) => {
+    closeButton.addEventListener(`click`, cancelHandler);
+    cancelButton.addEventListener(`click`, cancelHandler);
+    okButton.addEventListener(`click`, (evt) => {
       evt.preventDefault();
       this._cb();
       deleteElement(this.element);
