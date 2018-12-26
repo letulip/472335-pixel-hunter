@@ -37,7 +37,7 @@ class Application {
   }
 
   static renderRules() {
-    Application.enderHeader();
+    Application.renderHeader();
     RulesController.showRules(Application.renderGameCB);
   }
 
